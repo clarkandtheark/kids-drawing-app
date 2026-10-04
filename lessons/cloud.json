@@ -1,0 +1,42 @@
+{
+  "id": "cloud",
+  "title": "Cloud",
+  "difficulty": 1,
+  "emoji": "☁️",
+  "steps": [
+    {
+      "say": "Draw a big puffy cloud with bumps on top and a flat bottom.",
+      "strokes": [
+        "M 200 600 A 110 110 0 1 1 210.4 380.5 A 130 130 0 0 1 347.9 240.2 A 160 160 0 0 1 652.1 240.2 A 130 130 0 0 1 789.6 380.5 A 110 110 0 1 1 800 600 L 200 600 Z"
+      ]
+    },
+    {
+      "say": "Give your cloud two little dot eyes.",
+      "strokes": [
+        "M 397 420 A 13 13 0 1 1 423 420 A 13 13 0 1 1 397 420 L 410 420",
+        "M 577 420 A 13 13 0 1 1 603 420 A 13 13 0 1 1 577 420 L 590 420"
+      ]
+    },
+    {
+      "say": "Now draw a big happy smile under the eyes!",
+      "strokes": [
+        "M 440 480 Q 500 550 560 480"
+      ]
+    },
+    {
+      "say": "Add two little oval cheeks on the sides.",
+      "strokes": [
+        "M 299 490 A 36 22 0 1 1 371 490 A 36 22 0 1 1 299 490 Z",
+        "M 629 490 A 36 22 0 1 1 701 490 A 36 22 0 1 1 629 490 Z"
+      ]
+    },
+    {
+      "say": "Draw three raindrops falling down below the cloud.",
+      "strokes": [
+        "M 320 680 L 272.7 783.4 A 52 52 0 1 0 367.3 783.4 Z",
+        "M 500 715 L 452.7 818.4 A 52 52 0 1 0 547.3 818.4 Z",
+        "M 680 680 L 632.7 783.4 A 52 52 0 1 0 727.3 783.4 Z"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "id": "ladybug",
+  "title": "Ladybug",
+  "difficulty": 1,
+  "emoji": "🐞",
+  "steps": [
+    {
+      "say": "Draw a big round circle for the ladybug's body.",
+      "strokes": [
+        "M 500 280 A 320 320 0 1 1 500 920 A 320 320 0 1 1 500 280 Z"
+      ]
+    },
+    {
+      "say": "Add a half circle on top for the head.",
+      "strokes": [
+        "M 352.3 316.1 A 150 150 0 1 1 647.7 316.1"
+      ]
+    },
+    {
+      "say": "Draw a straight line down the middle of the back.",
+      "strokes": [
+        "M 500 280 L 500 920"
+      ]
+    },
+    {
+      "say": "Draw three big round spots on one side.",
+      "strokes": [
+        "M 360 372 A 58 58 0 1 1 360 488 A 58 58 0 1 1 360 372 Z",
+        "M 295 554 A 66 66 0 1 1 295 686 A 66 66 0 1 1 295 554 Z",
+        "M 370 725 A 55 55 0 1 1 370 835 A 55 55 0 1 1 370 725 Z"
+      ]
+    },
+    {
+      "say": "Now draw three spots on the other side!",
+      "strokes": [
+        "M 640 372 A 58 58 0 1 1 640 488 A 58 58 0 1 1 640 372 Z",
+        "M 705 554 A 66 66 0 1 1 705 686 A 66 66 0 1 1 705 554 Z",
+        "M 630 725 A 55 55 0 1 1 630 835 A 55 55 0 1 1 630 725 Z"
+      ]
+    },
+    {
+      "say": "Add two antennae with little balls on the ends.",
+      "strokes": [
+        "M 429.6 157.6 Q 419.6 115 350 95 A 28 28 0 1 0 306 60.4 A 28 28 0 1 0 350 95",
+        "M 570.4 157.6 Q 580.4 115 650 95 A 28 28 0 1 1 694 60.4 A 28 28 0 1 1 650 95"
+      ]
+    }
+  ]
+}

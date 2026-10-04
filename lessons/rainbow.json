@@ -1,0 +1,40 @@
+{
+  "id": "rainbow",
+  "title": "Rainbow",
+  "difficulty": 1,
+  "emoji": "🌈",
+  "steps": [
+    {
+      "say": "Draw a puffy cloud on each side, with a flat bottom.",
+      "strokes": [
+        "M 99.1 760 A 62 62 0 0 1 133.7 641.3 A 87 87 0 0 1 306.2 640.1 A 80 80 0 0 1 409.9 760 L 99.1 760 Z",
+        "M 590.1 760 A 80 80 0 0 1 693.8 640.1 A 87 87 0 0 1 866.3 641.3 A 62 62 0 0 1 900.9 760 L 590.1 760 Z"
+      ]
+    },
+    {
+      "say": "Now draw a giant rainbow bridge from one cloud to the other!",
+      "strokes": [
+        "M 90.1 648.3 A 410 410 0 0 1 909.9 648.3"
+      ]
+    },
+    {
+      "say": "Draw another arch just inside the first one.",
+      "strokes": [
+        "M 158.6 590.4 A 345 345 0 0 1 841.4 590.4"
+      ]
+    },
+    {
+      "say": "Draw two more arches inside, each one a little smaller.",
+      "strokes": [
+        "M 230.1 565.6 A 280 280 0 0 1 769.9 565.6",
+        "M 289 599 A 215 215 0 0 1 711 599"
+      ]
+    },
+    {
+      "say": "Finish with one last little arch in the middle!",
+      "strokes": [
+        "M 350.6 627 A 150 150 0 0 1 649.4 627"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "id": "castle",
+  "title": "Castle",
+  "difficulty": 3,
+  "emoji": "🏰",
+  "steps": [
+    {
+      "say": "Draw two tall rectangles for the castle towers.",
+      "strokes": [
+        "M 100 900 L 100 330 L 280 330 L 280 900 Z",
+        "M 720 900 L 720 330 L 900 330 L 900 900 Z"
+      ]
+    },
+    {
+      "say": "Draw a bumpy line on top between the towers, and a line at the bottom, to make the wall.",
+      "strokes": [
+        "M 280 425 L 342.9 425 L 342.9 490 L 405.7 490 L 405.7 425 L 468.6 425 L 468.6 490 L 531.4 490 L 531.4 425 L 594.3 425 L 594.3 490 L 657.1 490 L 657.1 425 L 720 425",
+        "M 280 900 L 720 900"
+      ]
+    },
+    {
+      "say": "Draw a pointy triangle roof on top of each tower.",
+      "strokes": [
+        "M 75 330 L 190 140 L 305 330 Z",
+        "M 695 330 L 810 140 L 925 330 Z"
+      ]
+    },
+    {
+      "say": "Add a flag on top of each roof!",
+      "strokes": [
+        "M 190 140 L 190 50 L 275 78 L 190 106",
+        "M 810 140 L 810 50 L 725 78 L 810 106"
+      ]
+    },
+    {
+      "say": "Draw a big round door in the middle of the wall.",
+      "strokes": [
+        "M 415 900 L 415 720 A 85 85 0 0 1 585 720 L 585 900"
+      ]
+    },
+    {
+      "say": "Draw a line down the middle of the door.",
+      "strokes": [
+        "M 500 635 L 500 900"
+      ]
+    },
+    {
+      "say": "Give each tower a round-top window.",
+      "strokes": [
+        "M 155 530 L 155 455 A 35 35 0 0 1 225 455 L 225 530 Z",
+        "M 775 530 L 775 455 A 35 35 0 0 1 845 455 L 845 530 Z"
+      ]
+    },
+    {
+      "say": "Add two more windows lower on the towers.",
+      "strokes": [
+        "M 155 730 L 155 655 A 35 35 0 0 1 225 655 L 225 730 Z",
+        "M 775 730 L 775 655 A 35 35 0 0 1 845 655 L 845 730 Z"
+      ]
+    },
+    {
+      "say": "Draw some little bricks on the wall.",
+      "strokes": [
+        "M 280 560 L 370 560 L 370 600 L 280 600",
+        "M 610 600 L 690 600 L 690 640 L 610 640 Z",
+        "M 720 770 L 630 770 L 630 810 L 720 810"
+      ]
+    }
+  ]
+}

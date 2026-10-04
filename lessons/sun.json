@@ -1,0 +1,54 @@
+{
+  "id": "sun",
+  "title": "Sun",
+  "difficulty": 1,
+  "emoji": "☀️",
+  "steps": [
+    {
+      "say": "Draw a big round circle for the sun.",
+      "strokes": [
+        "M 290 500 A 210 210 0 1 1 710 500 A 210 210 0 1 1 290 500 Z"
+      ]
+    },
+    {
+      "say": "Draw three straight rays on top.",
+      "strokes": [
+        "M 395 318.1 L 315 179.6",
+        "M 500 290 L 500 130",
+        "M 605 318.1 L 685 179.6"
+      ]
+    },
+    {
+      "say": "Now draw three rays on this side.",
+      "strokes": [
+        "M 681.9 395 L 820.4 315",
+        "M 710 500 L 870 500",
+        "M 681.9 605 L 820.4 685"
+      ]
+    },
+    {
+      "say": "Draw three rays on the bottom.",
+      "strokes": [
+        "M 605 681.9 L 685 820.4",
+        "M 500 710 L 500 870",
+        "M 395 681.9 L 315 820.4"
+      ]
+    },
+    {
+      "say": "Add the last three rays on the other side!",
+      "strokes": [
+        "M 318.1 605 L 179.6 685",
+        "M 290 500 L 130 500",
+        "M 318.1 395 L 179.6 315"
+      ]
+    },
+    {
+      "say": "Give your sun two eyes and a big smile!",
+      "strokes": [
+        "M 400 455 A 30 30 0 1 1 460 455 A 30 30 0 1 1 400 455 Z",
+        "M 540 455 A 30 30 0 1 1 600 455 A 30 30 0 1 1 540 455 Z",
+        "M 410 540 Q 500 630 590 540"
+      ]
+    }
+  ]
+}

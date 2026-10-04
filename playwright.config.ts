@@ -1,5 +1,6 @@
 import { defineConfig } from '@playwright/test';
 
+declare const process: { env: Record<string, string | undefined> }; // no @types/node in this project
 // PORT lets parallel checkouts run the tests at the same time.
 const port = process.env.PORT ?? '5179';
 const ipad = { hasTouch: true, deviceScaleFactor: 2, browserName: 'chromium' as const };

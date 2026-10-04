@@ -24,16 +24,79 @@
                max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
     }
 
-    /* Temporary picker */
-    #picker { display: flex; flex-wrap: wrap; align-content: center; justify-content: center; gap: 32px; overflow: auto; }
+    /* Scroll containers (home, gallery grid, parent panel): the only places touch may scroll.
+       suppressGestures() in engine/surface.ts lets one-finger touchmoves through inside .scroll. */
+    .scroll { overflow-y: auto; overscroll-behavior: contain; touch-action: pan-y; -webkit-overflow-scrolling: touch; }
+
+    /* Home */
+    #menu { display: grid; align-content: start; gap: 28px; }
+    #top { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 28px; }
+    #logo {
+      position: relative; width: 112px; height: 112px; padding: 0; border: 0; border-radius: 50%;
+      background: #fff; box-shadow: 0 6px 0 #f4c76b; -webkit-tap-highlight-color: transparent;
+    }
+    #logo svg { width: 100%; height: 100%; display: block; }
+    #logo .ring { fill: none; stroke: #ff8a3d; stroke-width: 6; stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 100; opacity: 0; }
+    #logo.holding .ring { opacity: 1; animation: hold 3s linear forwards; }
+    @keyframes hold { to { stroke-dashoffset: 0; } }
+    .big {
+      display: grid; place-items: center; width: 176px; height: 104px; border-radius: 52px; color: #fff;
+      background: var(--bg); box-shadow: 0 7px 0 var(--sh); -webkit-tap-highlight-color: transparent;
+    }
+    .big:active { transform: translateY(4px); box-shadow: 0 3px 0 var(--sh); }
+    .big svg { width: 68px; height: 68px; }
+    #tofree { --bg: #ff8a3d; --sh: #d9621c; }
+    #togallery { --bg: #3aa8f0; --sh: #2279b3; }
+
+    .level { border-radius: 40px; padding: 20px 28px 36px; background: var(--tint); }
+    .level[data-level="1"] { --tint: #d8f0c4; }
+    .level[data-level="2"] { --tint: #cfe8ff; }
+    .level[data-level="3"] { --tint: #f0dcff; }
+    .stars { display: flex; justify-content: center; gap: 8px; margin: 0 0 20px; }
+    .stars svg { width: 56px; height: 56px; color: #5a3d1e; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 28px; }
     .card {
-      width: 280px; display: grid; justify-items: center; gap: 8px; padding: 24px 24px 20px;
+      display: grid; justify-items: center; align-content: start; gap: 8px; padding: 16px 16px 14px;
       background: #fff; border-radius: 36px; box-shadow: 0 8px 0 #f4c76b; text-decoration: none; color: inherit;
       -webkit-tap-highlight-color: transparent;
     }
     .card:active { transform: translateY(4px); box-shadow: 0 4px 0 #f4c76b; }
-    .card svg { width: 220px; height: 220px; fill: none; stroke: #5a3d1e; stroke-width: 22; stroke-linecap: round; stroke-linejoin: round; }
-    .card span { font-size: 44px; font-weight: 800; }
+    .card svg { width: 100%; height: auto; aspect-ratio: 1; fill: none; stroke: #5a3d1e; stroke-width: 22; stroke-linecap: round; stroke-linejoin: round; }
+    .card span { font-size: 30px; font-weight: 800; text-align: center; }
+
+    /* My Drawings */
+    #gallery { display: grid; grid-template-rows: auto 1fr; justify-items: start; }
+    #grid { justify-self: stretch; display: grid; align-content: start; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 24px; padding: 8px 8px 24px; }
+    .pic { padding: 12px; border: 0; border-radius: 32px; background: #fff; box-shadow: 0 6px 0 #f4c76b; aspect-ratio: 1; -webkit-tap-highlight-color: transparent; }
+    .pic:active { transform: translateY(3px); box-shadow: 0 3px 0 #f4c76b; }
+    .pic img { width: 100%; height: 100%; object-fit: contain; display: block; border-radius: 20px; pointer-events: none; }
+    #empty { justify-self: stretch; display: grid; place-content: center; justify-items: center; gap: 40px; }
+    #empty > svg { width: 260px; height: 260px; opacity: 0.8; }
+    #empty .big { width: 200px; }
+    #view { z-index: 5; display: grid; grid-template-rows: 1fr auto; background: #ffe9b8; }
+    #vimg { width: 100%; height: 100%; min-height: 0; object-fit: contain; border-radius: 28px; background: #fff; box-shadow: 0 6px 0 #f4c76b; box-sizing: border-box; }
+    #vbar { gap: 40px; }
+    #vbar .del { background: #ff7a5c; color: #fff; box-shadow: 0 5px 0 #d4502f; }
+    #vbar .share { background: #3dbb55; color: #fff; box-shadow: 0 5px 0 #279140; }
+    #vbar .del svg path[fill] { fill: #ffd8cc; }
+
+    /* Parent area: the one place with normal-size text */
+    #parent { position: fixed; inset: 0; z-index: 8; display: grid; place-items: center; background: rgb(90 61 30 / 0.45); }
+    #parent .panel {
+      width: min(560px, 90vw); max-height: 90vh; box-sizing: border-box; display: grid; gap: 14px; padding: 28px;
+      background: #fff8ea; border-radius: 32px; box-shadow: 0 10px 0 #f4c76b; font-size: 20px; -webkit-user-select: text; user-select: text;
+    }
+    #parent h2 { margin: 0; font-size: 28px; }
+    #parent p { margin: 0; min-height: 1.4em; }
+    .pbtn {
+      display: flex; align-items: center; justify-content: space-between; min-height: 64px; padding: 0 20px; box-sizing: border-box;
+      border: 0; border-radius: 20px; background: #fff; box-shadow: 0 4px 0 #f4c76b; font: inherit; font-weight: 700; color: inherit;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .pbtn:active { transform: translateY(2px); box-shadow: 0 2px 0 #f4c76b; }
+    #pvoice b { padding: 4px 16px; border-radius: 16px; background: #3dbb55; color: #fff; }
+    #pvoice[aria-checked="false"] b { background: #c5c9cf; }
+    #pclose { justify-content: center; background: #ffe08a; }
 
     /* Lesson screen: portrait = reference / canvas / dots / buttons stacked; landscape = canvas | side column */
     #lesson {
@@ -47,12 +110,12 @@
                        "stage nav" auto / 1fr 272px;
       }
     }
-    #stage { grid-area: stage; container-type: size; display: grid; place-items: center; min-width: 0; min-height: 0; }
-    #sheet {
+    #stage, #fstage { grid-area: stage; container-type: size; display: grid; place-items: center; min-width: 0; min-height: 0; }
+    #sheet, #fsheet {
       position: relative; width: min(100cqw, 100cqh); height: min(100cqw, 100cqh); overflow: hidden;
       background: #fff; border-radius: 28px; box-shadow: 0 6px 0 #f4c76b;
     }
-    #sheet > * { position: absolute; inset: 0; width: 100%; height: 100%; }
+    #sheet > *, #fsheet > * { position: absolute; inset: 0; width: 100%; height: 100%; }
     #ref {
       grid-area: ref; justify-self: center; width: 200px; height: 200px; padding: 8px; box-sizing: border-box;
       background: #fff; border-radius: 24px; box-shadow: 0 5px 0 #f4c76b;
@@ -74,7 +137,7 @@
     #dots i.on { background: #ff5a36; transform: scale(1.35); }
 
     .group { display: flex; gap: 16px; justify-content: center; align-items: center; }
-    #sys { grid-area: sys; } #act { grid-area: act; } #nav { grid-area: nav; }
+    #sys, #fsys { grid-area: sys; } #act { grid-area: act; } #nav { grid-area: nav; }
     .group button {
       width: 80px; height: 80px; border: 0; border-radius: 50%; padding: 0; flex: none;
       background: #fff; box-shadow: 0 5px 0 #f4c76b; touch-action: manipulation;
@@ -104,37 +167,38 @@
     /* Completed lesson: a gold star on its card */
     .card { position: relative; }
     .card.done::after {
-      content: ""; position: absolute; top: -18px; right: -18px; width: 84px; height: 84px;
+      content: ""; position: absolute; top: -14px; right: -14px; width: 72px; height: 72px;
       background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3-5.6-3-5.6 3 1.1-6.3-4.6-4.4 6.3-.9Z' fill='%23ffd21f' stroke='%23d99a00' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
     }
 
     /* Color mode: guide and step controls go, the colour tools (src/tools.ts) take their place.
        #tools is display: contents, so its groups are cells of the lesson grid. */
     #lesson:not([data-phase="color"]) #tools { display: none; }
-    #tools { display: contents; }
+    #tools, #ftools { display: contents; }
     #lesson[data-phase="color"] :is(#ref, #dots, #act, #nav, #mode, #guide) { display: none; }
     #lesson[data-phase="color"] #ink { pointer-events: none; } /* paint lands on the colour canvas below */
-    #lesson[data-phase="color"] {
+    #lesson[data-phase="color"], #free {
+      display: grid;
       grid-template: "stage stage stage stage stage" 1fr "crayons crayons crayons crayons crayons" auto
                      "sys sizes modes edits finish" auto / auto 1fr auto auto auto;
     }
     @media (orientation: landscape) {
-      #lesson[data-phase="color"] {
+      #lesson[data-phase="color"], #free {
         grid-template: "stage sys sys" auto "stage crayons crayons" auto "stage sizes sizes" auto
                        "stage modes edits" auto "stage . ." 1fr "stage finish finish" auto / 1fr auto auto;
       }
-      #lesson .crayons { display: grid; grid-template-columns: repeat(4, 72px); gap: 6px 12px; }
+      :is(#lesson, #free) .crayons { display: grid; grid-template-columns: repeat(4, 72px); gap: 6px 12px; }
     }
     .crayons { grid-area: crayons; display: flex; justify-content: center; gap: 10px; }
     .sizes { grid-area: sizes; } .modes { grid-area: modes; } .edits { grid-area: edits; } .finish { grid-area: finish; }
-    #tools .group { gap: 12px; }
-    #tools .group button { width: 72px; height: 72px; }
-    #tools .group svg { width: 42px; height: 42px; }
-    #tools .group button[aria-pressed="true"] { background: #ffe08a; box-shadow: 0 5px 0 #e0a92e, inset 0 0 0 4px #ffb020; }
+    :is(#tools, #ftools) .group { gap: 12px; }
+    :is(#tools, #ftools) .group button { width: 72px; height: 72px; }
+    :is(#tools, #ftools) .group svg { width: 42px; height: 42px; }
+    :is(#tools, #ftools) .group button[aria-pressed="true"] { background: #ffe08a; box-shadow: 0 5px 0 #e0a92e, inset 0 0 0 4px #ffb020; }
     .sizes i { width: var(--d); height: var(--d); border-radius: 50%; background: var(--cur); box-shadow: inset 0 0 0 2px rgb(0 0 0 / 0.15); }
-    #tools .finish button { width: 112px; height: 112px; background: #3dbb55; box-shadow: 0 6px 0 #279140; }
-    #tools .finish button:active { box-shadow: 0 3px 0 #279140; }
-    #tools .finish svg { width: 76px; height: 76px; color: #a86d00; }
+    :is(#tools, #ftools) .finish button { width: 112px; height: 112px; background: #3dbb55; box-shadow: 0 6px 0 #279140; }
+    :is(#tools, #ftools) .finish button:active { box-shadow: 0 3px 0 #279140; }
+    :is(#tools, #ftools) .finish svg { width: 76px; height: 76px; color: #a86d00; }
 
     /* A crayon: tall button, coloured body with a pointed tip and two wrapper bands; the chosen one pops up. */
     .crayon {
@@ -170,7 +234,61 @@
   </style>
 </head>
 <body>
-  <main id="picker" class="screen" hidden></main>
+  <main id="menu" class="screen scroll" hidden>
+    <header id="top">
+      <button id="logo" aria-label="Draw!">
+        <svg viewBox="0 0 100 100"><circle class="ring" cx="50" cy="50" r="46" pathLength="100" transform="rotate(-90 50 50)"/>
+          <g transform="rotate(35 50 46)"><rect x="38" y="30" width="24" height="46" rx="3" fill="#ff5a36"/><path d="M38 30 50 10 62 30Z" fill="#ff5a36"/><path d="M45 20 50 10 55 20Z" fill="#b8321a"/><rect x="38" y="42" width="24" height="5" fill="#fff8ea" opacity=".75"/><rect x="38" y="62" width="24" height="5" fill="#fff8ea" opacity=".75"/></g>
+          <path d="M24 82q7-9 14 0t14 0 14 0" fill="none" stroke="#2f5bea" stroke-width="5" stroke-linecap="round"/></svg>
+      </button>
+      <a id="tofree" class="big" href="#draw" aria-label="Free draw">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m4 20 1-5L16.5 3.5l4 4L9 19Z" fill="#ffd34d" stroke="#fff"/><path d="M14 6l4 4" stroke="#fff"/><path d="m4 20 1-5 4 4Z" fill="#5a3d1e" stroke="#fff"/></svg>
+      </a>
+      <a id="togallery" class="big" href="#gallery" aria-label="My drawings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3.5" fill="#fff" stroke="#fff"/><circle cx="9" cy="9.5" r="2" fill="#ffd21f" stroke="none"/><path d="m4.5 18 4.5-4.5 3.5 3 3-4 4.5 5.5Z" fill="#43c04f" stroke="none"/></svg>
+      </a>
+    </header>
+  </main>
+
+  <main id="free" class="screen" hidden>
+    <div id="fstage"><div id="fsheet"></div></div>
+    <div id="fsys" class="group">
+      <button id="fhome" aria-label="Home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10" fill="#ffd34d"/><path d="M10 20v-5h4v5"/></svg>
+      </button>
+    </div>
+    <div id="ftools"></div>
+  </main>
+
+  <main id="gallery" class="screen" hidden>
+    <div class="group"><button id="ghome" aria-label="Home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10" fill="#ffd34d"/><path d="M10 20v-5h4v5"/></svg>
+    </button></div>
+    <div id="grid" class="scroll"></div>
+    <div id="empty" hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="#5a3d1e" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3.5" fill="#fff"/><circle cx="9" cy="9.5" r="2" fill="#ffd21f"/><path d="m4.5 18 4.5-4.5 3.5 3 3-4 4.5 5.5Z" fill="#43c04f"/></svg>
+      <a class="big" href="#draw" style="--bg:#ff8a3d;--sh:#d9621c" aria-label="Free draw">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m4 20 1-5L16.5 3.5l4 4L9 19Z" fill="#ffd34d" stroke="#fff"/><path d="M14 6l4 4" stroke="#fff"/><path d="m4 20 1-5 4 4Z" fill="#5a3d1e" stroke="#fff"/></svg>
+      </a>
+    </div>
+  </main>
+
+  <main id="view" class="screen" hidden>
+    <img id="vimg" alt="">
+    <div id="vbar" class="group"></div>
+  </main>
+
+  <div id="parent" hidden>
+    <div class="panel scroll">
+      <h2>Parent area</h2>
+      <button id="pvoice" class="pbtn" role="switch">Read instructions aloud <b></b></button>
+      <button id="preset" class="pbtn">Reset progress (remove all stars)</button>
+      <button id="pexport" class="pbtn">Export drawings (zip)</button>
+      <label class="pbtn">Import drawings (zip)<input id="pimport" type="file" accept=".zip,application/zip" hidden></label>
+      <p id="pstatus" role="status"></p>
+      <button id="pclose" class="pbtn">Close</button>
+    </div>
+  </div>
 
   <main id="lesson" class="screen" data-mode="trace" hidden>
     <div id="ref"><svg id="guide" viewBox="0 0 1000 1000"></svg></div>

@@ -4,7 +4,7 @@ export type P = [number, number]; // logical 0..1000 coordinates
 
 // Logical -> client CSS px, using the ink canvas's on-screen square.
 export const toClient = (page: Page, pts: P[]) => page.evaluate((pts) => {
-  const r = document.querySelector('#ink')!.getBoundingClientRect();
+  const r = document.querySelector('#ink, #paint')!.getBoundingClientRect();
   return pts.map(([x, y]) => [r.left + (x / 1000) * r.width, r.top + (y / 1000) * r.height] as P);
 }, pts);
 
@@ -21,9 +21,12 @@ export async function touchStroke(page: Page, pts: P[]) {
   await cdp.detach();
 }
 
+/** The lessons the app serves; tests must not assume how many there are. */
+export const lessons = (page: Page) => page.request.get('/lessons.json').then((r) => r.json() as Promise<{ id: string; difficulty: number }[]>);
+
 // Count inked pixels in a logical-space rectangle (default whole canvas).
 export const ink = (page: Page, [x0, y0, x1, y1] = [0, 0, 1000, 1000]) => page.evaluate(([x0, y0, x1, y1]) => {
-  const c = document.querySelector<HTMLCanvasElement>('#ink')!, k = c.width / 1000;
+  const c = document.querySelector<HTMLCanvasElement>('#ink, #paint')!, k = c.width / 1000;
   const d = c.getContext('2d')!.getImageData(x0 * k, y0 * k, (x1 - x0) * k, (y1 - y0) * k).data;
   let n = 0;
   for (let i = 3; i < d.length; i += 4) if (d[i] > 0) n++;

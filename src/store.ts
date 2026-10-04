@@ -34,8 +34,21 @@ async function tx<T>(store: 'gallery' | 'kv', mode: IDBTransactionMode, f: (s: I
 }
 
 /** Save a PNG to the gallery; resolves with its id (undefined if nothing persists). */
-export const saveDrawing = (png: Blob, lessonId: string | null) =>
-  tx<IDBValidKey>('gallery', 'readwrite', (s) => s.add({ lessonId, createdAt: Date.now(), png })) as Promise<number | undefined>;
+export const saveDrawing = (png: Blob, lessonId: string | null, createdAt = Date.now()) =>
+  tx<IDBValidKey>('gallery', 'readwrite', (s) => s.add({ lessonId, createdAt, png })) as Promise<number | undefined>;
+
+const pad = (n: number) => String(n).padStart(2, '0');
+/** File name by local date and lesson: 2026-10-04_15-30-12_cat_7.png (the id keeps names unique). */
+export function drawingName(d: Drawing) {
+  const t = new Date(d.createdAt);
+  return `${t.getFullYear()}-${pad(t.getMonth() + 1)}-${pad(t.getDate())}_${pad(t.getHours())}-${pad(t.getMinutes())}-${pad(t.getSeconds())}_${d.lessonId ?? 'free'}_${d.id}.png`;
+}
+/** Inverse of drawingName, for importing; names it doesn't recognise import as free drawings made now. */
+export function parseDrawingName(name: string) {
+  const m = name.match(/^(\d{4})-(\d\d)-(\d\d)_(\d\d)-(\d\d)-(\d\d)_(.+)_\d+\.png$/i);
+  if (!m) return { createdAt: Date.now(), lessonId: null };
+  return { createdAt: new Date(+m[1], +m[2] - 1, +m[3], +m[4], +m[5], +m[6]).getTime(), lessonId: m[7] === 'free' ? null : m[7] };
+}
 
 /** Newest first. */
 export const listDrawings = async () => ((await tx<Drawing[]>('gallery', 'readonly', (s) => s.getAll())) ?? []).reverse();

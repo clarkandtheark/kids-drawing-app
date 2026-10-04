@@ -17,6 +17,8 @@ export class Surface {
   /** Line width in logical units (a lesson guide stroke is 14). */
   size = 14;
   eraser = false;
+  /** False: pointers don't draw (e.g. the fill bucket handles taps itself). */
+  enabled = true;
   readonly resolution: number;
   readonly ctx: CanvasRenderingContext2D;
   private before = document.createElement('canvas'); // last committed state, source of undo patches
@@ -93,6 +95,7 @@ export class Surface {
   }
 
   private down(e: PointerEvent) {
+    if (!this.enabled) return;
     const pen = e.pointerType === 'pen';
     if (pen) this.lastPen = e.timeStamp;
     else if (e.pointerType === 'touch' && (this.activePen || e.timeStamp - this.lastPen < PEN_GRACE_MS)) return;

@@ -27,7 +27,9 @@ test.beforeEach(async ({ page }) => {
   errors = [];
   page.on('pageerror', (e) => errors.push(e.message));
   page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
-  await page.addInitScript(() => localStorage.setItem('kids-drawing:muted', '1'));
+  await page.addInitScript(() => Object.defineProperty(window, 'speechSynthesis', { // silence
+    configurable: true, value: { speak() {}, cancel() {}, getVoices: () => [] },
+  }));
   await page.goto('/#lesson/cat');
   await expect(page.locator('#ink')).toBeVisible();
 });

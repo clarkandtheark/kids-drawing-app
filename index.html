@@ -92,6 +92,73 @@
     #mute[aria-pressed="true"] .on, #mute:not([aria-pressed="true"]) .off { display: none; }
     #mute[aria-pressed="true"] { background: #ffe0d6; }
     #lesson[data-mode="copy"] #mode .trace, #lesson:not([data-mode="copy"]) #mode .copy { display: none; }
+
+    /* Completed lesson: a gold star on its card */
+    .card { position: relative; }
+    .card.done::after {
+      content: ""; position: absolute; top: -18px; right: -18px; width: 84px; height: 84px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3-5.6-3-5.6 3 1.1-6.3-4.6-4.4 6.3-.9Z' fill='%23ffd21f' stroke='%23d99a00' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+    }
+
+    /* Color mode: guide and step controls go, the colour tools (src/tools.ts) take their place.
+       #tools is display: contents, so its groups are cells of the lesson grid. */
+    #lesson:not([data-phase="color"]) #tools { display: none; }
+    #tools { display: contents; }
+    #lesson[data-phase="color"] :is(#ref, #dots, #act, #nav, #mode, #guide) { display: none; }
+    #lesson[data-phase="color"] #ink { pointer-events: none; } /* paint lands on the colour canvas below */
+    #lesson[data-phase="color"] {
+      grid-template: "stage stage stage stage stage" 1fr "crayons crayons crayons crayons crayons" auto
+                     "sys sizes modes edits finish" auto / auto 1fr auto auto auto;
+    }
+    @media (orientation: landscape) {
+      #lesson[data-phase="color"] {
+        grid-template: "stage sys sys" auto "stage crayons crayons" auto "stage sizes sizes" auto
+                       "stage modes edits" auto "stage . ." 1fr "stage finish finish" auto / 1fr auto auto;
+      }
+      #lesson .crayons { display: grid; grid-template-columns: repeat(4, 72px); gap: 6px 12px; }
+    }
+    .crayons { grid-area: crayons; display: flex; justify-content: center; gap: 10px; }
+    .sizes { grid-area: sizes; } .modes { grid-area: modes; } .edits { grid-area: edits; } .finish { grid-area: finish; }
+    #tools .group { gap: 12px; }
+    #tools .group button { width: 72px; height: 72px; }
+    #tools .group svg { width: 42px; height: 42px; }
+    #tools .group button[aria-pressed="true"] { background: #ffe08a; box-shadow: 0 5px 0 #e0a92e, inset 0 0 0 4px #ffb020; }
+    .sizes i { width: var(--d); height: var(--d); border-radius: 50%; background: var(--cur); box-shadow: inset 0 0 0 2px rgb(0 0 0 / 0.15); }
+    #tools .finish button { width: 112px; height: 112px; background: #3dbb55; box-shadow: 0 6px 0 #279140; }
+    #tools .finish button:active { box-shadow: 0 3px 0 #279140; }
+    #tools .finish svg { width: 76px; height: 76px; color: #a86d00; }
+
+    /* A crayon: tall button, coloured body with a pointed tip and two wrapper bands; the chosen one pops up. */
+    .crayon {
+      width: 72px; height: 84px; margin-top: 16px; border: 0; padding: 0; background: none; flex: none;
+      -webkit-tap-highlight-color: transparent; touch-action: manipulation; transition: transform 0.12s;
+      filter: drop-shadow(0 4px 0 rgb(90 61 30 / 0.28));
+    }
+    .crayon::before {
+      content: ""; display: block; width: 100%; height: 100%;
+      background: linear-gradient(transparent 50%, rgb(0 0 0 / 0.16) 50% 58%, transparent 58% 76%, rgb(0 0 0 / 0.16) 76% 84%, transparent 84%), var(--c);
+      clip-path: polygon(40% 0, 60% 0, 82% 30%, 82% 100%, 18% 100%, 18% 30%);
+    }
+    .crayon[aria-pressed="true"] { transform: translateY(-16px);
+      filter: drop-shadow(4px 0 0 #fff) drop-shadow(-4px 0 0 #fff) drop-shadow(0 4px 0 #fff) drop-shadow(0 -4px 0 #fff) drop-shadow(0 4px 0 rgb(90 61 30 / 0.35)); }
+    .crayon:active { transform: translateY(-8px); }
+
+    /* Icon-only confirmation (clear) */
+    .ask { position: fixed; inset: 0; z-index: 10; display: grid; place-items: center; background: rgb(90 61 30 / 0.45); }
+    .ask .group { gap: 56px; padding: 48px 64px; background: #fff8ea; border-radius: 48px; box-shadow: 0 10px 0 #f4c76b; }
+    .ask button { width: 136px; height: 136px; }
+    .ask svg { width: 80px; height: 80px; }
+    .ask .yes { background: #ff7a5c; color: #fff; box-shadow: 0 6px 0 #d4502f; }
+    .ask .yes svg path[fill] { fill: #ffd8cc; }
+
+    /* Celebration */
+    .party { position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; background: rgb(255 233 184 / 0.55); }
+    .party canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .party svg { width: min(60vw, 60vh); height: min(60vw, 60vh); color: #d99a00; filter: drop-shadow(0 10px 0 rgb(217 154 0 / 0.35));
+      animation: pop 0.9s cubic-bezier(.2, 1.6, .4, 1) both; }
+    .party.calm svg { animation: fade 0.4s ease-out both; }
+    @keyframes pop { from { transform: scale(0) rotate(-140deg); } to { transform: scale(1) rotate(0); } }
+    @keyframes fade { from { opacity: 0; } }
   </style>
 </head>
 <body>
@@ -130,6 +197,7 @@
         <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.5 5 5 10-11"/></svg>
       </button>
     </div>
+    <div id="tools"></div>
   </main>
   <script type="module" src="./src/main.ts"></script>
 </body>

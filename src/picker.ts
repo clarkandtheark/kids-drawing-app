@@ -1,5 +1,6 @@
 // TEMPORARY lesson picker (the real home screen replaces it): one big card per lesson.
 import type { Lesson } from './lesson';
+import { getCompleted } from './store';
 
 const SVG = 'http://www.w3.org/2000/svg';
 const picker = document.querySelector<HTMLElement>('#picker')!;
@@ -25,6 +26,9 @@ export function showPicker(lessons: Lesson[], open: (l: Lesson) => void) {
     return a;
   }));
   picker.hidden = false;
+  getCompleted().then((done) => {
+    for (const c of picker.querySelectorAll<HTMLElement>('.card')) c.classList.toggle('done', done.includes(c.dataset.id!));
+  });
 }
 
 export const hidePicker = () => { picker.hidden = true; };

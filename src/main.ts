@@ -2,10 +2,12 @@
 import { suppressGestures } from './engine/surface';
 import { closeLesson, openLesson, type Lesson } from './lesson';
 import { hidePicker, showPicker } from './picker';
+import { loadSpeechSettings } from './speech';
 
 suppressGestures();
 
-fetch('./lessons.json').then((r) => r.json()).then((lessons: Lesson[]) => {
+// Settings load before the first screen so muted() is right from the first spoken line.
+Promise.all([fetch('./lessons.json').then((r) => r.json()), loadSpeechSettings()]).then(([lessons]: [Lesson[], void]) => {
   const route = () => {
     const id = location.hash.match(/^#lesson\/(.+)$/)?.[1];
     const l = lessons.find((l) => l.id === id);

@@ -42,7 +42,7 @@ test('picker shows a card per lesson; tapping cat opens it', async ({ page }) =>
   await expect(page.locator('#lesson')).toBeHidden();
 });
 
-test('walk the cat lesson: guide paths per step, ink persists, speech per step, done returns home', async ({ page }) => {
+test('walk the cat lesson: guide paths per step, ink persists, speech per step, colour then done returns home', async ({ page }) => {
   await openCat(page);
   await expect(page.locator('#prev')).toBeDisabled();
   let gray = 0, inked = 0;
@@ -75,8 +75,10 @@ test('walk the cat lesson: guide paths per step, ink persists, speech per step, 
   const lines = await said(page);
   for (const s of cat.steps) expect(lines).toContain(s.say);
   expect(lines.at(-1)).toBe(cat.steps[N - 1].say);
-  await page.locator('#next').tap();
-  await expect(page.locator('#picker')).toBeVisible();
+  await page.locator('#next').tap(); // last checkmark: Color mode, then Done celebrates and goes home
+  await expect(page.locator('#lesson')).toHaveAttribute('data-phase', 'color');
+  await page.locator('[data-act=done]').tap();
+  await expect(page.locator('#picker')).toBeVisible({ timeout: 5000 });
 });
 
 test('replay restarts the animation; undo removes the last stroke', async ({ page }) => {

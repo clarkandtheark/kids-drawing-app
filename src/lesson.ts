@@ -2,6 +2,8 @@
 import { History } from './engine/history';
 import { Surface } from './engine/surface';
 import { muted, say, setMuted, stopSpeech } from './speech';
+import { markCompleted, saveDrawing } from './store';
+import { celebrate, mountTools, snapshot } from './tools';
 
 export type Lesson = {
   id: string; title: string; difficulty: number; emoji: string;
@@ -11,14 +13,14 @@ export type Lesson = {
 const SVG = 'http://www.w3.org/2000/svg';
 const DRAW_MS = 1500, PAUSE_MS = 400;
 const $ = <T extends Element = HTMLElement>(s: string) => document.querySelector<T>(s)!;
-const root = $('#lesson'), sheet = $('#sheet'), ref = $('#ref'), dots = $('#dots');
+const root = $('#lesson'), sheet = $('#sheet'), ref = $('#ref'), dots = $('#dots'), tools = $('#tools');
 const guide = $<SVGSVGElement>('#guide');
 const next = $<HTMLButtonElement>('#next'), prev = $<HTMLButtonElement>('#prev'), mute = $('#mute');
 
 let lesson: Lesson | null = null;
 let step = 0;
 let ink: Surface;
-let color: Surface; // ponytail: created and sharing undo history, unused until Color mode lands
+let color: Surface; // Color mode paints here, under the ink
 let run = 0; // bumps to cancel an in-flight animation
 
 export function openLesson(l: Lesson) {
@@ -32,6 +34,7 @@ export function openLesson(l: Lesson) {
   ink = new Surface(i, history);
   placeGuide();
   dots.replaceChildren(...l.steps.map(() => document.createElement('i')));
+  mute.ariaPressed = String(muted());
   root.hidden = false;
   showStep();
 }
@@ -42,16 +45,26 @@ export function closeLesson() {
   run++;
   stopSpeech();
   root.hidden = true;
+  tools.replaceChildren();
   for (const c of sheet.querySelectorAll('canvas')) c.width = c.height = 0; // iOS frees canvas memory late
   sheet.replaceChildren();
 }
 
-/**
- * HOOK(color-mode): the last step's checkmark lands here. The Color mode + celebration issue replaces
- * this body (switch to the colour tools on `color`/`ink`, then celebrate and save to the gallery).
- */
+/** The last step's checkmark: switch to Color mode. CSS hides the guide and step controls on phase=color. */
 function finishLesson() {
-  location.hash = '';
+  run++; // stop any guide animation; it would reset the phase
+  root.dataset.phase = 'color';
+  ink.history.clear(); // ponytail: undo in Color mode stops at the start of colouring, so it can't eat her lines
+  mountTools(tools, color, ink, finishColoring);
+  say('Time to color! Pick a crayon.');
+}
+
+/** Done in Color mode: save to the gallery and mark the lesson done while celebrating, then go home. */
+async function finishColoring() {
+  const l = lesson!;
+  const saved = snapshot([color, ink]).then((png) => Promise.all([saveDrawing(png, l.id), markCompleted(l.id)]));
+  await Promise.all([celebrate(), saved.catch((e) => console.warn('save failed', e))]);
+  if (lesson === l) location.hash = '';
 }
 
 function placeGuide() {
@@ -136,9 +149,8 @@ on('#mode', () => {
   animate(); // show the reference drawing itself in its new place
 });
 on('#home', () => { location.hash = ''; });
-mute.ariaPressed = String(muted());
 on('#mute', () => {
   setMuted(!muted());
   mute.ariaPressed = String(muted());
-  if (!muted()) say(lesson!.steps[step].say);
+  if (!muted() && root.dataset.phase !== 'color') say(lesson!.steps[step].say);
 });

@@ -1,14 +1,16 @@
 // Spoken step instructions. Silent (never throws) where speechSynthesis is missing.
 // iOS only lets speech start from a user gesture, so call say() synchronously from a tap handler.
+import { getSetting, setSetting } from './store';
 
-const KEY = 'kids-drawing:muted';
+let isMuted = false;
 
-// ponytail: localStorage for now; the IndexedDB settings store replaces these two functions.
-export function muted() {
-  try { return localStorage.getItem(KEY) === '1'; } catch { return false; }
-}
+/** Load the persisted mute setting; await before the first screen so muted() is right from the start. */
+export async function loadSpeechSettings() { isMuted = await getSetting('muted', false); }
+
+export const muted = () => isMuted;
 export function setMuted(m: boolean) {
-  try { localStorage.setItem(KEY, m ? '1' : '0'); } catch { /* private mode: session-only */ }
+  isMuted = m;
+  setSetting('muted', m);
   if (m) stopSpeech();
 }
 
@@ -29,7 +31,7 @@ export function pickVoice(voices: SpeechSynthesisVoice[]): SpeechSynthesisVoice 
 
 export function say(text: string) {
   const s = window.speechSynthesis;
-  if (!s || muted()) return;
+  if (!s || isMuted) return;
   try {
     s.cancel();
     const u = new SpeechSynthesisUtterance(text);

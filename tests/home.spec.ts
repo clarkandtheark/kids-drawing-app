@@ -49,7 +49,7 @@ test('home: a card per lesson under three level sections, every target at least 
   for (const n of [1, 2, 3]) {
     const sec = page.locator(`section.level[data-level="${n}"]`);
     await expect(sec.locator('.card')).toHaveCount(all.filter((l) => l.difficulty === n).length);
-    await expect(sec.locator('.stars svg')).toHaveCount(n);
+    await expect(sec.locator('.lvl svg')).toHaveCount(n); // crayons, not stars: stars are her scores
   }
   await expect(page.locator('.card[data-id=cat]')).not.toHaveClass(/done/);
   for (const el of await page.locator('#menu a:visible, #menu button:visible').all()) {

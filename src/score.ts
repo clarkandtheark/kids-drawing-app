@@ -7,6 +7,7 @@ export type Score = { steps: number[]; precision: number; percent: number; stars
 
 // Calibration (GENEROUS, for a 6-year-old's finger). Tune these on a real iPad.
 export const TOLERANCE = 28; // a guide point gets coverage credit if her nearest ink is within this many logical units
+export const COPY_TOLERANCE = 70; // Copy mode: freehand copying from the reference panel is graded leniently
 export const FULL_CREDIT = 0.6; // nearest ink within TOLERANCE times this earns full credit, fading linearly to none at TOLERANCE
 export const PRECISION_TOLERANCE_FACTOR = 1.25; // ink counts as "on the guide" within TOLERANCE times this
 export const INK_SPACING = 8; // ink strokes are resampled to this spacing so fast, sparse strokes still cover

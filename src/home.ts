@@ -1,7 +1,7 @@
 // Home screen: the lesson cards grouped by level (the header with logo and entry buttons is static in index.html).
 import type { Lesson } from './lesson';
-import { getCompleted } from './store';
-import { ICON } from './tools';
+import { CRAYON, star } from './grade';
+import { getCompleted, getScores } from './store';
 
 const SVG = 'http://www.w3.org/2000/svg';
 const home = document.querySelector<HTMLElement>('#menu')!;
@@ -31,7 +31,7 @@ export function showHome(lessons: Lesson[], open: (l: Lesson) => void) {
       const s = document.createElement('section');
       s.className = 'level';
       s.dataset.level = String(n);
-      s.innerHTML = `<h2 class="stars" aria-label="Level ${n}">${ICON.star.repeat(n)}</h2><div class="cards"></div>`;
+      s.innerHTML = `<h2 class="lvl" aria-label="Level ${n}">${CRAYON.repeat(n)}</h2><div class="cards"></div>`;
       s.querySelector('.cards')!.append(...lessons.filter((l) => l.difficulty === n).map((l) => {
         const a = card(l);
         a.addEventListener('click', (e) => { e.preventDefault(); open(l); });
@@ -46,6 +46,17 @@ export function showHome(lessons: Lesson[], open: (l: Lesson) => void) {
 
 export const hideHome = () => { home.hidden = true; };
 
-export const refreshStars = () => getCompleted().then((done) => {
-  for (const c of home.querySelectorAll<HTMLElement>('.card')) c.classList.toggle('done', done.includes(c.dataset.id!));
+/** Her best on each card: three stars (earned ones gold) and the percent. A lesson completed before scores
+ *  existed has no percent, so it shows one gold star: nothing she earned disappears. */
+export const refreshStars = () => Promise.all([getCompleted(), getScores()]).then(([done, scores]) => {
+  for (const c of home.querySelectorAll<HTMLElement>('.card')) {
+    const id = c.dataset.id!, best = scores[id] ?? (done.includes(id) ? { stars: 1 } : null);
+    c.classList.toggle('done', !!best);
+    c.querySelector('.score')?.remove();
+    if (!best) continue;
+    const row = document.createElement('div');
+    row.className = 'score';
+    row.innerHTML = [1, 2, 3].map((i) => star(i <= best.stars)).join('') + ('percent' in best ? `<b>${best.percent}%</b>` : '');
+    c.append(row);
+  }
 });

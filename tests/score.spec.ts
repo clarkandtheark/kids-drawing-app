@@ -128,7 +128,11 @@ test('Surface.onStroke fires once per committed stroke with logical points, not 
     w.__strokes = [];
     const down = Surface.prototype.down;
     Surface.prototype.down = function (this: any, e: PointerEvent) {
-      if (this.canvas.id === 'ink') { w.__ink = this; this.onStroke ??= (pts: unknown[]) => w.__strokes.push(pts); }
+      if (this.canvas.id === 'ink' && w.__ink !== this) { // chain onto the lesson's own hook (grading)
+        w.__ink = this;
+        const lesson = this.onStroke;
+        this.onStroke = (pts: unknown[]) => { w.__strokes.push(pts); lesson?.(pts); };
+      }
       return down.call(this, e);
     };
   });

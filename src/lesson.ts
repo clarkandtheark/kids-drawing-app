@@ -1,6 +1,8 @@
 // Lesson screen: colour canvas, SVG guide and ink canvas stacked in one square, plus icon controls.
 import { History } from './engine/history';
 import { Surface } from './engine/surface';
+import { react, showResult } from './grade';
+import { COPY_TOLERANCE, reaction, samplePath, score, TOLERANCE, type Point } from './score';
 import { muted, say, setMuted, stopSpeech } from './speech';
 import { markCompleted, saveDrawing } from './store';
 import { celebrate, layerPng, leave, mountTools, snapshot } from './tools';
@@ -22,6 +24,14 @@ let step = 0;
 let ink: Surface;
 let color: Surface; // Color mode paints here, under the ink
 let run = 0; // bumps to cancel an in-flight animation
+// Grading: the lesson's guide sampled once (steps -> strokes -> points) and her tracing strokes, oldest first.
+// In the tracing phase every undo-history entry is exactly one ink stroke (Surface.up commits, then calls
+// onStroke; nothing else commits before Color mode), so the strokes still undoable are the last
+// history.size ones and `kept` counts older strokes that fell off the history's limit and stay for good.
+let guidePts: Point[][][];
+let strokes: Point[][];
+let kept = 0;
+const tolerance = () => (root.dataset.mode === 'copy' ? COPY_TOLERANCE : TOLERANCE);
 
 export function openLesson(l: Lesson) {
   if (lesson === l) return;
@@ -32,6 +42,10 @@ export function openLesson(l: Lesson) {
   sheet.replaceChildren(c, i);
   color = new Surface(c, history);
   ink = new Surface(i, history);
+  guidePts = l.steps.map((s) => s.strokes.map((d) => samplePath(d)));
+  strokes = [];
+  kept = 0;
+  ink.onStroke = (pts) => { strokes.push(pts); kept = Math.max(kept, strokes.length - history.size); };
   placeGuide();
   dots.replaceChildren(...l.steps.map(() => document.createElement('i')));
   mute.ariaPressed = String(muted());
@@ -138,7 +152,9 @@ async function animate() {
 
 const on = (id: string, f: () => void) => $(id).addEventListener('click', f);
 on('#next', () => {
-  if (step === lesson!.steps.length - 1) return finishLesson();
+  const last = step === lesson!.steps.length - 1, t = { tolerance: tolerance() };
+  react(dots.children[step] as HTMLElement, reaction(score([guidePts[step]], strokes, t).steps[0]), !last); // the result chimes for the last
+  if (last) return showResult(lesson!.id, score(guidePts, strokes, t), finishLesson);
   step++;
   showStep();
 });
@@ -151,7 +167,7 @@ on('#replay', () => {
   say(lesson!.steps[step].say);
   animate();
 });
-on('#undo', () => ink.history.undo());
+on('#undo', () => ink.history.undo().then(() => { strokes.length = Math.min(strokes.length, kept + ink.history.size); }));
 on('#mode', () => {
   root.dataset.mode = root.dataset.mode === 'copy' ? 'trace' : 'copy';
   placeGuide();

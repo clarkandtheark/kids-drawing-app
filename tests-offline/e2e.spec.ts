@@ -100,6 +100,7 @@ async function traceToColor(page: Page, l: Lesson) {
     for (const d of s.strokes) await touchStroke(page, await sample(page, d));
     await page.locator('#next').tap();
   }
+  await page.locator('.result .go').tap();
   await expect(page.locator('#lesson')).toHaveAttribute('data-phase', 'color');
 }
 
@@ -138,7 +139,9 @@ test('fresh home: 30 cards in three levels, nothing overflows sideways, scrolls 
     await touch('touchEnd', vp.height * 0.3);
   }
   expect(await page.locator('#menu').evaluate((e) => e.scrollTop)).toBeGreaterThan(0);
-  expect(await level3Top()).toBeLessThan(vp.height / 3);
+  // Level 3 is up near the top, or (a short page, 5 cards per row) scrolled fully into view at the end.
+  const l3 = await page.locator('section.level[data-level="3"]').evaluate((e) => e.getBoundingClientRect());
+  expect(l3.top < vp.height / 3 || (await atEnd() && l3.top >= 0 && l3.bottom <= vp.height + 1)).toBe(true);
   await shot(page, info, 'home-level3');
 });
 
@@ -181,6 +184,8 @@ test('every lesson: trace a stroke per step, the guide shows the right strokes, 
       }
       await page.locator('#next').tap();
     }
+    await expect(page.locator('.result .pct')).toBeVisible();
+    await page.locator('.result .go').tap();
     await expect(page.locator('#lesson')).toHaveAttribute('data-phase', 'color');
     await expect(page.locator('#guide')).toBeHidden();
     await expect(page.locator('.crayon')).toHaveCount(12);
@@ -235,6 +240,7 @@ test('colour phase: brush undo goes back at least 30 levels', async ({ page }) =
   await page.goto('./');
   await page.locator('.card[data-id=sun]').tap();
   for (let i = 0; i < 6; i++) await page.locator('#next').tap();
+  await page.locator('.result .go').tap();
   await expect(page.locator('#lesson')).toHaveAttribute('data-phase', 'color');
   const colored = () => page.evaluate(() => {
     const c = document.querySelector<HTMLCanvasElement>('#color')!, d = c.getContext('2d')!.getImageData(0, 0, c.width, c.height).data;
@@ -294,7 +300,7 @@ test('full journey: trace, fill and paint, celebrate, star, gallery, full-screen
   await shot(page, info, 'celebration');
   await expect(page.locator('#menu')).toBeVisible({ timeout: 5000 });
   await expect(page.locator('.card[data-id=face]')).toHaveClass(/done/);
-  expect(await page.locator('.card[data-id=face]').evaluate((c) => getComputedStyle(c, '::after').backgroundImage)).toContain('svg');
+  await expect(page.locator('.card[data-id=face] .score svg.got')).toHaveCount(3); // traced closely: three stars
   await expect(page.locator('.card.done')).toHaveCount(1);
 
   await page.locator('#togallery').tap();

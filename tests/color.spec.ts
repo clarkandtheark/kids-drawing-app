@@ -27,6 +27,7 @@ async function toColor(page: Page, draw = async () => {}) {
   await expect(page.locator('#ink')).toBeVisible();
   await draw();
   for (let i = 0; i < cat.steps.length; i++) await page.locator('#next').tap();
+  await page.locator('.result .go').tap();
   await expect(page.locator('#lesson')).toHaveAttribute('data-phase', 'color');
 }
 

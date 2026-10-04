@@ -1,3 +1,5 @@
 node_modules
 review/
 dist/
+test-results/
+playwright-report/

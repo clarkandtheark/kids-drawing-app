@@ -9,5 +9,7 @@
     "noEmit": true,
     "skipLibCheck": true
   },
-  "include": ["src", "tests", "vite.config.ts", "playwright.config.ts"]
+  // Node-side files (vite/playwright configs, tests-offline/) need @types/node, which is not installed;
+  // Vite and Playwright transpile them without type-checking.
+  "include": ["src", "tests"]
 }

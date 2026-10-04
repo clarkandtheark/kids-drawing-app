@@ -6,7 +6,8 @@
     "dev": "node scripts/build-lessons.mjs && vite",
     "build": "node scripts/build-lessons.mjs && tsc --noEmit && vite build",
     "test": "playwright test",
-    "render": "node scripts/render-lessons.mjs"
+    "render": "node scripts/render-lessons.mjs",
+    "test:offline": "playwright test -c playwright.offline.config.ts"
   },
   "devDependencies": {
     "@playwright/test": "^1.63.0",

@@ -3,6 +3,7 @@ import { suppressGestures } from './engine/surface';
 import { closeLesson, openLesson, type Lesson } from './lesson';
 import { hidePicker, showPicker } from './picker';
 import { loadSpeechSettings } from './speech';
+import './sw-register'; // registers the offline service worker (production builds only)
 
 suppressGestures();
 

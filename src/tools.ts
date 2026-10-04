@@ -75,7 +75,8 @@ export function mountTools(box: HTMLElement, paint: Surface, lines: Surface | nu
 /**
  * Flood-fill the region of `paint` around canvas pixel (sx, sy) with `hex`, as one undo step. The region
  * is the connected pixels with the tapped pixel's exact colour that aren't under `lines` ink. Scanline
- * fill over typed arrays, then the fill grows GROW px under the ink to cover its anti-aliased edge.
+ * fill over typed arrays, then the fill grows GROW px into the walls around it (the `lines` ink, or other
+ * paint on `paint` itself) and is composited underneath them, so their anti-aliased edges show no white halo.
  * Returns false (and records nothing) for a tap on ink, outside the canvas, or on a region already `hex`.
  */
 export function floodFill(paint: Surface, lines: Surface | null, sx: number, sy: number, hex: string) {
@@ -84,9 +85,10 @@ export function floodFill(paint: Surface, lines: Surface | null, sx: number, sy:
   const img = paint.ctx.getImageData(0, 0, R, R);
   const px = new Uint32Array(img.data.buffer);
   const seed = sy * R + sx, target = px[seed];
-  const fill = new Uint32Array(new Uint8ClampedArray([1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16)).concat(255)).buffer)[0];
+  const rgb = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
+  const fill = new Uint32Array(new Uint8ClampedArray(rgb.concat(255)).buffer)[0];
   if (target === fill) return false;
-  // mask: 0 open, 1 ink wall, 2 filled, 3.. grown under the ink
+  // mask: 0 open, 1 ink wall, 2 filled, 3.. grown into a wall (ink, or paint of another colour)
   const mask = new Uint8Array(R * R);
   if (lines) {
     const a = lines.ctx.getImageData(0, 0, R, R).data;
@@ -124,7 +126,7 @@ export function floodFill(paint: Surface, lines: Surface | null, sx: number, sy:
     const was = 2 + g;
     x0 = Math.max(0, x0 - 1); y0 = Math.max(0, y0 - 1); x1 = Math.min(R - 1, x1 + 1); y1 = Math.min(R - 1, y1 + 1);
     for (let y = y0; y <= y1; y++) for (let x = x0, i = y * R + x0; x <= x1; x++, i++) {
-      if (mask[i] !== 1 || px[i] !== target) continue;
+      if (mask[i] > 1 || (mask[i] === 0 && px[i] === target)) continue; // only walls grow
       // grow from pixels filled or grown in an earlier pass (values 2..was), not ones grown this pass
       const a = x > 0 ? mask[i - 1] : 0, b = x < R - 1 ? mask[i + 1] : 0;
       const c = y > 0 ? mask[i - R] : 0, d = y < R - 1 ? mask[i + R] : 0;
@@ -132,7 +134,15 @@ export function floodFill(paint: Surface, lines: Surface | null, sx: number, sy:
     }
   }
 
-  for (let y = y0; y <= y1; y++) for (let i = y * R + x0, e = y * R + x1; i <= e; i++) if (mask[i] >= 2) px[i] = fill;
+  const d = img.data;
+  for (let y = y0; y <= y1; y++) for (let i = y * R + x0, e = y * R + x1; i <= e; i++) {
+    if (mask[i] < 2) continue;
+    if (px[i] === target) { px[i] = fill; continue; }
+    // other paint: put the fill underneath it (opaque paint stays as it is, a soft edge blends onto the fill)
+    const j = i * 4, a = d[j + 3] / 255;
+    for (let c = 0; c < 3; c++) d[j + c] = d[j + c] * a + rgb[c] * (1 - a);
+    d[j + 3] = 255;
+  }
   const w = x1 - x0 + 1, h = y1 - y0 + 1;
   paint.ctx.putImageData(img, 0, 0, x0, y0, w, h);
   paint.commit({ x: x0, y: y0, w, h });

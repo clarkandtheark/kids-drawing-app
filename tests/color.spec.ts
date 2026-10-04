@@ -148,6 +148,37 @@ test('fill: inside a closed ink shape, no ring at the edge, one undo; outside; n
   expect(middle[3]).toBe(0);
 });
 
+test('fill against a brush stroke on the same canvas leaves no white seam (Free draw)', async ({ page }) => {
+  await page.goto('./#draw');
+  await expect(page.locator('#paint')).toBeVisible();
+  await page.locator('.crayon[aria-label=green]').tap();
+  await touchStroke(page, circle(500, 500, 250));
+  await page.locator('.crayon[aria-label=orange]').tap();
+  await page.locator('[data-tool=fill]').tap();
+  const [[clientX, clientY]] = await toClient(page, [[500, 500]]);
+  await page.touchscreen.tap(clientX, clientY);
+  // Walk right from the centre (canvas px): every pixel up to the stroke's solid core must be opaque,
+  // so no white shows between the fill and the stroke's soft edge; past the stroke nothing changes.
+  const walk = await page.evaluate(() => {
+    const c = document.querySelector<HTMLCanvasElement>('#paint')!, k = c.width / 1000;
+    const y = Math.round(500 * k), x0 = Math.round(500 * k), w = Math.round(400 * k);
+    const d = c.getContext('2d')!.getImageData(x0, y, w, 1).data;
+    const green = (i: number) => d[i * 4] === 0x43 && d[i * 4 + 1] === 0xc0 && d[i * 4 + 2] === 0x4f && d[i * 4 + 3] === 255;
+    let x = 0, gaps = 0;
+    for (; x < w && !green(x); x++) if (d[x * 4 + 3] < 255) gaps++;
+    while (x < w && d[x * 4 + 3] > 0) x++;
+    let leaked = 0;
+    for (; x < w; x++) if (d[x * 4 + 3] > 0) leaked++;
+    return { gaps, leaked };
+  });
+  expect(walk).toEqual({ gaps: 0, leaked: 0 });
+  await page.locator('[data-act=undo]').tap(); // still one undo step
+  await expect.poll(() => page.evaluate(() => {
+    const c = document.querySelector<HTMLCanvasElement>('#paint')!, k = c.width / 1000;
+    return c.getContext('2d')!.getImageData(500 * k, 500 * k, 1, 1).data[3];
+  })).toBe(0);
+});
+
 test('clear asks first: back keeps everything, trash clears colour only, undo brings it back', async ({ page }) => {
   await toColor(page, () => touchStroke(page, line([100, 500], [900, 500])));
   const inkBefore = await inkSum(page);

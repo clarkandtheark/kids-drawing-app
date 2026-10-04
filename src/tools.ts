@@ -24,6 +24,8 @@ export const ICON = {
   star: svg('<path d="m12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3-5.6-3-5.6 3 1.1-6.3-4.6-4.4 6.3-.9Z" fill="#ffd21f"/>', 1.6),
   // a picture, like the My Drawings button: "put it in my drawings"
   save: svg('<rect x="3" y="4" width="18" height="16" rx="3.5" fill="#fff"/><circle cx="9" cy="9.5" r="2" fill="#ffd21f" stroke="none"/><path d="m4.5 18 4.5-4.5 3.5 3 3-4 4.5 5.5Z" fill="#43c04f" stroke="none"/>', 2.2),
+  // two pictures, one on top of the other: "keep both"
+  both: svg('<rect x="2.5" y="3" width="14" height="12" rx="3" fill="#fff"/><rect x="7.5" y="8.5" width="14" height="12" rx="3" fill="#fff"/><circle cx="12.5" cy="13" r="1.5" fill="#ffd21f" stroke="none"/><path d="m10 19 3-3 2.5 2 2.5-3 2 4Z" fill="#43c04f" stroke="none"/>', 2.2),
 };
 
 /**
@@ -174,6 +176,13 @@ export const confirmTrash = async (yesLabel: string) =>
 export const askSave = async () => {
   const r = await ask(`<button class="no" aria-label="Keep drawing">${ICON.back}</button><button class="save" aria-label="Save it">${ICON.save}</button><button class="yes" aria-label="Throw it away">${ICON.trash}</button>`);
   return r === 'save' ? 'save' : r === 'yes' ? 'trash' : null;
+};
+
+/** Re-coloured drawing: 'replace' the saved one, 'both' (keep it and add a new one), or null to keep drawing.
+ * `withTrash` (leaving via Home) adds a small trash button: 'trash'. */
+export const askReplace = async (withTrash = false) => {
+  const r = await ask(`<button class="no" aria-label="Keep drawing">${ICON.back}</button><button class="replace" aria-label="Replace the picture">${ICON.save}</button><button class="both" aria-label="Keep both pictures">${ICON.both}</button>${withTrash ? `<button class="yes" aria-label="Throw it away">${ICON.trash}</button>` : ''}`);
+  return r === 'replace' || r === 'both' ? r : r === 'yes' ? 'trash' : null;
 };
 
 /** White background + colour + line art, as a square PNG (for the gallery). */

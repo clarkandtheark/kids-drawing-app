@@ -2,7 +2,14 @@
 // Fails soft: where IndexedDB is missing or broken (some private modes) reads resolve empty, writes
 // do nothing, and the app carries on without persisting.
 
-export type Drawing = { id: number; lessonId: string | null; createdAt: number; png: Blob };
+/**
+ * A gallery record. `png` is the flattened 1024px picture (thumbnails, viewing, sharing). `ink` (her line
+ * art) and `color` (the colour layer) are transparent PNGs at the canvas's full resolution, kept so the
+ * drawing can be reopened for colouring; lessons have both, Free draw only `color`, and records saved
+ * before layers existed have neither. No schema version bump: IndexedDB values are schemaless.
+ */
+export type Layers = { ink?: Blob; color?: Blob };
+export type Drawing = { id: number; lessonId: string | null; createdAt: number; png: Blob } & Layers;
 
 let dbp: Promise<IDBDatabase | null> | undefined;
 const db = () => dbp ??= new Promise((resolve) => {
@@ -33,9 +40,9 @@ async function tx<T>(store: 'gallery' | 'kv', mode: IDBTransactionMode, f: (s: I
   });
 }
 
-/** Save a PNG to the gallery; resolves with its id (undefined if nothing persists). */
-export const saveDrawing = (png: Blob, lessonId: string | null, createdAt = Date.now()) =>
-  tx<IDBValidKey>('gallery', 'readwrite', (s) => s.add({ lessonId, createdAt, png })) as Promise<number | undefined>;
+/** Save a PNG (and optional layers) to the gallery; resolves with its id (undefined if nothing persists). */
+export const saveDrawing = (png: Blob, lessonId: string | null, createdAt = Date.now(), layers: Layers = {}) =>
+  tx<IDBValidKey>('gallery', 'readwrite', (s) => s.add({ lessonId, createdAt, png, ...layers })) as Promise<number | undefined>;
 
 const pad = (n: number) => String(n).padStart(2, '0');
 /** File name by local date and lesson: 2026-10-04_15-30-12_cat_7.png (the id keeps names unique). */
@@ -54,6 +61,16 @@ export function parseDrawingName(name: string) {
 export const listDrawings = async () => ((await tx<Drawing[]>('gallery', 'readonly', (s) => s.getAll())) ?? []).reverse();
 
 export const deleteDrawing = (id: number) => tx('gallery', 'readwrite', (s) => { s.delete(id); });
+
+export const getDrawing = (id: number) => tx<Drawing | undefined>('gallery', 'readonly', (s) => s.get(id));
+
+/** Replace a drawing's picture and layers in place (layers not given are dropped), keeping id, lessonId and
+ * createdAt. Resolves true once stored; false if there is no such drawing or nothing persists. */
+export const updateDrawing = (id: number, next: { png: Blob } & Layers) => tx<Drawing | undefined>('gallery', 'readwrite', (s) => {
+  const r = s.get(id);
+  r.onsuccess = () => { if (r.result) s.put({ id, lessonId: r.result.lessonId, createdAt: r.result.createdAt, ...next }); };
+  return r;
+}).then((old) => !!old);
 
 export const getCompleted = async () => (await tx<string[]>('kv', 'readonly', (s) => s.get('completed'))) ?? [];
 

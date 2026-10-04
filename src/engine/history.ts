@@ -17,12 +17,15 @@ export class History {
   private stack: { target: Surface; patch: Patch }[] = [];
   private queue = Promise.resolve();
   private pending = 0;
+  /** True once anything changed (stroke, erase, fill, clear, undo); the screen resets it after saving. */
+  dirty = false;
 
   /** True while undos are being applied; surfaces don't start strokes then. */
   get busy() { return this.pending > 0; }
   get size() { return this.stack.length; }
 
   push(target: Surface, patch: Patch) {
+    this.dirty = true;
     this.stack.push({ target, patch });
     if (this.stack.length > History.LIMIT) this.stack.shift();
     const img = patch.img;
@@ -39,6 +42,7 @@ export class History {
     this.queue = this.queue.then(async () => {
       const e = this.stack.pop();
       if (!e) return;
+      this.dirty = true;
       const img = e.patch.img instanceof Blob ? await createImageBitmap(e.patch.img) : e.patch.img;
       e.target.restore(e.patch, img);
       if (img instanceof ImageBitmap) img.close();

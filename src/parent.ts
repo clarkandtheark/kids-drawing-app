@@ -3,7 +3,7 @@ import { unzipSync, zipSync } from 'fflate';
 import { shareFile } from './gallery';
 import { refreshStars } from './home';
 import { muted, setMuted } from './speech';
-import { drawingName, listDrawings, parseDrawingName, resetProgress, saveDrawing } from './store';
+import { drawingName, listDrawings, parseDrawingName, resetProgress, saveDrawing, type Layers } from './store';
 import { confirmTrash } from './tools';
 
 const HOLD_MS = 3000, SLOP = 24; // px a finger may wobble before the hold is cancelled
@@ -13,7 +13,13 @@ let zip: Promise<File>; // built ahead so Export can share straight from the tap
 
 async function buildZip() {
   const files: Record<string, Uint8Array> = {};
-  for (const d of await listDrawings()) files[drawingName(d)] = new Uint8Array(await d.png.arrayBuffer());
+  const bytes = async (b: Blob) => new Uint8Array(await b.arrayBuffer());
+  for (const d of await listDrawings()) {
+    const name = drawingName(d), base = name.replace(/\.png$/, '');
+    files[name] = await bytes(d.png); // flat pictures at the top level: the zip is viewable anywhere
+    if (d.ink) files[`layers/${base}.ink.png`] = await bytes(d.ink);
+    if (d.color) files[`layers/${base}.color.png`] = await bytes(d.color);
+  }
   // ponytail: whole gallery in memory; fine for a child's gallery, stream it if it ever reaches thousands
   return new File([zipSync(files, { level: 0 }) as BlobPart], `drawings-${new Date().toLocaleDateString('en-CA')}.zip`, { type: 'application/zip' }); // PNGs are already compressed: level 0
 }
@@ -32,11 +38,18 @@ const isPng = (b: Uint8Array) => b[0] === 0x89 && b[1] === 0x50 && b[2] === 0x4e
 async function importZip(file: File) {
   try {
     const entries = unzipSync(new Uint8Array(await file.arrayBuffer()), { filter: (f) => /\.png$/i.test(f.name) });
-    const pngs = Object.entries(entries)
-      .filter(([, b]) => isPng(b))
-      .map(([path, b]) => ({ ...parseDrawingName(path.split('/').pop()!), png: new Blob([b as BlobPart], { type: 'image/png' }) }))
+    const blob = (b: Uint8Array) => new Blob([b as BlobPart], { type: 'image/png' });
+    // layers/<name>.ink.png and layers/<name>.color.png belong to the top-level picture <name>.png (zips from before layers have none)
+    const layers: Record<string, Layers> = {};
+    const pics = Object.entries(entries).filter(([path, b]) => {
+      const m = path.match(/(?:^|\/)layers\/(.+)\.(ink|color)\.png$/i);
+      if (m && isPng(b)) (layers[m[1]] ??= {})[m[2].toLowerCase() as keyof Layers] = blob(b);
+      return !m && isPng(b);
+    });
+    const pngs = pics
+      .map(([path, b]) => { const name = path.split('/').pop()!; return { ...parseDrawingName(name), png: blob(b), layers: layers[name.replace(/\.png$/i, '')] }; })
       .sort((a, b) => a.createdAt - b.createdAt); // oldest first so the newest ends up on top
-    for (const p of pngs) await saveDrawing(p.png, p.lessonId, p.createdAt);
+    for (const p of pngs) await saveDrawing(p.png, p.lessonId, p.createdAt, p.layers);
     status.textContent = pngs.length ? `Added ${pngs.length} drawing${pngs.length > 1 ? 's' : ''}.` : 'No pictures found in that file.';
   } catch {
     status.textContent = 'That file is not a drawings zip.';

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <!-- Full-bleed, opaque: iOS rounds the corners itself. Artwork lives in #art so make-icons can shrink it for maskable. -->
+  <defs>
+    <radialGradient id="bg" cx="0.3" cy="0.25" r="1">
+      <stop offset="0" stop-color="#fff6d6"/>
+      <stop offset="1" stop-color="#ffcf55"/>
+    </radialGradient>
+  </defs>
+  <rect width="1024" height="1024" fill="url(#bg)"/>
+  <g id="art">
+    <!-- the loopy line the crayon just drew -->
+    <path d="M150 440 C 100 620, 200 700, 280 620 S 280 460, 210 530 S 240 820, 395 795"
+          fill="none" stroke="#ff5a36" stroke-width="58" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- crayon, drawn pointing left, then tilted so the tip points down-left -->
+    <g transform="translate(630 565) rotate(-45)">
+      <path d="M-200 -88 L-312 -24 Q-330 0 -312 24 L-200 88 Z" fill="#d93a20"/>
+      <rect x="-216" y="-100" width="560" height="200" rx="44" fill="#ff5a36"/>
+      <rect x="-110" y="-100" width="360" height="200" fill="#fff8ea"/>
+      <rect x="-96" y="-100" width="26" height="200" fill="#ff5a36"/>
+      <rect x="210" y="-100" width="26" height="200" fill="#ff5a36"/>
+      <path d="M-20 0 h150" stroke="#ff5a36" stroke-width="44" stroke-linecap="round"/>
+      <rect x="-216" y="-100" width="560" height="200" rx="44" fill="none" stroke="#5a3d1e" stroke-opacity="0.12" stroke-width="10"/>
+    </g>
+  </g>
+</svg>

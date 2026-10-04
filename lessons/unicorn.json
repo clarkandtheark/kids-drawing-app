@@ -1,0 +1,78 @@
+{
+  "id": "unicorn",
+  "title": "Unicorn",
+  "difficulty": 3,
+  "emoji": "🦄",
+  "steps": [
+    {
+      "say": "Draw a big oval for the body.",
+      "strokes": [
+        "M 245.0 628.0 A 200 135 0 1 1 645.0 628.0 A 200 135 0 1 1 245.0 628.0 Z"
+      ]
+    },
+    {
+      "say": "Draw a round head with a round nose poking out in front.",
+      "strokes": [
+        "M 737.1 250.4 A 118 118 0 1 0 718.8 425.9 A 72 72 0 1 0 843.1 366.4 L 737.1 250.4 Z"
+      ]
+    },
+    {
+      "say": "Draw two lines from the body up to the head to make the neck.",
+      "strokes": [
+        "M 602.6 544.9 Q 630.1 493.6 613.5 442.2",
+        "M 410.3 495.1 Q 502.4 434.8 534.6 354.5"
+      ]
+    },
+    {
+      "say": "Draw a tall pointy horn on top of the head, with two stripes.",
+      "strokes": [
+        "M 650.0 212.0 L 698.8 53.1 L 690.4 219.1",
+        "M 664.6 164.3 L 692.9 169.3",
+        "M 678.3 119.8 L 695.3 122.8"
+      ]
+    },
+    {
+      "say": "Add a pointy ear behind the horn, and a little curl of hair.",
+      "strokes": [
+        "M 539.8 287.7 Q 503.9 241.4 506.7 203.9 Q 541.3 228.6 558.3 255.7",
+        "M 577.4 237.0 A 25.6 38.3 -25.5 0 0 623.5 215.0"
+      ]
+    },
+    {
+      "say": "Draw two chunky back legs side by side, with a line on each foot for the hoof.",
+      "strokes": [
+        "M 262 682.5 L 240 822 A 30 30 0 0 0 300 822 L 326 736.5 L 322 822 A 30 30 0 0 0 382 822 L 390 757.8",
+        "M 241.9 810 L 303.6 810",
+        "M 322.6 810 L 383.5 810"
+      ]
+    },
+    {
+      "say": "Now draw two chunky front legs the same way, with their hooves.",
+      "strokes": [
+        "M 500 757.8 L 508 822 A 30 30 0 0 0 568 822 L 564 736.5 L 590 822 A 30 30 0 0 0 650 822 L 628 682.5",
+        "M 506.5 810 L 567.4 810",
+        "M 586.4 810 L 648.1 810"
+      ]
+    },
+    {
+      "say": "Draw a bumpy, wavy mane down the back of the neck.",
+      "strokes": [
+        "M 535.5 301.5 A 26.6 37.2 91.0 0 0 534.6 354.5 A 44.4 62.2 122.1 0 0 487.4 429.8 A 50.6 70.8 139.8 0 0 410.3 495.1"
+      ]
+    },
+    {
+      "say": "Draw a bumpy, fluffy tail at the back.",
+      "strokes": [
+        "M 275.4 556.5 A 35.9 53.8 147.4 0 0 215.0 595.0 A 36.7 55.0 120.6 0 0 177.7 658.1 A 44.3 66.5 103.8 0 0 156.6 744.2 A 53.1 79.6 93.6 0 0 150.0 850.0 C 200 815 180 720 248.0 604.6"
+      ]
+    },
+    {
+      "say": "Give your unicorn an eye, a little nose, and a happy smile!",
+      "strokes": [
+        "M 690 307 A 11 11 0 1 1 690 329 A 11 11 0 1 1 690 307 Z",
+        "M 812 388 A 20 20 0 0 0 818 422",
+        "M 752 442 Q 785 478 822 450"
+      ]
+    }
+  ]
+}

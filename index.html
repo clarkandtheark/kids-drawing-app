@@ -7,45 +7,130 @@
   <title>Draw!</title>
   <style>
     html, body { margin: 0; height: 100%; overflow: hidden; background: #ffe9b8; }
-    body {
-      position: fixed; inset: 0; display: grid; gap: 16px; box-sizing: border-box;
+    body { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; color: #5a3d1e;
+      font-family: ui-rounded, "SF Pro Rounded", system-ui, sans-serif; }
+    [hidden] { display: none !important; }
+    .screen {
+      position: fixed; inset: 0; box-sizing: border-box; gap: 16px;
       padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right))
                max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
-      grid-template: 1fr auto / 1fr;
-      -webkit-user-select: none; user-select: none; -webkit-touch-callout: none;
     }
-    @media (orientation: landscape) { body { grid-template: 1fr / 1fr auto; } }
-    #stage { container-type: size; display: grid; place-items: center; min-width: 0; min-height: 0; }
-    #ink {
-      width: min(100cqw, 100cqh); height: min(100cqw, 100cqh);
+
+    /* Temporary picker */
+    #picker { display: flex; flex-wrap: wrap; align-content: center; justify-content: center; gap: 32px; overflow: auto; }
+    .card {
+      width: 280px; display: grid; justify-items: center; gap: 8px; padding: 24px 24px 20px;
+      background: #fff; border-radius: 36px; box-shadow: 0 8px 0 #f4c76b; text-decoration: none; color: inherit;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .card:active { transform: translateY(4px); box-shadow: 0 4px 0 #f4c76b; }
+    .card svg { width: 220px; height: 220px; fill: none; stroke: #5a3d1e; stroke-width: 22; stroke-linecap: round; stroke-linejoin: round; }
+    .card span { font-size: 44px; font-weight: 800; }
+
+    /* Lesson screen: portrait = reference / canvas / dots / buttons stacked; landscape = canvas | side column */
+    #lesson {
+      display: grid;
+      grid-template: "ref ref ref ref ref" auto "stage stage stage stage stage" 1fr "dots dots dots dots dots" auto
+                     "sys . act . nav" auto / auto 1fr auto 1fr auto;
+    }
+    @media (orientation: landscape) {
+      #lesson {
+        grid-template: "stage sys" auto "stage ref" auto "stage ." 1fr "stage dots" auto "stage act" auto
+                       "stage nav" auto / 1fr 272px;
+      }
+    }
+    #stage { grid-area: stage; container-type: size; display: grid; place-items: center; min-width: 0; min-height: 0; }
+    #sheet {
+      position: relative; width: min(100cqw, 100cqh); height: min(100cqw, 100cqh); overflow: hidden;
       background: #fff; border-radius: 28px; box-shadow: 0 6px 0 #f4c76b;
     }
-    #tools { display: flex; gap: 16px; justify-content: center; align-items: center; }
-    @media (orientation: landscape) { #tools { flex-direction: column; } }
-    #tools button {
-      width: 80px; height: 80px; border: 0; border-radius: 50%; padding: 0;
-      background: #fff; box-shadow: 0 5px 0 #f4c76b; touch-action: manipulation;
-      display: grid; place-items: center; color: #5a3d1e;
+    #sheet > * { position: absolute; inset: 0; width: 100%; height: 100%; }
+    #ref {
+      grid-area: ref; justify-self: center; width: 200px; height: 200px; padding: 8px; box-sizing: border-box;
+      background: #fff; border-radius: 24px; box-shadow: 0 5px 0 #f4c76b;
     }
-    #tools button:active { transform: translateY(3px); box-shadow: 0 2px 0 #f4c76b; }
-    #tools button[aria-pressed="true"] { outline: 6px solid #ff8a3d; outline-offset: 3px; }
-    #tools button.swatch { background: var(--c); }
-    #tools svg { width: 44px; height: 44px; }
+    @media (orientation: landscape) { #ref { width: 272px; height: 272px; } }
+    #lesson:not([data-mode="copy"]) #ref { display: none; }
+    #ref #guide { width: 100%; height: 100%; display: block; }
+
+    #guide { pointer-events: none; }
+    #guide path { fill: none; stroke-width: 14; stroke-linecap: round; stroke-linejoin: round; }
+    #guide .gray { stroke: #c5c9cf; }
+    #guide .now { stroke: #ff5a36; }
+    #sheet #guide .now.rest { stroke: #ff9a7a; stroke-width: 13; stroke-dasharray: 0.1 26; }
+    #ref #guide path { stroke-width: 26; }
+
+    #dots { grid-area: dots; display: flex; justify-content: center; gap: 10px; }
+    #dots i { width: 18px; height: 18px; border-radius: 50%; background: #f4c76b; }
+    #dots i.past { background: #ffa66b; }
+    #dots i.on { background: #ff5a36; transform: scale(1.35); }
+
+    .group { display: flex; gap: 16px; justify-content: center; align-items: center; }
+    #sys { grid-area: sys; } #act { grid-area: act; } #nav { grid-area: nav; }
+    .group button {
+      width: 80px; height: 80px; border: 0; border-radius: 50%; padding: 0; flex: none;
+      background: #fff; box-shadow: 0 5px 0 #f4c76b; touch-action: manipulation;
+      display: grid; place-items: center; color: #5a3d1e; -webkit-tap-highlight-color: transparent;
+    }
+    .group button:active { transform: translateY(3px); box-shadow: 0 2px 0 #f4c76b; }
+    .group button:disabled { opacity: 0.35; }
+    .group svg { width: 44px; height: 44px; }
+
+    #next { width: 112px; height: 112px; background: #ff8a3d; color: #fff; box-shadow: 0 6px 0 #d9621c; }
+    #next:active { box-shadow: 0 3px 0 #d9621c; }
+    #next svg { width: 64px; height: 64px; }
+    #next.done { background: #3dbb55; box-shadow: 0 6px 0 #279140; }
+    /* a glow ring that swells and fades: "tap me" without moving the target */
+    #next.ready { animation: pulse 1.4s ease-out infinite; }
+    #next.done.ready { --ring: #3dbb55; --base: #279140; }
+    @keyframes pulse {
+      from { box-shadow: 0 6px 0 var(--base, #d9621c), 0 0 0 0 var(--ring, #ff8a3d); }
+      to { box-shadow: 0 6px 0 var(--base, #d9621c), 0 0 0 22px transparent; }
+    }
+    #next:not(.done) .check, #next.done .arrow { display: none; }
+
+    #mute[aria-pressed="true"] .on, #mute:not([aria-pressed="true"]) .off { display: none; }
+    #mute[aria-pressed="true"] { background: #ffe0d6; }
+    #lesson[data-mode="copy"] #mode .trace, #lesson:not([data-mode="copy"]) #mode .copy { display: none; }
   </style>
 </head>
 <body>
-  <div id="stage"><canvas id="ink"></canvas></div>
-  <div id="tools">
-    <button id="undo" aria-label="Undo">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg>
-    </button>
-    <button id="eraser" aria-label="Eraser" aria-pressed="false">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><path d="m3.5 14.5 9-9a2 2 0 0 1 2.8 0l4.2 4.2a2 2 0 0 1 0 2.8L13 19H8l-4.5-4.5Z" fill="#ffb3c7"/><path d="m8 10 6 6M13 19h7" stroke-linecap="round"/></svg>
-    </button>
-    <button class="swatch" style="--c:#2b2b2b" data-color="#2b2b2b" aria-label="Black" aria-pressed="true"></button>
-    <button class="swatch" style="--c:#e8402a" data-color="#e8402a" aria-label="Red" aria-pressed="false"></button>
-    <button class="swatch" style="--c:#2a7de8" data-color="#2a7de8" aria-label="Blue" aria-pressed="false"></button>
-  </div>
+  <main id="picker" class="screen" hidden></main>
+
+  <main id="lesson" class="screen" data-mode="trace" hidden>
+    <div id="ref"><svg id="guide" viewBox="0 0 1000 1000"></svg></div>
+    <div id="stage"><div id="sheet"></div></div>
+    <div id="dots"></div>
+    <div id="sys" class="group">
+      <button id="home" aria-label="Home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10" fill="#ffd34d"/><path d="M10 20v-5h4v5"/></svg>
+      </button>
+      <button id="mute" aria-label="Sound">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 9.5v5h4l5 4.5v-14l-5 4.5h-4Z" fill="currentColor"/><g class="on"><path d="M16 9a4.5 4.5 0 0 1 0 6"/><path d="M18.8 6a8.5 8.5 0 0 1 0 12"/></g><path class="off" d="m16 9 5.5 6m0-6L16 15" stroke="#e8402a"/></svg>
+      </button>
+      <button id="mode" aria-label="Trace or copy">
+        <svg class="trace" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10.5" r="7" stroke="#ff7a50" stroke-dasharray="0.1 3.6"/><path d="m11.5 21 1-4 7-7 3 3-7 7-4 1Z" fill="#ffd34d"/></svg>
+        <svg class="copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="1.5" y="1.5" width="9" height="9" rx="2" fill="#fff4e0"/><circle cx="6" cy="6" r="2.2" stroke="#ff5a36"/><circle cx="15.5" cy="15.5" r="6" stroke-width="2.6"/></svg>
+      </button>
+    </div>
+    <div id="act" class="group">
+      <button id="replay" aria-label="Show me again">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 12a8.5 8.5 0 1 0 2.5-6L3.5 8.5"/><path d="M3.5 3.5v5h5"/><path d="M10 8.5v7l5.5-3.5Z" fill="#ff5a36" stroke="#ff5a36" stroke-width="1.6"/></svg>
+      </button>
+      <button id="undo" aria-label="Undo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg>
+      </button>
+    </div>
+    <div id="nav" class="group">
+      <button id="prev" aria-label="Back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m11 5-7 7 7 7"/></svg>
+      </button>
+      <button id="next" aria-label="Next">
+        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+        <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.5 5 5 10-11"/></svg>
+      </button>
+    </div>
+  </main>
   <script type="module" src="./src/main.ts"></script>
 </body>
 </html>

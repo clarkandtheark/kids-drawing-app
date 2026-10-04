@@ -1,24 +1,19 @@
-// Temporary harness for the drawing engine; replaced by the real screens later.
-import { History } from './engine/history';
-import { Surface, suppressGestures } from './engine/surface';
+// Hash routing: #lesson/<id> shows that lesson, anything else the picker.
+import { suppressGestures } from './engine/surface';
+import { closeLesson, openLesson, type Lesson } from './lesson';
+import { hidePicker, showPicker } from './picker';
 
 suppressGestures();
-const ink = new Surface(document.querySelector<HTMLCanvasElement>('#ink')!, new History());
 
-const $ = (id: string) => document.getElementById(id)!;
-const eraser = $('eraser');
-const swatches = [...document.querySelectorAll<HTMLButtonElement>('.swatch')];
-
-$('undo').addEventListener('click', () => ink.history.undo());
-eraser.addEventListener('click', () => {
-  ink.eraser = !ink.eraser;
-  ink.size = ink.eraser ? 40 : 14;
-  eraser.ariaPressed = String(ink.eraser);
-});
-for (const b of swatches) b.addEventListener('click', () => {
-  ink.color = b.dataset.color!;
-  ink.eraser = false;
-  ink.size = 14;
-  eraser.ariaPressed = 'false';
-  for (const s of swatches) s.ariaPressed = String(s === b);
+fetch('./lessons.json').then((r) => r.json()).then((lessons: Lesson[]) => {
+  const route = () => {
+    const id = location.hash.match(/^#lesson\/(.+)$/)?.[1];
+    const l = lessons.find((l) => l.id === id);
+    if (l) { hidePicker(); openLesson(l); } // openLesson ignores a repeat for the open lesson
+    else { closeLesson(); showPicker(lessons, open); }
+  };
+  // Open synchronously inside the tap (speech needs the gesture), then let hashchange catch up.
+  const open = (l: Lesson) => { location.hash = `#lesson/${l.id}`; route(); };
+  addEventListener('hashchange', route);
+  route();
 });

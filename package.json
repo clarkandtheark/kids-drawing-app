@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "dev": "node scripts/build-lessons.mjs && vite",
+    "build": "node scripts/build-lessons.mjs && tsc --noEmit && vite build",
     "test": "playwright test",
     "render": "node scripts/render-lessons.mjs"
   },

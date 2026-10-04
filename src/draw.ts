@@ -2,7 +2,7 @@
 import { History } from './engine/history';
 import { Surface } from './engine/surface';
 import { saveDrawing } from './store';
-import { celebrate, mountTools, snapshot } from './tools';
+import { celebrate, layerPng, leave, mountTools, snapshot } from './tools';
 
 const root = document.querySelector<HTMLElement>('#free')!;
 const sheet = document.querySelector<HTMLElement>('#fsheet')!;
@@ -32,9 +32,18 @@ export function closeDraw() {
 /** Done: save to the gallery while celebrating, then go home. */
 async function finish() {
   const p = paint!;
-  const saved = snapshot([p]).then((png) => saveDrawing(png, null));
-  await Promise.all([celebrate(), saved.catch((e) => console.warn('save failed', e))]);
+  await Promise.all([celebrate(), save(p).catch((e) => console.warn('save failed', e))]);
   if (paint === p) location.hash = '';
 }
 
-document.querySelector('#fhome')!.addEventListener('click', () => { location.hash = ''; });
+/** Save the picture and its one (colour) layer as a new drawing; resolves with its id, undefined if nothing persisted. */
+async function save(p: Surface) {
+  p.history.dirty = false;
+  const [png, color] = await Promise.all([snapshot([p]), layerPng(p)]);
+  return saveDrawing(png, null, Date.now(), { color });
+}
+
+document.querySelector('#fhome')!.addEventListener('click', () => {
+  const p = paint;
+  if (p) leave(p.history, () => save(p), () => paint === p);
+});

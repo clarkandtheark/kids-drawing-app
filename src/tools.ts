@@ -1,5 +1,6 @@
 // Colour tools (crayons, brush sizes, eraser, fill bucket, undo, clear, Done) plus the Done flow helpers
 // (snapshot, celebrate). The lesson's Color mode mounts them; Free draw mounts the same on a blank canvas.
+import type { History } from './engine/history';
 import { LOGICAL, type Surface } from './engine/surface';
 import { say } from './speech';
 
@@ -21,6 +22,8 @@ export const ICON = {
   trash: svg('<path d="M3.5 6.5h17"/><path d="M9 6.5V4h6v2.5"/><path d="M5.5 6.5 6.8 20a1.5 1.5 0 0 0 1.5 1.3h7.4a1.5 1.5 0 0 0 1.5-1.3l1.3-13.5" fill="#cfe8ff"/><path d="M10 10.5v7m4-7v7"/>'),
   back: svg('<path d="M19 12H5"/><path d="m11 5-7 7 7 7"/>', 3),
   star: svg('<path d="m12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3-5.6-3-5.6 3 1.1-6.3-4.6-4.4 6.3-.9Z" fill="#ffd21f"/>', 1.6),
+  // a picture, like the My Drawings button: "put it in my drawings"
+  save: svg('<rect x="3" y="4" width="18" height="16" rx="3.5" fill="#fff"/><circle cx="9" cy="9.5" r="2" fill="#ffd21f" stroke="none"/><path d="m4.5 18 4.5-4.5 3.5 3 3-4 4.5 5.5Z" fill="#43c04f" stroke="none"/>', 2.2),
 };
 
 /**
@@ -52,7 +55,7 @@ export function mountTools(box: HTMLElement, paint: Surface, lines: Surface | nu
   paint.size = SIZES[1];
   sync();
 
-  box.addEventListener('click', async (e) => {
+  box.onclick = async (e) => { // onclick, not addEventListener: the box outlives a mount, a second listener would run Done twice
     const b = (e.target as Element).closest<HTMLButtonElement>('button');
     if (!b) return;
     const { color, size, tool: t, act } = b.dataset;
@@ -63,7 +66,7 @@ export function mountTools(box: HTMLElement, paint: Surface, lines: Surface | nu
     if (act === 'clear' && await confirmTrash('Clear it')) paint.clear();
     if (act === 'done') done();
     sync();
-  });
+  };
 
   paint.canvas.addEventListener('pointerdown', (e) => {
     if (tool !== 'fill' || paint.history.busy) return;
@@ -149,19 +152,29 @@ export function floodFill(paint: Surface, lines: Surface | null, sx: number, sy:
   return true;
 }
 
-/** Icon-only "really?" dialog (clear, delete, reset). Resolves true for the trash button, false for back or a tap outside. */
-export function confirmTrash(yesLabel: string) {
+/** Icon-only dialog with the given buttons; resolves with the tapped button's class, or null for a tap outside. */
+function ask(buttons: string) {
   const d = document.createElement('div');
   d.className = 'ask';
-  d.innerHTML = `<div class="group"><button class="no" aria-label="Keep it">${ICON.back}</button><button class="yes" aria-label="${yesLabel}">${ICON.trash}</button></div>`;
+  d.innerHTML = `<div class="group">${buttons}</div>`;
   document.body.append(d);
-  return new Promise<boolean>((resolve) => d.addEventListener('click', (e) => {
+  return new Promise<string | null>((resolve) => d.addEventListener('click', (e) => {
     const b = (e.target as Element).closest('button');
     if (!b && e.target !== d) return; // a tap on the box itself, between the buttons
     d.remove();
-    resolve(!!b?.classList.contains('yes'));
+    resolve(b?.className ?? null);
   }));
 }
+
+/** Icon-only "really?" dialog (clear, delete, reset). Resolves true for the trash button, false for back or a tap outside. */
+export const confirmTrash = async (yesLabel: string) =>
+  await ask(`<button class="no" aria-label="Keep it">${ICON.back}</button><button class="yes" aria-label="${yesLabel}">${ICON.trash}</button>`) === 'yes';
+
+/** Leaving with unsaved work: 'save' (the big picture button), 'trash', or null to keep drawing (back or a tap outside). */
+export const askSave = async () => {
+  const r = await ask(`<button class="no" aria-label="Keep drawing">${ICON.back}</button><button class="save" aria-label="Save it">${ICON.save}</button><button class="yes" aria-label="Throw it away">${ICON.trash}</button>`);
+  return r === 'save' ? 'save' : r === 'yes' ? 'trash' : null;
+};
 
 /** White background + colour + line art, as a square PNG (for the gallery). */
 export function snapshot(layers: Surface[], size = 1024) {
@@ -176,6 +189,34 @@ export function snapshot(layers: Surface[], size = 1024) {
     if (b) resolve(b); else reject(new Error('toBlob failed'));
   }, 'image/png'));
 }
+
+/**
+ * Home tap on a drawing screen. Without unsaved work (`history.dirty`) it just goes home. Otherwise it asks:
+ * save runs `save` and goes home only once that stored something (a failed save stays, so nothing is lost),
+ * trash goes home, back stays. `open()` is false once the screen has closed meanwhile (e.g. browser back).
+ */
+// ponytail: only the Home button asks. Browser back or an edited hash still discards unsaved work (the screen's
+// close releases its canvases cleanly); the home-screen app on iPad has no back button. Route hashchange here if it gets one.
+let leaving = false;
+export async function leave(history: History, save: () => Promise<unknown>, open: () => boolean) {
+  if (leaving) return;
+  if (!history.dirty) { location.hash = ''; return; }
+  leaving = true;
+  try {
+    const choice = await askSave();
+    if (!choice || !open()) return;
+    if (choice === 'save' && !await save().catch((e) => console.warn('save failed', e))) {
+      history.dirty = true;
+      return;
+    }
+    if (open()) location.hash = '';
+  } finally { leaving = false; }
+}
+
+/** One layer as a transparent PNG at the surface's full resolution (lossless for reopening). No temporary
+ * canvas: it encodes the surface's own. Await it before the screen releases its canvases (width = 0). */
+export const layerPng = (l: Surface) => new Promise<Blob>((resolve, reject) =>
+  l.canvas.toBlob((b) => (b ? resolve(b) : reject(new Error('toBlob failed'))), 'image/png'));
 
 const CHEERS = ['Hooray! You did it!', 'Wow, what a beautiful picture!', 'Amazing! Great job!'];
 const CONFETTI = ['#e8402a', '#ff8a1f', '#ffd21f', '#43c04f', '#4cc3ff', '#8e44d9', '#ff7eb6'];

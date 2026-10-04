@@ -48,6 +48,7 @@ test('after the first load, nothing touches the network', async ({ page, context
   await page.goto('./#lesson/cat');
   await drawAndNext(page);
   await page.locator('#home').tap();
+  await page.locator('.ask .yes').tap(); // unsaved ink: throw it away
   await expect(page.locator('#lesson')).toBeHidden();
   await page.goto('./#lesson/cat');
   await drawAndNext(page);

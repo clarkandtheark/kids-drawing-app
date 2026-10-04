@@ -185,6 +185,7 @@ test('every lesson: trace a stroke per step, the guide shows the right strokes, 
     await expect(page.locator('#guide')).toBeHidden();
     await expect(page.locator('.crayon')).toHaveCount(12);
     await page.locator('#home').tap();
+    await page.locator('.ask .yes').tap(); // her tracing is unsaved: throw it away
     await expect(page.locator('#menu')).toBeVisible();
   }
 });

@@ -215,13 +215,18 @@
       filter: drop-shadow(4px 0 0 #fff) drop-shadow(-4px 0 0 #fff) drop-shadow(0 4px 0 #fff) drop-shadow(0 -4px 0 #fff) drop-shadow(0 4px 0 rgb(90 61 30 / 0.35)); }
     .crayon:active { transform: translateY(-8px); }
 
-    /* Icon-only confirmation (clear) */
+    /* Icon-only confirmation (clear, delete, reset, leave) */
     .ask { position: fixed; inset: 0; z-index: 10; display: grid; place-items: center; background: rgb(90 61 30 / 0.45); }
     .ask .group { gap: 56px; padding: 48px 64px; background: #fff8ea; border-radius: 48px; box-shadow: 0 10px 0 #f4c76b; }
     .ask button { width: 136px; height: 136px; }
     .ask svg { width: 80px; height: 80px; }
     .ask .yes { background: #ff7a5c; color: #fff; box-shadow: 0 6px 0 #d4502f; }
     .ask .yes svg path[fill] { fill: #ffd8cc; }
+    /* Leaving with unsaved work: back | save | trash. Save is the big green one; trash the smallest, at the far end. */
+    .ask .save { width: 184px; height: 184px; background: #3dbb55; box-shadow: 0 7px 0 #279140; }
+    .ask .save svg { width: 116px; height: 116px; color: #279140; }
+    .ask .save ~ .yes { width: 112px; height: 112px; }
+    .ask .save ~ .yes svg { width: 64px; height: 64px; }
 
     /* Celebration */
     .party { position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; background: rgb(255 233 184 / 0.55); }

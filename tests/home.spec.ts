@@ -125,12 +125,14 @@ test('free draw: every control is 64px+, paint, Done saves a drawing with no les
   expect(list[0]).toMatchObject({ lessonId: null, type: 'image/png' });
 });
 
-test('free draw: home discards', async ({ page }) => {
+test('free draw: home with paint asks; trash discards', async ({ page }) => {
   await page.goto('./#draw');
   await expect(page.locator('#paint')).toBeVisible();
   await touchStroke(page, line([100, 500], [900, 500]));
   await page.locator('#fhome').tap();
+  await page.locator('.ask .yes').tap();
   await expect(page.locator('#menu')).toBeVisible();
+  await expect(page.locator('#paint')).toHaveCount(0);
   expect(await stored(page)).toHaveLength(0);
 });
 

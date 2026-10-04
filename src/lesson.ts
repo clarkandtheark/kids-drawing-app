@@ -3,7 +3,7 @@ import { History } from './engine/history';
 import { Surface } from './engine/surface';
 import { muted, say, setMuted, stopSpeech } from './speech';
 import { markCompleted, saveDrawing } from './store';
-import { celebrate, mountTools, snapshot } from './tools';
+import { celebrate, layerPng, leave, mountTools, snapshot } from './tools';
 
 export type Lesson = {
   id: string; title: string; difficulty: number; emoji: string;
@@ -62,9 +62,18 @@ function finishLesson() {
 /** Done in Color mode: save to the gallery and mark the lesson done while celebrating, then go home. */
 async function finishColoring() {
   const l = lesson!;
-  const saved = snapshot([color, ink]).then((png) => Promise.all([saveDrawing(png, l.id), markCompleted(l.id)]));
+  const saved = Promise.all([save(), markCompleted(l.id)]);
   await Promise.all([celebrate(), saved.catch((e) => console.warn('save failed', e))]);
   if (lesson === l) location.hash = '';
+}
+
+/** Save her picture and both layers as a new drawing (the guide is SVG, never on these canvases). The
+ * three PNG encodes run in parallel. Resolves with the new id, undefined if nothing persisted. */
+async function save() {
+  const l = lesson!;
+  ink.history.dirty = false;
+  const [png, i, c] = await Promise.all([snapshot([color, ink]), layerPng(ink), layerPng(color)]);
+  return saveDrawing(png, l.id, Date.now(), { ink: i, color: c });
 }
 
 function placeGuide() {
@@ -148,7 +157,7 @@ on('#mode', () => {
   placeGuide();
   animate(); // show the reference drawing itself in its new place
 });
-on('#home', () => { location.hash = ''; });
+on('#home', () => { const l = lesson; if (l) leave(ink.history, save, () => lesson === l); });
 on('#mute', () => {
   setMuted(!muted());
   mute.ariaPressed = String(muted());

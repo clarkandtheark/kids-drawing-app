@@ -1,0 +1,36 @@
+{
+  "id": "car",
+  "title": "Car",
+  "difficulty": 2,
+  "emoji": "🚗",
+  "steps": [
+    {
+      "say": "Draw a long car body with two round bumps cut out at the bottom for the wheels.",
+      "strokes": [ "M 150 445 L 850 445 A 60 60 0 0 1 910 505 L 910 625 A 30 30 0 0 1 880 655 L 863 655 A 118 118 0 0 0 627 655 L 373 655 A 118 118 0 0 0 137 655 L 120 655 A 30 30 0 0 1 90 625 L 90 505 A 60 60 0 0 1 150 445 Z" ]
+    },
+    {
+      "say": "Draw the top of the car, like a hill with a flat roof.",
+      "strokes": [ "M 245 445 L 333.8 276.4 A 40 40 0 0 1 369.1 255 L 584.4 255 A 40 40 0 0 1 617 271.8 L 740 445" ]
+    },
+    {
+      "say": "Draw two windows inside the top.",
+      "strokes": [ "M 318.4 378.6 L 360.5 298.6 A 18 18 0 0 1 376.4 289 L 450 289 A 18 18 0 0 1 468 307 L 468 387 A 18 18 0 0 1 450 405 L 334.3 405 A 18 18 0 0 1 318.4 378.6 Z", "M 518 387 L 518 307 A 18 18 0 0 1 536 289 L 578.2 289 A 18 18 0 0 1 592.8 296.6 L 649.7 376.6 A 18 18 0 0 1 635 405 L 536 405 A 18 18 0 0 1 518 387 Z" ]
+    },
+    {
+      "say": "Draw two big round wheels in the bumps.",
+      "strokes": [ "M 255 567 A 88 88 0 1 1 255 743 A 88 88 0 1 1 255 567 Z", "M 745 567 A 88 88 0 1 1 745 743 A 88 88 0 1 1 745 567 Z" ]
+    },
+    {
+      "say": "Put a little circle in the middle of each wheel.",
+      "strokes": [ "M 255 619 A 36 36 0 1 1 255 691 A 36 36 0 1 1 255 619 Z", "M 745 619 A 36 36 0 1 1 745 691 A 36 36 0 1 1 745 619 Z" ]
+    },
+    {
+      "say": "Draw a line down the middle for the door, and a little handle.",
+      "strokes": [ "M 493 445 L 493 655", "M 530 500 L 580 500" ]
+    },
+    {
+      "say": "Add a round headlight at the front and a light at the back!",
+      "strokes": [ "M 910 515 A 38 38 0 0 0 910 591", "M 90 520 A 28 28 0 0 1 90 576" ]
+    }
+  ]
+}

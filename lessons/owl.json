@@ -1,0 +1,70 @@
+{
+  "id": "owl",
+  "title": "Owl",
+  "difficulty": 2,
+  "emoji": "🦉",
+  "steps": [
+    {
+      "say": "Draw a big egg shape for the owl's body.",
+      "strokes": [
+        "M 500 130 C 700 130 790 330 790 530 C 790 730 680 860 500 860 C 320 860 210 730 210 530 C 210 330 300 130 500 130 Z"
+      ]
+    },
+    {
+      "say": "Add two pointy feather tufts on top.",
+      "strokes": [
+        "M 285 247.3 L 262 100 L 368 165.8",
+        "M 715 247.3 L 738 100 L 632 165.8"
+      ]
+    },
+    {
+      "say": "Draw two very big round eyes.",
+      "strokes": [
+        "M 305 375 A 92 92 0 0 1 443 295.3 A 92 92 0 0 1 443 454.7 A 92 92 0 0 1 305 375 Z",
+        "M 695 375 A 92 92 0 0 1 557 454.7 A 92 92 0 0 1 557 295.3 A 92 92 0 0 1 695 375 Z"
+      ]
+    },
+    {
+      "say": "Draw a smaller circle inside each eye.",
+      "strokes": [
+        "M 376 385 A 36 36 0 0 1 430 353.8 A 36 36 0 0 1 430 416.2 A 36 36 0 0 1 376 385 Z",
+        "M 624 385 A 36 36 0 0 1 570 416.2 A 36 36 0 0 1 570 353.8 A 36 36 0 0 1 624 385 Z"
+      ]
+    },
+    {
+      "say": "Draw a little triangle beak between the eyes.",
+      "strokes": [
+        "M 462 482 L 538 482 L 500 545 Z"
+      ]
+    },
+    {
+      "say": "Draw a curvy wing on each side.",
+      "strokes": [
+        "M 211.9 480 C 330 540 345 680 287.5 770",
+        "M 788.1 480 C 670 540 655 680 712.5 770"
+      ]
+    },
+    {
+      "say": "Draw a round belly with little u shapes for feathers.",
+      "strokes": [
+        "M 360 693 A 140 118 0 0 1 570 590.8 A 140 118 0 0 1 570 795.2 A 140 118 0 0 1 360 693 Z",
+        "M 425 640 C 425 680 475 680 475 640 C 475 680 525 680 525 640 C 525 680 575 680 575 640",
+        "M 450 715 C 450 755 500 755 500 715 C 500 755 550 755 550 715"
+      ]
+    },
+    {
+      "say": "Draw a long branch under the owl, with a little leaf.",
+      "strokes": [
+        "M 306.9 790 L 120 790 A 72.5 72.5 0 0 0 47.5 862.5 A 72.5 72.5 0 0 0 120 935 L 880 935 A 72.5 72.5 0 0 0 952.5 862.5 A 72.5 72.5 0 0 0 880 790 L 693.1 790",
+        "M 790 790 C 790 730 840 690 900 680 C 895 740 860 780 835 790"
+      ]
+    },
+    {
+      "say": "Finish with two feet holding on to the branch!",
+      "strokes": [
+        "M 362 828.6 C 358 900 405 900 401 845 C 397 900 444 900 440 854.8 C 436 900 483 900 479 859.4",
+        "M 521 859.4 C 517 900 564 900 560 854.8 C 556 900 603 900 599 845 C 595 900 642 900 638 828.6"
+      ]
+    }
+  ]
+}

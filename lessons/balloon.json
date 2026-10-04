@@ -1,0 +1,39 @@
+{
+  "id": "balloon",
+  "title": "Heart Balloon",
+  "difficulty": 1,
+  "emoji": "🎈",
+  "steps": [
+    {
+      "say": "Draw a big puffy heart for the balloon.",
+      "strokes": [
+        "M 500 655 C 420 605 205 455 205 225 A 160 160 0 0 1 500 139.1 A 160 160 0 0 1 795 225 C 795 455 580 605 500 655 Z"
+      ]
+    },
+    {
+      "say": "Add a little triangle knot at the bottom point.",
+      "strokes": [
+        "M 500 655 L 538 710 L 462 710 Z"
+      ]
+    },
+    {
+      "say": "Now draw a long wiggly string hanging down!",
+      "strokes": [
+        "M 500 710 L 500 835 C 500 865 450 865 450 895 C 450 925 500 910 500 940"
+      ]
+    },
+    {
+      "say": "Draw a curvy shine line inside the top.",
+      "strokes": [
+        "M 261.6 206.8 A 105 105 0 0 1 350.4 121"
+      ]
+    },
+    {
+      "say": "Tie a little bow on the string with two loops!",
+      "strokes": [
+        "M 500 790 C 380 650 380 930 500 790",
+        "M 500 790 C 620 650 620 930 500 790"
+      ]
+    }
+  ]
+}

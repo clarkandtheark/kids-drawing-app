@@ -1,0 +1,45 @@
+{
+  "id": "house",
+  "title": "House",
+  "difficulty": 1,
+  "emoji": "🏠",
+  "steps": [
+    {
+      "say": "Draw a big square for the house.",
+      "strokes": [
+        "M 230 420 L 770 420 L 770 870 L 230 870 Z"
+      ]
+    },
+    {
+      "say": "Draw a pointy triangle roof on top.",
+      "strokes": [
+        "M 230 420 L 500 140 L 770 420"
+      ]
+    },
+    {
+      "say": "Add a tall chimney on the roof.",
+      "strokes": [
+        "M 610 254.1 L 610 180 L 690 180 L 690 337"
+      ]
+    },
+    {
+      "say": "Draw a door with a round top at the bottom.",
+      "strokes": [
+        "M 300 870 L 300 680 A 65 65 0 0 1 430 680 L 430 870"
+      ]
+    },
+    {
+      "say": "Draw a square window next to the door.",
+      "strokes": [
+        "M 520 540 L 690 540 L 690 710 L 520 710 Z"
+      ]
+    },
+    {
+      "say": "Add a cross in the window!",
+      "strokes": [
+        "M 605 540 L 605 710",
+        "M 520 625 L 690 625"
+      ]
+    }
+  ]
+}

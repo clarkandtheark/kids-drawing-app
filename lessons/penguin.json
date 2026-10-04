@@ -1,0 +1,65 @@
+{
+  "id": "penguin",
+  "title": "Penguin",
+  "difficulty": 3,
+  "emoji": "🐧",
+  "steps": [
+    {
+      "say": "Draw a big egg shape for the penguin's body.",
+      "strokes": [
+        "M 500 80 C 660 80 750 380 750 580 C 750 770 640 860 500 860 C 360 860 250 770 250 580 C 250 380 340 80 500 80 Z"
+      ]
+    },
+    {
+      "say": "Inside, draw a tummy shape with a heart on top for the face.",
+      "strokes": [
+        "M 500 255 C 470 165 340 160 335 290 C 330 400 300 600 340 715 C 375 815 450 830 500 830 C 550 830 625 815 660 715 C 700 600 670 400 665 290 C 660 160 530 165 500 255 Z"
+      ]
+    },
+    {
+      "say": "Draw two big round eyes in the heart.",
+      "strokes": [
+        "M 381 290 A 34 34 0 1 1 449 290 A 34 34 0 1 1 381 290 Z",
+        "M 551 290 A 34 34 0 1 1 619 290 A 34 34 0 1 1 551 290 Z"
+      ]
+    },
+    {
+      "say": "Put a dark dot in each eye.",
+      "strokes": [
+        "M 411 294 A 7 7 0 1 1 425 294 A 7 7 0 1 1 411 294 Z",
+        "M 575 294 A 7 7 0 1 1 589 294 A 7 7 0 1 1 575 294 Z"
+      ]
+    },
+    {
+      "say": "Add a little triangle beak between the eyes.",
+      "strokes": [
+        "M 455 345 L 545 345 L 500 405 Z"
+      ]
+    },
+    {
+      "say": "Draw a flipper wing on this side of the body.",
+      "strokes": [
+        "M 270.1 400 C 180 430 110 580 100 680 C 95 720 140 715 251 610"
+      ]
+    },
+    {
+      "say": "Now draw a flipper wing on the other side!",
+      "strokes": [
+        "M 729.9 400 C 820 430 890 580 900 680 C 895 720 860 715 749 610"
+      ]
+    },
+    {
+      "say": "Draw two flat feet with three little toes each.",
+      "strokes": [
+        "M 345 811.3 L 300 895 A 30 30 0 0 0 360 895 A 30 30 0 0 0 420 895 A 30 30 0 0 0 480 895 L 455 856.7",
+        "M 545 856.7 L 520 895 A 30 30 0 0 0 580 895 A 30 30 0 0 0 640 895 A 30 30 0 0 0 700 895 L 655 811.3"
+      ]
+    },
+    {
+      "say": "Give your penguin a fancy bow tie!",
+      "strokes": [
+        "M 500 480 L 415 435 L 415 525 L 585 435 L 585 525 Z"
+      ]
+    }
+  ]
+}

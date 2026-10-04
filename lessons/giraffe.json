@@ -1,0 +1,83 @@
+{
+  "id": "giraffe",
+  "title": "Giraffe",
+  "difficulty": 3,
+  "emoji": "🦒",
+  "steps": [
+    {
+      "say": "Draw a big oval for the giraffe's body.",
+      "strokes": [
+        "M 175 578 A 195 92 0 1 1 565 578 A 195 92 0 1 1 175 578 Z"
+      ]
+    },
+    {
+      "say": "Way up high, draw a round head with a round nose.",
+      "strokes": [
+        "M 792.2 153.9 A 74 74 0 1 0 766.7 227.4 A 52 52 0 1 0 792.2 153.9 Z"
+      ]
+    },
+    {
+      "say": "Draw two long lines from the body up to the head for the long neck.",
+      "strokes": [
+        "M 436.7 491.5 C 490 360 570 260 648.5 189.2",
+        "M 546.7 539.1 C 630 430 700 340 707.2 242.9"
+      ]
+    },
+    {
+      "say": "Add two little horns with balls on top, and a pointy ear.",
+      "strokes": [
+        "M 692.3 101.4 L 678 81 A 19 19 0 1 1 678 43 A 19 19 0 1 1 678 81",
+        "M 730.3 96.7 L 740 79 A 19 19 0 1 1 740 41 A 19 19 0 1 1 740 79",
+        "M 648.5 150.8 Q 600 135 565 105 Q 620 100 665 120.5"
+      ]
+    },
+    {
+      "say": "Give your giraffe an eye, a nose dot, and a smile.",
+      "strokes": [
+        "M 731 158 A 7 7 0 1 1 745 158 A 7 7 0 1 1 731 158 Z",
+        "M 831 183 A 7 7 0 1 1 845 183 A 7 7 0 1 1 831 183 Z",
+        "M 788 218 Q 812 240 834 215"
+      ]
+    },
+    {
+      "say": "Draw two long back legs with a line on each hoof.",
+      "strokes": [
+        "M 195 618.6 L 195 900 A 22.5 22.5 0 0 0 240 900 L 240 760 A 18.5 18.5 0 0 1 277 760 L 277 900 A 22.5 22.5 0 0 0 322 900 L 322 667.2",
+        "M 195 900 L 240 900",
+        "M 277 900 L 322 900"
+      ]
+    },
+    {
+      "say": "Now draw two long front legs the same way.",
+      "strokes": [
+        "M 425 666.3 L 425 900 A 22.5 22.5 0 0 0 470 900 L 470 760 A 18.5 18.5 0 0 1 507 760 L 507 900 A 22.5 22.5 0 0 0 552 900 L 552 611",
+        "M 425 900 L 470 900",
+        "M 507 900 L 552 900"
+      ]
+    },
+    {
+      "say": "Draw a bumpy mane on the neck and a tail with a tuft.",
+      "strokes": [
+        "M 453.5 453 A 40.4 40.4 0 0 1 491.1 381.6 A 38.3 38.3 0 0 1 533.2 317.6 A 36.2 36.2 0 0 1 578.2 260.9 A 34.1 34.1 0 0 1 624.9 211.3",
+        "M 176.9 590.8 Q 130 640 115 720",
+        "M 115 720 C 82 748 88 808 115 820 C 142 808 148 748 115 720 Z"
+      ]
+    },
+    {
+      "say": "Draw three big round spots on the body.",
+      "strokes": [
+        "M 223 585 A 48 34 -12 1 1 317 565 A 48 34 -12 1 1 223 585 Z",
+        "M 331.4 528.9 A 44 30 8 1 1 418.6 541.1 A 44 30 8 1 1 331.4 528.9 Z",
+        "M 412.4 617.3 A 38 24 -8 1 1 487.6 606.7 A 38 24 -8 1 1 412.4 617.3 Z"
+      ]
+    },
+    {
+      "say": "Add three more spots going up the neck!",
+      "strokes": [
+        "M 516.4 477.9 A 36 38.3 -62.2 1 1 550 414.2 A 36 38.3 -62.2 1 1 516.4 477.9 Z",
+        "M 569.5 387.3 A 36 40.5 -54.6 1 1 611.3 328.6 A 36 40.5 -54.6 1 1 569.5 387.3 Z",
+        "M 617.7 305.2 A 36 30 -47.6 1 1 666.2 252 A 36 30 -47.6 1 1 617.7 305.2 Z"
+      ]
+    }
+  ]
+}

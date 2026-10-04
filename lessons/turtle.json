@@ -1,0 +1,40 @@
+{
+  "id": "turtle",
+  "title": "Turtle",
+  "difficulty": 2,
+  "emoji": "🐢",
+  "steps": [
+    {
+      "say": "Draw a big round dome for the turtle's shell.",
+      "strokes": [ "M 160 550 A 300 280 0 0 1 760 550 Z" ]
+    },
+    {
+      "say": "Draw a long flat strip under the shell.",
+      "strokes": [ "M 160 550 L 140 550 A 30 30 0 0 0 140 610 L 780 610 A 30 30 0 0 0 780 550 L 760 550" ]
+    },
+    {
+      "say": "Draw a shape like a little house in the middle of the shell.",
+      "strokes": [ "M 355 550 L 370 420 L 460 365 L 550 420 L 565 550" ]
+    },
+    {
+      "say": "Draw three lines from the little house out to the edge of the shell.",
+      "strokes": [ "M 370 420 L 214.3 389.4", "M 460 365 L 460 270", "M 550 420 L 705.7 389.4" ]
+    },
+    {
+      "say": "Draw a round head on a short neck at the front.",
+      "strokes": [ "M 748.4 472.8 L 782.9 427 A 85 85 0 1 1 850.2 488.7 Q 835 535 792.7 552.8" ]
+    },
+    {
+      "say": "Give your turtle an eye and a happy smile.",
+      "strokes": [ "M 878 377 A 10 10 0 1 1 898 377 A 10 10 0 1 1 878 377 Z", "M 858 432 Q 893 462 925 427" ]
+    },
+    {
+      "say": "Draw two stubby legs under the shell.",
+      "strokes": [ "M 225 610 L 225 655 A 55 55 0 0 0 335 655 L 335 610", "M 590 610 L 590 655 A 55 55 0 0 0 700 655 L 700 610" ]
+    },
+    {
+      "say": "Add a little pointy tail at the back!",
+      "strokes": [ "M 181.8 445.1 L 65 515 L 160.7 530.5" ]
+    }
+  ]
+}

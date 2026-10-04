@@ -1,0 +1,55 @@
+{
+  "id": "tree",
+  "title": "Tree",
+  "difficulty": 2,
+  "emoji": "🌳",
+  "steps": [
+    {
+      "say": "Draw a big puffy cloud shape for the tree top.",
+      "strokes": [
+        "M 402.1 598.5 A 125.5 125.5 0 0 1 227.5 495.9 A 104.7 104.7 0 0 1 183.9 332.8 A 112.2 112.2 0 0 1 292.0 187.6 A 133.8 133.8 0 0 1 500.0 130.0 A 133.8 133.8 0 0 1 708.0 187.6 A 112.2 112.2 0 0 1 816.1 332.8 A 104.7 104.7 0 0 1 772.5 495.9 A 125.5 125.5 0 0 1 597.9 598.5 A 121.4 121.4 0 0 1 402.1 598.5 Z"
+      ]
+    },
+    {
+      "say": "Draw two lines going down for the trunk, spreading out at the bottom.",
+      "strokes": [
+        "M 402.1 598.5 C 407.1 748.5 397.1 820 317.1 890",
+        "M 597.9 598.5 C 592.9 748.5 602.9 820 682.9 890"
+      ]
+    },
+    {
+      "say": "Draw a long flat line along the bottom for the ground.",
+      "strokes": [
+        "M 130 890 L 870 890"
+      ]
+    },
+    {
+      "say": "Add a little oval hole on the trunk.",
+      "strokes": [
+        "M 444 745 A 26 36 0 1 1 496 745 A 26 36 0 1 1 444 745 Z"
+      ]
+    },
+    {
+      "say": "Draw three round apples in the tree.",
+      "strokes": [
+        "M 293 300 A 37 37 0 1 1 367 300 A 37 37 0 1 1 293 300 Z",
+        "M 523 240 A 37 37 0 1 1 597 240 A 37 37 0 1 1 523 240 Z",
+        "M 653 420 A 37 37 0 1 1 727 420 A 37 37 0 1 1 653 420 Z"
+      ]
+    },
+    {
+      "say": "Add two more apples!",
+      "strokes": [
+        "M 363 470 A 37 37 0 1 1 437 470 A 37 37 0 1 1 363 470 Z",
+        "M 483 380 A 37 37 0 1 1 557 380 A 37 37 0 1 1 483 380 Z"
+      ]
+    },
+    {
+      "say": "Draw some pointy grass on the ground.",
+      "strokes": [
+        "M 170 890 L 190 835 L 210 890 L 230 815 L 250 890 L 270 835 L 290 890",
+        "M 710 890 L 730 835 L 750 890 L 770 815 L 790 890 L 810 835 L 830 890"
+      ]
+    }
+  ]
+}

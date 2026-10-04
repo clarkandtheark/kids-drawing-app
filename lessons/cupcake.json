@@ -1,0 +1,62 @@
+{
+  "id": "cupcake",
+  "title": "Cupcake",
+  "difficulty": 2,
+  "emoji": "🧁",
+  "steps": [
+    {
+      "say": "Draw a cup shape that is wide at the top and narrow at the bottom.",
+      "strokes": [
+        "M 255 630 L 745 630 L 680 905 Q 675 925 655 925 L 345 925 Q 325 925 320 905 Z"
+      ]
+    },
+    {
+      "say": "Draw three lines down the cup to make the paper folds.",
+      "strokes": [
+        "M 377.5 630 L 417.5 925",
+        "M 500.0 630 L 500.0 925",
+        "M 622.5 630 L 582.5 925"
+      ]
+    },
+    {
+      "say": "Draw a big puffy pile of frosting on top of the cup.",
+      "strokes": [
+        "M 275 630 C 190 630 201.6 513.0 300 495 C 420.0 473 580.0 473 700 495 C 798.4 513.0 810 630 725 630"
+      ]
+    },
+    {
+      "say": "Draw a smaller puffy layer on top of that one.",
+      "strokes": [
+        "M 335 489.4 C 260 489.4 272.9 392.8 360 370 C 444.0 348 556.0 348 640 370 C 727.1 392.8 740 489.4 665 489.4"
+      ]
+    },
+    {
+      "say": "Now draw the smallest puffy layer at the very top!",
+      "strokes": [
+        "M 395 362.4 C 325 362.4 351.3 300.1 420 250 C 468.0 215 532.0 215 580 250 C 648.7 300.1 675 362.4 605 362.4"
+      ]
+    },
+    {
+      "say": "Put a round cherry on top, with a little stem.",
+      "strokes": [
+        "M 467.9 227.6 A 56 56 0 1 1 532.1 227.6",
+        "M 500 125.8 Q 508 80.8 555 63.8"
+      ]
+    },
+    {
+      "say": "Add three little sprinkles on the bottom frosting.",
+      "strokes": [
+        "M 325.9 559.0 L 364.1 581.0",
+        "M 480.1 569.3 L 519.9 550.7",
+        "M 637.0 557.4 L 673.0 582.6"
+      ]
+    },
+    {
+      "say": "Add two more sprinkles higher up!",
+      "strokes": [
+        "M 405.9 436.0 L 444.1 414.0",
+        "M 555.1 415.7 L 594.9 434.3"
+      ]
+    }
+  ]
+}

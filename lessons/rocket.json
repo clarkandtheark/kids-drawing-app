@@ -1,0 +1,54 @@
+{
+  "id": "rocket",
+  "title": "Rocket",
+  "difficulty": 2,
+  "emoji": "🚀",
+  "steps": [
+    {
+      "say": "Draw a tall rocket shape with a pointy top.",
+      "strokes": [
+        "M 500 60 C 580 120 650 260 650 420 L 650 680 Q 650 720 610 720 L 390 720 Q 350 720 350 680 L 350 420 C 350 260 420 120 500 60 Z"
+      ]
+    },
+    {
+      "say": "Draw a curvy line across the top to make the nose.",
+      "strokes": [
+        "M 382.0 235 Q 500 265 618.0 235"
+      ]
+    },
+    {
+      "say": "Draw a round window, with a smaller circle inside.",
+      "strokes": [
+        "M 418 420 A 82 82 0 1 1 582 420 A 82 82 0 1 1 418 420 Z",
+        "M 453 420 A 47 47 0 1 1 547 420 A 47 47 0 1 1 453 420 Z"
+      ]
+    },
+    {
+      "say": "Add a curvy fin on each side at the bottom.",
+      "strokes": [
+        "M 350 510 C 255 540 200 620 215 800 C 250 745 300 715 350 660",
+        "M 650 510 C 745 540 800 620 785 800 C 750 745 700 715 650 660"
+      ]
+    },
+    {
+      "say": "Draw a little box under the rocket for the engine.",
+      "strokes": [
+        "M 440 720 L 420 785 L 580 785 L 560 720"
+      ]
+    },
+    {
+      "say": "Add a big flame coming out the bottom, with a small flame inside!",
+      "strokes": [
+        "M 435 785 C 405 860 470 890 500 960 C 530 890 595 860 565 785",
+        "M 475 785 C 465 830 490 850 500 890 C 510 850 535 830 525 785"
+      ]
+    },
+    {
+      "say": "Draw two twinkly stars in the sky!",
+      "strokes": [
+        "M 170.0 130.0 L 188.2 174.9 L 236.6 178.4 L 199.5 209.6 L 211.1 256.6 L 170.0 231.0 L 128.9 256.6 L 140.5 209.6 L 103.4 178.4 L 151.8 174.9 Z",
+        "M 830.0 260.0 L 848.2 304.9 L 896.6 308.4 L 859.5 339.6 L 871.1 386.6 L 830.0 361.0 L 788.9 386.6 L 800.5 339.6 L 763.4 308.4 L 811.8 304.9 Z"
+      ]
+    }
+  ]
+}

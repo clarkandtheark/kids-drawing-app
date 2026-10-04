@@ -1,0 +1,70 @@
+{
+  "id": "bunny",
+  "title": "Bunny",
+  "difficulty": 2,
+  "emoji": "🐰",
+  "steps": [
+    {
+      "say": "Draw a big circle for the head.",
+      "strokes": [
+        "M 335 440 A 165 165 0 0 1 582.5 297.1 A 165 165 0 0 1 582.5 582.9 A 165 165 0 0 1 335 440 Z"
+      ]
+    },
+    {
+      "say": "Draw two very long ears standing up on top!",
+      "strokes": [
+        "M 465.7 278.6 C 480 190 450 50 400 50 C 350 50 340 200 377.4 329.6",
+        "M 534.3 278.6 C 520 190 550 50 600 50 C 650 50 660 200 622.6 329.6"
+      ]
+    },
+    {
+      "say": "Draw a long skinny loop inside each ear.",
+      "strokes": [
+        "M 435.5 288.1 C 452 200 440 110 410 110 C 380 110 385 220 398.4 310",
+        "M 564.5 288.1 C 548 200 560 110 590 110 C 620 110 615 220 601.6 310"
+      ]
+    },
+    {
+      "say": "Draw a chubby round body under the head.",
+      "strokes": [
+        "M 417.5 582.9 C 285 640 260 895 500 895 C 740 895 715 640 582.5 582.9"
+      ]
+    },
+    {
+      "say": "Add two big feet at the bottom.",
+      "strokes": [
+        "M 483.6 894.5 A 92 46 0 0 1 336.1 926.5 A 92 46 0 0 1 359.3 847",
+        "M 640.7 847 A 92 46 0 0 1 663.9 926.5 A 92 46 0 0 1 516.4 894.5"
+      ]
+    },
+    {
+      "say": "Draw a fluffy cloud tail on the side.",
+      "strokes": [
+        "M 679.9 718.4 A 33.3 33.3 0 0 1 743.9 720.1 A 33.3 33.3 0 0 1 769.9 778.5 A 33.3 33.3 0 0 1 728.5 827.2 A 33.3 33.3 0 0 1 666.7 810.9"
+      ]
+    },
+    {
+      "say": "Give your bunny two eyes and a little nose.",
+      "strokes": [
+        "M 437 395 A 20 25 0 0 1 454.3 432.5 A 20 25 0 0 1 419.7 432.5 A 20 25 0 0 1 437 395 Z",
+        "M 563 395 A 20 25 0 0 1 580.3 432.5 A 20 25 0 0 1 545.7 432.5 A 20 25 0 0 1 563 395 Z",
+        "M 478 472 Q 500 464 522 472 Q 524 478 500 498 Q 476 478 478 472 Z"
+      ]
+    },
+    {
+      "say": "Draw a smile and two big front teeth.",
+      "strokes": [
+        "M 445 505 C 452 535 494 535 500 498 C 506 535 548 535 555 505",
+        "M 466 526.2 L 466 575 L 534 575 L 534 526.2",
+        "M 500 498 L 500 575"
+      ]
+    },
+    {
+      "say": "Finish with whiskers on both cheeks!",
+      "strokes": [
+        "M 240 430 L 335.4 451.5 L 248 515",
+        "M 760 430 L 664.6 451.5 L 752 515"
+      ]
+    }
+  ]
+}

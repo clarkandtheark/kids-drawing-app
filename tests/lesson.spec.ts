@@ -75,7 +75,8 @@ test('walk the cat lesson: guide paths per step, ink persists, speech per step, 
   const lines = await said(page);
   for (const s of cat.steps) expect(lines).toContain(s.say);
   expect(lines.at(-1)).toBe(cat.steps[N - 1].say);
-  await page.locator('#next').tap(); // last checkmark: Color mode, then Done celebrates and goes home
+  await page.locator('#next').tap(); // last checkmark: the result, then Color mode, then Done celebrates and goes home
+  await page.locator('.result .go').tap();
   await expect(page.locator('#lesson')).toHaveAttribute('data-phase', 'color');
   await page.locator('[data-act=done]').tap();
   await expect(page.locator('#menu')).toBeVisible({ timeout: 5000 });

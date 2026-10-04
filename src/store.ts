@@ -82,7 +82,7 @@ export const markCompleted = (lessonId: string) => tx('kv', 'readwrite', (s) => 
   };
 });
 
-export const resetProgress = () => tx('kv', 'readwrite', (s) => { s.delete('completed'); });
+export const resetProgress = () => tx('kv', 'readwrite', (s) => { s.delete('completed'); s.delete('scores'); });
 
 export const getSetting = async <T>(key: string, fallback: T) =>
   ((await tx<T>('kv', 'readonly', (s) => s.get(`setting:${key}`))) ?? fallback) as T;
@@ -90,4 +90,18 @@ export const getSetting = async <T>(key: string, fallback: T) =>
 export const setSetting = (key: string, value: unknown) => tx('kv', 'readwrite', (s) => {
   s.put(value, `setting:${key}`);
   s.transaction.commit?.(); // flush now: a toggle should survive the app being closed right after
+});
+
+// Grading: her best result per lesson, one 'scores' record in the kv store ({ [lessonId]: Best }).
+export type Best = { percent: number; stars: 1 | 2 | 3 };
+
+export const getScores = async () => (await tx<Record<string, Best>>('kv', 'readonly', (s) => s.get('scores'))) ?? {};
+
+/** Keep `score` if it beats the stored best for the lesson; a worse attempt never lowers it. */
+export const saveScore = (lessonId: string, score: Best) => tx('kv', 'readwrite', (s) => {
+  const r = s.get('scores');
+  r.onsuccess = () => {
+    const all: Record<string, Best> = r.result ?? {};
+    if ((all[lessonId]?.percent ?? -1) < score.percent) s.put({ ...all, [lessonId]: score }, 'scores');
+  };
 });

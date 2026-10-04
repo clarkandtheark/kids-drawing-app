@@ -19,6 +19,9 @@ export class Surface {
   eraser = false;
   /** False: pointers don't draw (e.g. the fill bucket handles taps itself). */
   enabled = true;
+  /** Called once per committed non-eraser stroke with its input points in logical 0..1000 space (a tap is one point). */
+  onStroke?: (points: { x: number; y: number }[]) => void;
+  private pts: { x: number; y: number }[] = [];
   readonly resolution: number;
   readonly ctx: CanvasRenderingContext2D;
   private before = document.createElement('canvas'); // last committed state, source of undo patches
@@ -114,6 +117,7 @@ export class Surface {
     this.last = p;
     this.mid = p;
     this.box = [p.x, p.y, p.x, p.y];
+    this.pts = [{ x: p.x, y: p.y }];
     const c = this.ctx;
     c.globalCompositeOperation = this.eraser ? 'destination-out' : 'source-over';
     c.fillStyle = c.strokeStyle = this.color;
@@ -135,7 +139,8 @@ export class Surface {
       this.segment(this.mid, this.last, m, this.last.w);
       this.mid = m;
       this.last = p;
-      this.box = [Math.min(this.box[0], p.x), Math.min(this.box[1], p.y), Math.max(this.box[2], p.x), Math.max(this.box[3], p.y)];
+      this.pts.push({ x: p.x, y: p.y });
+      this.box =[Math.min(this.box[0], p.x), Math.min(this.box[1], p.y), Math.max(this.box[2], p.x), Math.max(this.box[3], p.y)];
     }
   }
 
@@ -149,6 +154,7 @@ export class Surface {
     const pad = (this.size * 1.6) / 2 + 2, k = this.resolution / LOGICAL;
     const [x0, y0, x1, y1] = this.box;
     this.commit({ x: (x0 - pad) * k, y: (y0 - pad) * k, w: (x1 - x0 + 2 * pad) * k, h: (y1 - y0 + 2 * pad) * k });
+    if (!this.eraser) this.onStroke?.(this.pts);
   }
 
   private revert() {

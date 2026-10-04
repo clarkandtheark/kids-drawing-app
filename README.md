@@ -18,7 +18,8 @@ Live site: https://clarkandtheark.github.io/kids-drawing-app/
 - `npm run dev`: dev server with hot reload (no service worker in dev, so you always see fresh files).
 - `npm test`: Playwright tests against the dev server in iPad portrait and landscape. `PORT=5182 npm test` picks another port.
 - `npm run test:offline`: builds for production, serves `dist/` under `/kids-drawing-app/` on port 5183 and checks
-  the offline cache, manifest and icons. The server stops when the tests finish.
+  the offline cache, manifest and icons, then runs the end-to-end pass (every lesson, a full journey, offline,
+  rotation) and writes review screenshots to `review/final/`. The server stops when the tests finish.
 - `npm run render`: validates `lessons/*.json` and writes review PNGs to `review/`.
 
 ## Offline cache and updates

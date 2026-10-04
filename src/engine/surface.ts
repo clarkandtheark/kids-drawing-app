@@ -185,10 +185,14 @@ export class Surface {
 /**
  * Stop iPad Safari page gestures (rubber-band scroll, pinch and double-tap zoom, text selection,
  * callouts) on the whole document. Safari ignores user-scalable=no, hence the non-passive listeners.
+ * Exception: a one-finger touchmove that starts inside a `.scroll` container (home, gallery) may scroll;
+ * two-finger moves and the gesture* (pinch) events stay blocked everywhere.
  */
 export function suppressGestures() {
   const stop = (e: Event) => e.preventDefault();
-  document.addEventListener('touchmove', stop, { passive: false });
+  document.addEventListener('touchmove', (e) => {
+    if (e.touches.length > 1 || !(e.target as Element).closest?.('.scroll')) e.preventDefault();
+  }, { passive: false });
   for (const t of ['gesturestart', 'gesturechange', 'gestureend', 'contextmenu', 'selectstart']) {
     document.addEventListener(t, stop, { passive: false });
   }

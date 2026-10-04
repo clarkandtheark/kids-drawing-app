@@ -175,7 +175,7 @@ test('done: celebration, picker, then after reload the gallery has the drawing, 
   await page.locator('[data-act=done]').tap();
   await expect(page.locator('.party')).toBeVisible();
   expect((await page.evaluate(() => (window as any).__said)).at(-1)).toMatch(/!/);
-  await expect(page.locator('#picker')).toBeVisible({ timeout: 5000 });
+  await expect(page.locator('#menu')).toBeVisible({ timeout: 5000 });
   await expect(page.locator('.party')).toHaveCount(0);
   await expect(page.locator('.card[data-id=cat]')).toHaveClass(/done/);
   await expect(page.locator('.card[data-id=fish]')).not.toHaveClass(/done/);
@@ -237,7 +237,7 @@ test('color review screenshots', async ({ page }, info) => {
   await page.locator('[data-act=done]').tap();
   await page.waitForTimeout(700);
   await page.screenshot({ path: name('party') });
-  await expect(page.locator('#picker')).toBeVisible({ timeout: 5000 });
+  await expect(page.locator('#menu')).toBeVisible({ timeout: 5000 });
   await expect(page.locator('.card[data-id=cat]')).toHaveClass(/done/);
   await page.screenshot({ path: name('picker') });
 });

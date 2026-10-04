@@ -14,7 +14,7 @@ const GROW = 2; // px the fill creeps under the line art, so anti-aliased edges 
 
 const svg = (body: string, sw = 2.6) =>
   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">${body}</svg>`;
-const ICON = {
+export const ICON = {
   eraser: svg('<path d="m3.5 15 9-9.5a2 2 0 0 1 2.8 0l4.2 4.2a2 2 0 0 1 0 2.8L13 19H7.5Z" fill="#ff9ec4"/><path d="m8 10.5 7 7" /><path d="M13 19h7.5"/>'),
   fill: svg('<path d="m4 11 7-7 8 8-7 7a2 2 0 0 1-2.8 0L4 13.8a2 2 0 0 1 0-2.8Z" fill="#fff4e0"/><path d="M4.2 12h14.6l-6.8 7a2 2 0 0 1-2.8 0Z" fill="var(--cur)" stroke="none"/><path d="m4 11 7-7 8 8-7 7a2 2 0 0 1-2.8 0L4 13.8a2 2 0 0 1 0-2.8Z"/><path d="M8 2.5 11 5.5"/><path d="M20.5 15.5s-2 2.4-2 3.7a2 2 0 0 0 4 0c0-1.3-2-3.7-2-3.7Z" fill="var(--cur)" stroke-width="1.6"/>'),
   undo: svg('<path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/>', 2.8),
@@ -60,7 +60,7 @@ export function mountTools(box: HTMLElement, paint: Surface, lines: Surface | nu
     if (size) { paint.size = +size; if (tool === 'fill') tool = 'brush'; }
     if (t) tool = tool === t ? 'brush' : t as typeof tool; // tapping the active tool again goes back to the brush
     if (act === 'undo') paint.history.undo();
-    if (act === 'clear' && await confirmClear()) paint.clear();
+    if (act === 'clear' && await confirmTrash('Clear it')) paint.clear();
     if (act === 'done') done();
     sync();
   });
@@ -139,11 +139,11 @@ export function floodFill(paint: Surface, lines: Surface | null, sx: number, sy:
   return true;
 }
 
-/** Icon-only "really clear?" dialog. Resolves true for the trash button, false for back or a tap outside. */
-function confirmClear() {
+/** Icon-only "really?" dialog (clear, delete, reset). Resolves true for the trash button, false for back or a tap outside. */
+export function confirmTrash(yesLabel: string) {
   const d = document.createElement('div');
   d.className = 'ask';
-  d.innerHTML = `<div class="group"><button class="no" aria-label="Keep it">${ICON.back}</button><button class="yes" aria-label="Clear it">${ICON.trash}</button></div>`;
+  d.innerHTML = `<div class="group"><button class="no" aria-label="Keep it">${ICON.back}</button><button class="yes" aria-label="${yesLabel}">${ICON.trash}</button></div>`;
   document.body.append(d);
   return new Promise<boolean>((resolve) => d.addEventListener('click', (e) => {
     const b = (e.target as Element).closest('button');

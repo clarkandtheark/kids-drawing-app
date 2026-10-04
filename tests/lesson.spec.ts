@@ -1,5 +1,5 @@
 import { test, expect, type Page } from '@playwright/test';
-import { ink, line, touchStroke } from './helpers';
+import { ink, lessons, line, touchStroke } from './helpers';
 import cat from '../lessons/cat.json' with { type: 'json' };
 
 const N = cat.steps.length;
@@ -31,14 +31,14 @@ const openCat = async (page: Page) => {
 
 test('picker shows a card per lesson; tapping cat opens it', async ({ page }) => {
   await page.goto('./');
-  await expect(page.locator('.card')).toHaveCount(3);
+  await expect(page.locator('.card')).toHaveCount((await lessons(page)).length);
   await expect(page.locator('.card[data-id=cat] svg path')).toHaveCount(cat.steps.flatMap((s) => s.strokes).length);
   await page.locator('.card[data-id=cat]').tap();
   await expect(page).toHaveURL(/#lesson\/cat$/);
-  await expect(page.locator('#picker')).toBeHidden();
+  await expect(page.locator('#menu')).toBeHidden();
   await expect(page.locator('#sheet #guide')).toHaveCount(1);
   await page.locator('#home').tap();
-  await expect(page.locator('.card')).toHaveCount(3);
+  await expect(page.locator('.card')).toHaveCount((await lessons(page)).length);
   await expect(page.locator('#lesson')).toBeHidden();
 });
 
@@ -78,7 +78,7 @@ test('walk the cat lesson: guide paths per step, ink persists, speech per step, 
   await page.locator('#next').tap(); // last checkmark: Color mode, then Done celebrates and goes home
   await expect(page.locator('#lesson')).toHaveAttribute('data-phase', 'color');
   await page.locator('[data-act=done]').tap();
-  await expect(page.locator('#picker')).toBeVisible({ timeout: 5000 });
+  await expect(page.locator('#menu')).toBeVisible({ timeout: 5000 });
 });
 
 test('replay restarts the animation; undo removes the last stroke', async ({ page }) => {
@@ -159,7 +159,7 @@ test('every control is at least 64px and clear of the canvas, in both modes', as
 test('review screenshots', async ({ page }, info) => {
   const name = (s: string) => `review/lesson-${s}-${info.project.name}.png`;
   await page.goto('./');
-  await expect(page.locator('.card')).toHaveCount(3);
+  await expect(page.locator('.card')).toHaveCount((await lessons(page)).length);
   await page.screenshot({ path: name('picker') });
   await page.locator('.card[data-id=cat]').tap();
   for (let i = 0; i < 3; i++) {

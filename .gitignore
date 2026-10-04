@@ -3,3 +3,4 @@ review/
 dist/
 test-results/
 playwright-report/
+public/lessons.json

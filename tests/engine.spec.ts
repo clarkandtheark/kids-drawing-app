@@ -1,25 +1,6 @@
+// Engine behaviour, exercised on the lesson screen's ink canvas.
 import { test, expect, type Page } from '@playwright/test';
-
-type P = [number, number]; // logical 0..1000 coordinates
-
-// Logical -> client CSS px, using the canvas's on-screen square.
-const toClient = (page: Page, pts: P[]) => page.evaluate((pts) => {
-  const r = document.querySelector('#ink')!.getBoundingClientRect();
-  return pts.map(([x, y]) => [r.left + (x / 1000) * r.width, r.top + (y / 1000) * r.height] as P);
-}, pts);
-
-const line = (a: P, b: P, n = 12): P[] =>
-  Array.from({ length: n + 1 }, (_, i) => [a[0] + ((b[0] - a[0]) * i) / n, a[1] + ((b[1] - a[1]) * i) / n]);
-
-async function touchStroke(page: Page, pts: P[]) {
-  const cdp = await page.context().newCDPSession(page);
-  const c = await toClient(page, pts);
-  const tp = ([x, y]: P) => [{ x, y, id: 1, radiusX: 4, radiusY: 4, force: 1 }];
-  await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: tp(c[0]) });
-  for (const p of c.slice(1)) await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: tp(p) });
-  await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
-  await cdp.detach();
-}
+import { ink, line, toClient, touchStroke, type P } from './helpers';
 
 // Synthetic pen events (CDP cannot emit pointerType 'pen' with pressure on touch-emulated Chromium).
 async function pen(page: Page, type: 'pointerdown' | 'pointermove' | 'pointerup', p: P, pressure: number) {
@@ -31,15 +12,6 @@ async function pen(page: Page, type: 'pointerdown' | 'pointermove' | 'pointerup'
     }));
   }, { type, clientX, clientY, pressure });
 }
-
-// Count inked pixels in a logical-space rectangle (default whole canvas).
-const ink = (page: Page, [x0, y0, x1, y1] = [0, 0, 1000, 1000]) => page.evaluate(([x0, y0, x1, y1]) => {
-  const c = document.querySelector<HTMLCanvasElement>('#ink')!, k = c.width / 1000;
-  const d = c.getContext('2d')!.getImageData(x0 * k, y0 * k, (x1 - x0) * k, (y1 - y0) * k).data;
-  let n = 0;
-  for (let i = 3; i < d.length; i += 4) if (d[i] > 0) n++;
-  return n;
-}, [x0, y0, x1, y1]);
 
 // Vertical thickness (canvas px) of ink at logical column x.
 const thickness = (page: Page, x: number) => page.evaluate((x) => {
@@ -55,7 +27,8 @@ test.beforeEach(async ({ page }) => {
   errors = [];
   page.on('pageerror', (e) => errors.push(e.message));
   page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
-  await page.goto('/');
+  await page.addInitScript(() => localStorage.setItem('kids-drawing:muted', '1'));
+  await page.goto('/#lesson/cat');
   await expect(page.locator('#ink')).toBeVisible();
 });
 test.afterEach(() => expect(errors).toEqual([]));
@@ -135,10 +108,6 @@ test('drawing survives resize/rotation and input still maps correctly', async ({
   expect(await ink(page, [180, 650, 820, 750])).toBeGreaterThan(before / 2);
   await page.setViewportSize(vp);
   await touchStroke(page, line([500, 100], [500, 900], 20));
-  // Review screenshot for a human: a little drawing in three colours.
-  await page.locator('[aria-label=Red]').tap();
   await touchStroke(page, Array.from({ length: 41 }, (_, i): P => [500 + 220 * Math.cos(i / 6.5), 500 + 220 * Math.sin(i / 6.5)]));
-  await page.locator('[aria-label=Blue]').tap();
-  await touchStroke(page, Array.from({ length: 30 }, (_, i): P => [150 + i * 24, 850 - 60 * Math.sin(i / 2.5)]));
   await page.screenshot({ path: `review/engine-${info.project.name}.png` });
 });

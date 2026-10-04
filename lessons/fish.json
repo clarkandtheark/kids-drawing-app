@@ -1,0 +1,44 @@
+{
+  "id": "fish",
+  "title": "Fish",
+  "difficulty": 1,
+  "emoji": "🐟",
+  "steps": [
+    {
+      "say": "Draw a big oval for the fish's body.",
+      "strokes": [
+        "M 280 550 A 300 200 0 1 1 880 550 A 300 200 0 1 1 280 550 Z"
+      ]
+    },
+    {
+      "say": "Now draw a triangle tail on the back!",
+      "strokes": [
+        "M 293.82 490 L 120 370 L 120 730 L 293.82 610"
+      ]
+    },
+    {
+      "say": "Add a pointy fin on top.",
+      "strokes": [
+        "M 600 350.44 C 540 260 440 230 370 245 Q 400 320 400 390"
+      ]
+    },
+    {
+      "say": "Draw a curvy line behind the face.",
+      "strokes": [
+        "M 650 355.52 Q 710 550 650 744.48"
+      ]
+    },
+    {
+      "say": "Give your fish a round eye.",
+      "strokes": [
+        "M 730 500 A 40 40 0 1 1 810 500 A 40 40 0 1 1 730 500 Z"
+      ]
+    },
+    {
+      "say": "Finish with a happy smile!",
+      "strokes": [
+        "M 765 595 Q 802.5 635 840 595"
+      ]
+    }
+  ]
+}

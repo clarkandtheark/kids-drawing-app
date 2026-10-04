@@ -1,0 +1,44 @@
+{
+  "id": "cat",
+  "title": "Cat",
+  "difficulty": 2,
+  "emoji": "🐱",
+  "steps": [
+    {
+      "say": "Draw a big circle for the head.",
+      "strokes": [ "M 300 340 A 200 200 0 1 1 700 340 A 200 200 0 1 1 300 340 Z" ]
+    },
+    {
+      "say": "Now draw two pointy ears on top of the circle!",
+      "strokes": [ "M 330.4 234 L 295.4 68.5 L 444.9 147.7", "M 669.6 234 L 704.6 68.5 L 555.1 147.7" ]
+    },
+    {
+      "say": "Draw a big round body under the head.",
+      "strokes": [ "M 385.3 503.8 C 275 590 238 915 500 915 C 762 915 725 590 614.7 503.8" ]
+    },
+    {
+      "say": "Add two little bumps at the bottom for paws.",
+      "strokes": [ "M 395 891.7 C 395 796.7 478 819.2 478 914.2", "M 605 891.7 C 605 796.7 522 819.2 522 914.2" ]
+    },
+    {
+      "say": "Draw a long curly tail on the side.",
+      "strokes": [ "M 674.8 820 C 804.8 840 860 780 850 640 C 843 545 760 540 765 600" ]
+    },
+    {
+      "say": "Give your cat two oval eyes.",
+      "strokes": [ "M 425 285 A 22 30 0 1 1 425 345 A 22 30 0 1 1 425 285 Z", "M 575 285 A 22 30 0 1 1 575 345 A 22 30 0 1 1 575 285 Z" ]
+    },
+    {
+      "say": "Draw a little triangle nose and a smile like a w.",
+      "strokes": [ "M 470 392 L 530 392 L 500 424 Z", "M 440 440 C 448 478 494 478 500 424 C 506 478 552 478 560 440" ]
+    },
+    {
+      "say": "Add two long whiskers on one side of the face.",
+      "strokes": [ "M 303 374.7 L 175 350", "M 315.9 418.1 L 185 455" ]
+    },
+    {
+      "say": "Now add two whiskers on the other side!",
+      "strokes": [ "M 697 374.7 L 825 350", "M 684.1 418.1 L 815 455" ]
+    }
+  ]
+}

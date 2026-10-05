@@ -83,6 +83,7 @@ test('manifest, icons and apple meta tags', async ({ page, request }) => {
   await page.goto('./');
   for (const name of ['apple-mobile-web-app-capable', 'mobile-web-app-capable', 'apple-mobile-web-app-title',
     'apple-mobile-web-app-status-bar-style', 'theme-color']) await expect(page.locator(`meta[name="${name}"]`)).toHaveCount(1);
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
   const links = await page.locator('link[rel=manifest], link[rel=apple-touch-icon], link[rel=icon]').evaluateAll(
     (ls) => ls.map((l) => [l.getAttribute('rel'), l.getAttribute('href'), (l as HTMLLinkElement).href]));
   for (const [, href] of links) expect(href).toMatch(/^\.\//);

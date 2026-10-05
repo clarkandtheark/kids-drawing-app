@@ -1,0 +1,79 @@
+{
+  "id": "olaf",
+  "title": "Olaf",
+  "difficulty": 3,
+  "category": "characters",
+  "emoji": "⛄",
+  "steps": [
+    {
+      "say": "Draw Olaf's big head, like a tall bean that gets wide at the bottom.",
+      "strokes": [
+        "M 500 140 C 568 140 592 213 606 270 C 622 335 720 505 500 505 C 280 505 378 335 394 270 C 408 213 432 140 500 140 Z"
+      ]
+    },
+    {
+      "say": "Draw a small snowball under his head, and a big one under that.",
+      "strokes": [
+        "M 463.1 503.1 A 112 92 0 1 0 536.9 503.1",
+        "M 425.5 658.7 A 170 135 0 1 0 574.5 658.7"
+      ]
+    },
+    {
+      "say": "Add two little round feet at the bottom.",
+      "strokes": [
+        "M 384 878.7 A 50 38 0 1 0 469 912.7",
+        "M 531 912.7 A 50 38 0 1 0 616 878.7"
+      ]
+    },
+    {
+      "say": "Draw three twigs on top of his head for hair.",
+      "strokes": [
+        "M 455 153.4 Q 440 110 410 78",
+        "M 500 140 L 500 98 L 534 70 L 500 98 L 500 52",
+        "M 545 153.4 Q 560 110 590 78"
+      ]
+    },
+    {
+      "say": "Draw two big oval eyes.",
+      "strokes": [
+        "M 462 228 A 24 34 0 1 1 462 296 A 24 34 0 1 1 462 228 Z",
+        "M 538 228 A 24 34 0 1 1 538 296 A 24 34 0 1 1 538 228 Z"
+      ]
+    },
+    {
+      "say": "Give Olaf two short eyebrows above his eyes.",
+      "strokes": [
+        "M 428 205 Q 450 186 482 196",
+        "M 572 205 Q 550 186 518 196"
+      ]
+    },
+    {
+      "say": "Draw Olaf's carrot nose pointing to the side!",
+      "strokes": [
+        "M 498 318 L 592 340 L 498 362 Q 484 340 498 318 Z"
+      ]
+    },
+    {
+      "say": "Draw a big happy smile, with one big tooth at the top.",
+      "strokes": [
+        "M 395 378 Q 500 400 605 378 C 597 488 403 488 395 378 Z",
+        "M 470 388.1 L 470 433 L 530 433 L 530 388.1"
+      ]
+    },
+    {
+      "say": "Draw two twig arms with little twig fingers.",
+      "strokes": [
+        "M 394.8 558.5 L 190 470 L 170.8 421.7 L 190 470 L 142.3 449.4 L 190 470 L 141.7 489.2",
+        "M 605.2 558.5 L 810 470 L 829.2 421.7 L 810 470 L 857.7 449.4 L 810 470 L 858.3 489.2"
+      ]
+    },
+    {
+      "say": "Add three round buttons down his tummy!",
+      "strokes": [
+        "M 500 578 A 22 22 0 1 1 500 622 A 22 22 0 1 1 500 578 Z",
+        "M 500 703 A 22 22 0 1 1 500 747 A 22 22 0 1 1 500 703 Z",
+        "M 500 798 A 22 22 0 1 1 500 842 A 22 22 0 1 1 500 798 Z"
+      ]
+    }
+  ]
+}

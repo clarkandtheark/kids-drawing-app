@@ -1,0 +1,79 @@
+{
+  "id": "mickey",
+  "title": "Mickey Mouse",
+  "difficulty": 3,
+  "category": "characters",
+  "emoji": "🐭",
+  "steps": [
+    {
+      "say": "Draw a big circle for Mickey's head.",
+      "strokes": [
+        "M 500 595 A 215 215 0 1 1 500 165 A 215 215 0 1 1 500 595 Z"
+      ]
+    },
+    {
+      "say": "Draw two big round ears on top, like this!",
+      "strokes": [
+        "M 305.4 288.6 A 122 122 0 1 1 408.6 185.4",
+        "M 694.6 288.6 A 122 122 0 1 0 591.4 185.4"
+      ]
+    },
+    {
+      "say": "Draw a bumpy line across the face, with a little dip in the middle.",
+      "strokes": [
+        "M 303.8 468 C 341.8 450 369 400 369 330 A 74 102 0 0 1 500 265 A 74 102 0 0 1 631 330 C 631 400 658.2 450 696.2 468"
+      ]
+    },
+    {
+      "say": "Draw two tall oval eyes.",
+      "strokes": [
+        "M 456 276 A 31 58 0 1 0 456 392 A 31 58 0 1 0 456 276 Z",
+        "M 544 276 A 31 58 0 1 0 544 392 A 31 58 0 1 0 544 276 Z"
+      ]
+    },
+    {
+      "say": "Draw two dark pupils, and a big oval nose.",
+      "strokes": [
+        "M 463 338 A 7 18 0 1 0 463 374 A 7 18 0 1 0 463 338 Z",
+        "M 537 338 A 7 18 0 1 0 537 374 A 7 18 0 1 0 537 338 Z",
+        "M 500 410 A 48 28 0 1 0 500 466 A 48 28 0 1 0 500 410 Z"
+      ]
+    },
+    {
+      "say": "Draw a great big smile, an open mouth, and a tongue.",
+      "strokes": [
+        "M 358 440 Q 350 474 382 478 C 430 522 570 522 618 478 Q 650 474 642 440",
+        "M 429.9 502.1 C 433.9 590 566.1 590 570.1 502.1",
+        "M 452.9 551.5 C 474.9 521.5 525.1 521.5 547.1 551.5"
+      ]
+    },
+    {
+      "say": "Draw a round body, and a line for the top of his shorts.",
+      "strokes": [
+        "M 440 586.5 C 408 640 372 720 382 800 L 618 800 C 628 720 592 640 560 586.5",
+        "M 393.2 690 Q 500 712 606.8 690"
+      ]
+    },
+    {
+      "say": "Add two oval buttons on his shorts.",
+      "strokes": [
+        "M 468 729 A 12 19 0 1 0 468 767 A 12 19 0 1 0 468 729 Z",
+        "M 532 729 A 12 19 0 1 0 532 767 A 12 19 0 1 0 532 729 Z"
+      ]
+    },
+    {
+      "say": "Draw two arms with big round gloves.",
+      "strokes": [
+        "M 412.9 638 L 316.1 698.3 A 58 58 0 1 0 334.1 727.1 L 393.1 690.4",
+        "M 587.1 638 L 683.9 698.3 A 58 58 0 1 1 665.9 727.1 L 606.9 690.4"
+      ]
+    },
+    {
+      "say": "Draw two legs with great big shoes!",
+      "strokes": [
+        "M 440 800 L 440 858.6 A 80 46 0 1 0 470 873.2 L 470 800",
+        "M 560 800 L 560 858.6 A 80 46 0 1 1 530 873.2 L 530 800"
+      ]
+    }
+  ]
+}

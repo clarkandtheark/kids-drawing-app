@@ -1,0 +1,80 @@
+{
+  "id": "minnie",
+  "title": "Minnie Mouse",
+  "difficulty": 3,
+  "category": "characters",
+  "emoji": "🎀",
+  "steps": [
+    {
+      "say": "Draw a big circle for Minnie's head.",
+      "strokes": [
+        "M 500 595 A 215 215 0 1 1 500 165 A 215 215 0 1 1 500 595 Z"
+      ]
+    },
+    {
+      "say": "Draw a big bow on top: a round knot and two big loops.",
+      "strokes": [
+        "M 466.4 167.6 A 40 40 0 1 1 533.6 167.6",
+        "M 463.7 129.1 C 425 62 318 38 312 112 C 306 168 360 186 404 187.6",
+        "M 536.3 129.1 C 575 62 682 38 688 112 C 694 168 640 186 596 187.6"
+      ]
+    },
+    {
+      "say": "Draw two big round ears behind the bow.",
+      "strokes": [
+        "M 305.4 288.6 A 122 122 0 1 1 356.2 66.8",
+        "M 694.6 288.6 A 122 122 0 1 0 643.8 66.8"
+      ]
+    },
+    {
+      "say": "Draw a bumpy line across the face, with a little dip in the middle.",
+      "strokes": [
+        "M 303.8 468 C 341.8 450 369 400 369 330 A 74 102 0 0 1 500 265 A 74 102 0 0 1 631 330 C 631 400 658.2 450 696.2 468"
+      ]
+    },
+    {
+      "say": "Draw two tall oval eyes with long eyelashes.",
+      "strokes": [
+        "M 442.1 298.2 A 29 53 0 1 0 477.9 381.8 A 29 53 0 1 0 442.1 298.2 L 417.6 281 L 435.1 312.7 L 406.6 303.3 L 431.4 330.8 L 401.6 327.9",
+        "M 557.9 298.2 A 29 53 0 1 1 522.1 381.8 A 29 53 0 1 1 557.9 298.2 L 582.4 281 L 564.9 312.7 L 593.4 303.3 L 568.6 330.8 L 598.4 327.9"
+      ]
+    },
+    {
+      "say": "Draw two dark pupils, and a big oval nose.",
+      "strokes": [
+        "M 467 343 A 7 17 0 1 0 467 377 A 7 17 0 1 0 467 343 Z",
+        "M 533 343 A 7 17 0 1 0 533 377 A 7 17 0 1 0 533 343 Z",
+        "M 500 410 A 48 28 0 1 0 500 466 A 48 28 0 1 0 500 410 Z"
+      ]
+    },
+    {
+      "say": "Give Minnie a great big smile!",
+      "strokes": [
+        "M 358 440 Q 350 474 382 478 C 430 530 570 530 618 478 Q 650 474 642 440"
+      ]
+    },
+    {
+      "say": "Draw her pretty dress, and two arms with round gloves.",
+      "strokes": [
+        "M 444 587.6 C 430 640 330 730 318 795 C 410 832 590 832 682 795 C 670 730 570 640 556 587.6",
+        "M 415.5 639.5 L 314.5 668.8 A 56 56 0 1 0 324 701.5 L 381.7 684.7",
+        "M 584.5 639.5 L 685.5 668.8 A 56 56 0 1 1 676 701.5 L 618.3 684.7"
+      ]
+    },
+    {
+      "say": "Draw two legs with big shoes.",
+      "strokes": [
+        "M 438 820.1 L 438 864.4 A 78 44 0 1 0 468 876.9 L 468 822.1",
+        "M 562 820.1 L 562 864.4 A 78 44 0 1 1 532 876.9 L 532 822.1"
+      ]
+    },
+    {
+      "say": "Add three round polka dots on her dress!",
+      "strokes": [
+        "M 500 694 A 22 22 0 1 1 500 650 A 22 22 0 1 1 500 694 Z",
+        "M 432 780 A 22 22 0 1 1 432 736 A 22 22 0 1 1 432 780 Z",
+        "M 568 780 A 22 22 0 1 1 568 736 A 22 22 0 1 1 568 780 Z"
+      ]
+    }
+  ]
+}

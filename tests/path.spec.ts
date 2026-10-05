@@ -1,11 +1,12 @@
 // Learning path stop player (#36): every exercise type end to end by touch, retry, result + sticker, progress, leave,
-// layout. Screenshots go to review/player/ (gitignored) for a visual check.
+// layout. Every test plays a fixed fixture path (tests/fixtures/path.ts), never the curriculum in path/.
+// Screenshots go to review/player/ (gitignored) for a visual check.
 import { test, expect, type Page, type TestInfo } from '@playwright/test';
-import { ink, line, touchStroke, type P } from './helpers';
-import unit from '../path/01-lines.json' with { type: 'json' };
+import { ink, line, touchStroke, usePath, type P } from './helpers';
+import { FACE, SAMPLE, ZIGZAG4 } from './fixtures/path';
 
 type X = { type: string; say?: string; strokes?: string[]; given?: string[]; lesson?: string };
-const [straight, zigzag] = unit.stops as { id: string; sticker: string; exercises: X[] }[];
+const [straight, zigzag, own] = SAMPLE[0].stops as { id: string; sticker: string; exercises: X[] }[];
 const OUT = 'review/player';
 
 let errors: string[];
@@ -13,6 +14,7 @@ test.beforeEach(async ({ page }) => {
   errors = [];
   page.on('pageerror', (e) => errors.push(e.message));
   page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
+  await usePath(page, SAMPLE);
   await page.addInitScript(() => {
     const w = window as any;
     w.__said = [];
@@ -68,12 +70,12 @@ async function pass(page: Page, ex: X[], i: number) {
   await check(page, i, 'great', i === ex.length - 1);
 }
 
-test('path.json is built and served with the sample unit; the stop route opens the player', async ({ page }) => {
+test('path.json is built and served; the stop route opens the player', async ({ page }) => {
+  // The real path.json (page.request bypasses the fixture route): built from path/, whatever the curriculum holds.
   const units = await (await page.request.get('./path.json')).json();
-  expect(units.map((u: { id: string }) => u.id)).toContain('lines');
-  const lines = units.find((u: { id: string }) => u.id === 'lines');
-  expect(lines.stops.map((s: { id: string }) => s.id)).toEqual(['straight', 'zigzag']);
-  const types = new Set(lines.stops.flatMap((s: { exercises: X[] }) => s.exercises.map((x) => x.type)));
+  expect(units.length).toBeGreaterThan(0);
+  for (const u of units) for (const s of u.stops) expect(s.exercises.length, `${u.id}/${s.id}`).toBeGreaterThan(0);
+  const types = new Set(SAMPLE[0].stops.flatMap((s) => s.exercises.map((x) => x.type))); // the fixture covers every type
   expect([...types].sort()).toEqual(['create', 'finish', 'lesson', 'memory', 'shape', 'trace']);
   await open(page, 'straight');
   await expect(page.locator('#sbar i')).toHaveCount(straight.exercises.length);
@@ -163,6 +165,52 @@ test('shape: drawn well, smaller and elsewhere (screenshot after a good attempt)
   await expect(seg(page, 1)).toHaveAttribute('data-r', 'great');
   await page.waitForTimeout(700);
   await shot(page, info, 'shape-good');
+});
+
+// Her own face, different from the expected one: eyes wide apart up high, a wide grin.
+const MINE = ['M 250 360 A 50 50 0 1 0 350 360 A 50 50 0 1 0 250 360', 'M 650 360 A 50 50 0 1 0 750 360 A 50 50 0 1 0 650 360', 'M 300 560 Q 500 800 700 560'];
+
+test('own way: a shape shows only its example and takes an accepted alternative; an open finish takes her own face, a strict one does not', async ({ page }, info) => {
+  test.setTimeout(60_000);
+  await open(page, 'own');
+  await expect(stopEl(page)).toHaveAttribute('data-kind', 'shape');
+  await expect(page.locator('#sexample path')).toHaveCount(own.exercises[0].strokes!.length); // not the alternatives
+  await ready(page);
+  await draw(page, [ZIGZAG4], half); // four tops where the example has three: an accepted alternative
+  await check(page, 0, 'great');
+
+  await expect(stopEl(page)).toHaveAttribute('data-kind', 'finish');
+  await ready(page);
+  await draw(page, MINE);
+  await page.locator('#sok').tap();
+  await expect(seg(page, 1)).toHaveAttribute('data-r', 'great');
+  await page.waitForTimeout(700);
+  await shot(page, info, 'finish-open-good');
+  await expect(seg(page, 2)).toHaveClass(/on/);
+
+  // The same exercise, not open: her own face is not the expected one, so the gentle retry; the expected face passes.
+  await ready(page);
+  await draw(page, MINE);
+  await page.locator('#sok').tap();
+  await expect(seg(page, 2)).toHaveAttribute('data-r', 'try');
+  await ready(page);
+  await draw(page, FACE);
+  await check(page, 2, 'great', true);
+});
+
+test('open finish: a dot, or ink only in a far corner, is not an attempt: one gentle retry, then on', async ({ page }) => {
+  await open(page, 'own');
+  await ready(page);
+  await draw(page, [ZIGZAG4], half);
+  await check(page, 0, 'great');
+  await ready(page);
+  await touchStroke(page, line([500, 500], [506, 503], 2));
+  await page.locator('#sok').tap();
+  await expect(seg(page, 1)).toHaveAttribute('data-r', 'try');
+  await ready(page);
+  await expect.poll(() => ink(page)).toBe(0);
+  await touchStroke(page, [[40, 40], [140, 60], [60, 120], [150, 150], [50, 200]]);
+  await check(page, 1, 'try');
 });
 
 test('memory: blocked while visible, hidden afterwards, replay shows it again and clears her ink, from memory passes', async ({ page }, info) => {

@@ -5,7 +5,7 @@ import { History } from './engine/history';
 import { LOGICAL, Surface } from './engine/surface';
 import { react, star, tones } from './grade';
 import { returnTo, type Lesson } from './lesson';
-import { COPY_TOLERANCE, samplePath, score, TOLERANCE, type Point, type Reaction } from './score';
+import { COPY_TOLERANCE, openAttempt, samplePath, score, TOLERANCE, type Point, type Reaction } from './score';
 import { scoreShape } from './shape';
 import { say, stopSpeech } from './speech';
 import { saveDrawing, savePathStop } from './store';
@@ -13,8 +13,10 @@ import { ask, celebrate, ICON, layerPng, mountTools, snapshot } from './tools';
 
 export type Exercise =
   | { type: 'trace' | 'memory'; say: string; strokes: string[] }
-  | { type: 'shape'; say: string; strokes: string[]; rotations?: number[]; closed?: boolean }
-  | { type: 'finish'; say: string; given: string[]; strokes: string[]; hint?: boolean }
+  // also: accepted alternative templates (each a list of strokes), scored like `strokes`; the best wins. Only `strokes` is shown.
+  | { type: 'shape'; say: string; strokes: string[]; also?: string[][]; rotations?: number[]; closed?: boolean }
+  // open: any reasonable answer is right (openAttempt), `strokes` only marks where it goes.
+  | { type: 'finish'; say: string; given: string[]; strokes: string[]; hint?: boolean; open?: boolean }
   | { type: 'create'; say: string }
   | { type: 'lesson'; lesson: string; say?: string };
 export type Stop = { id: string; title: string; sticker: string; exercises: Exercise[] };
@@ -49,7 +51,6 @@ let ink: Surface | null = null;
 // Her strokes for the current exercise, kept in step with undo exactly like lesson.ts: every history entry is one stroke.
 let strokes: Point[][] = [];
 let kept = 0;
-let target: Point[][] = []; // the exercise's strokes, sampled
 let run = 0; // bumps to cancel an in-flight demonstration, reaction or timer
 let card: HTMLElement | null = null;
 let earned: string | null = null; // a stop finished for the first time, until the path screen plays its payoff
@@ -130,7 +131,6 @@ function showExercise(speak = true) {
     kept = Math.max(kept, strokes.length - ink!.history.size);
     ok.classList.add('ready');
   };
-  target = 'strokes' in x ? x.strokes.map((d) => samplePath(d)) : [];
   example.replaceChildren(...(x.type === 'shape' ? x.strokes.map((d) => path(d, '')) : []));
   const l = x.type === 'lesson' ? lessons.find((l) => l.id === x.lesson) : undefined;
   guide.replaceChildren(...{
@@ -190,11 +190,16 @@ async function drawOn(paths: SVGPathElement[], me: number) {
   return true;
 }
 
-/** Stars for her drawing on a graded exercise. */
-function grade(x: Exercise): 1 | 2 | 3 {
-  if (x.type === 'shape') return scoreShape(target, strokes, { rotations: x.rotations, closed: x.closed, canvas: LOGICAL }).stars;
+/** Stars for her `ink` on a graded exercise (trace, shape, memory, finish). Exported for the grading tests. */
+export function grade(x: Exercise, ink: Point[][]): 1 | 2 | 3 {
+  const sampled = (ds: string[]) => ds.map((d) => samplePath(d));
+  if (x.type === 'shape') {
+    const opts = { rotations: x.rotations, closed: x.closed, canvas: LOGICAL };
+    return Math.max(...[x.strokes, ...(x.also ?? [])].map((t) => scoreShape(sampled(t), ink, opts).stars)) as 1 | 2 | 3;
+  }
+  if (x.type === 'finish' && x.open) return openAttempt(sampled(x.strokes), ink) ? 3 : 1;
   const tolerance = x.type === 'memory' ? COPY_TOLERANCE : x.type === 'finish' ? FINISH_TOLERANCE : TOLERANCE;
-  return score([target], strokes, { tolerance }).stars;
+  return score([sampled((x as { strokes: string[] }).strokes)], ink, { tolerance }).stars;
 }
 
 /** Exercise finished with `stars` (0: ungraded): the segment takes the result, stars pop over the canvas, then on. */
@@ -244,7 +249,7 @@ ok.addEventListener('click', () => {
     say(x.say);
     return;
   }
-  const stars = grade(x);
+  const stars = grade(x, strokes);
   if (stars === 1 && cur.tries === 0) retry();
   else done(stars);
 });

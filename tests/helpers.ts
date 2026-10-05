@@ -21,6 +21,9 @@ export async function touchStroke(page: Page, pts: P[]) {
   await cdp.detach();
 }
 
+/** Serve `units` as path.json instead of the curriculum built from path/ (call before page.goto). */
+export const usePath = (page: Page, units: unknown) => page.route('**/path.json', (r) => r.fulfill({ json: units }));
+
 /** The lessons the app serves; tests must not assume how many there are. */
 export const lessons = (page: Page) => page.request.get('/lessons.json').then((r) => r.json() as Promise<{ id: string; difficulty: number; category?: string }[]>);
 

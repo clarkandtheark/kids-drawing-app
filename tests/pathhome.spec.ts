@@ -2,7 +2,7 @@
 // its own path.json (page.route), so nothing here depends on the curriculum in path/. Screenshots for review go to
 // review/pathhome/ (gitignored).
 import { test, expect, type Page, type TestInfo } from '@playwright/test';
-import { lessons, line, touchStroke, type P } from './helpers';
+import { lessons, line, touchStroke, usePath, type P } from './helpers';
 
 type Ex = { type: string; say?: string; strokes?: string[]; lesson?: string };
 type Unit = { id: string; title: string; emoji: string; stops: { id: string; title: string; sticker: string; exercises: Ex[] }[] };
@@ -34,7 +34,6 @@ test.beforeEach(async ({ page }) => {
 });
 test.afterEach(() => expect(errors).toEqual([]));
 
-const usePath = (page: Page, units: unknown) => page.route('**/path.json', (r) => r.fulfill({ json: units }));
 /** Mark stops done straight in the store (`stars` cycles over the keys), then reload so the path draws them. */
 async function seed(page: Page, keys: string[], stars = [3]) {
   await page.evaluate(async ([keys, stars]) => {

@@ -20,6 +20,7 @@
     {
      "type": "finish",
      "say": "This sock is plain. Give it three stripes, straight across!",
+     "open": true,
      "given": [
       "M 360 140 L 580 140 L 580 560 L 740 560 Q 840 560 840 680 Q 840 800 740 800 L 440 800 Q 360 800 360 720 Z"
      ],
@@ -33,6 +34,7 @@
     {
      "type": "finish",
      "say": "Let's make a spotty mushroom! Draw three round spots on the top.",
+     "open": true,
      "given": [
       "M 180 500 Q 180 180 500 180 Q 820 180 820 500 Z",
       "M 400 500 L 400 780 Q 400 820 440 820 L 560 820 Q 600 820 600 780 L 600 500"
@@ -47,6 +49,7 @@
     {
      "type": "finish",
      "say": "The ladybug lost her spots! Draw two spots on each side of her back.",
+     "open": true,
      "given": [
       "M 240 570 A 260 260 0 1 0 760 570 A 260 260 0 1 0 240 570 Z",
       "M 394.8 332.2 A 110 110 0 1 1 605.2 332.2",
@@ -64,6 +67,7 @@
     {
      "type": "finish",
      "say": "A zebra needs stripes! Draw four stripes from the top of its back to its tummy.",
+     "open": true,
      "given": [
       "M 300 420 L 620 420 L 680 250 Q 690 215 730 215 L 800 230 Q 860 245 860 300 L 850 330 Q 840 350 810 345 L 760 335 L 740 420 L 740 600 L 300 600 Q 230 600 230 510 Q 230 420 300 420 Z",
       "M 320 600 L 320 820",
@@ -118,6 +122,14 @@
     {
      "type": "shape",
      "say": "Now draw your own row of scales anywhere you like. Bump, bump, bump, bump!",
+     "also": [
+      [
+       "M 150 450 A 116.7 116.7 0 0 0 383.3 450 A 116.7 116.7 0 0 0 616.7 450 A 116.7 116.7 0 0 0 850 450"
+      ],
+      [
+       "M 150 450 A 70 70 0 0 0 290 450 A 70 70 0 0 0 430 450 A 70 70 0 0 0 570 450 A 70 70 0 0 0 710 450 A 70 70 0 0 0 850 450"
+      ]
+     ],
      "strokes": [
       "M 150 450 A 87.5 87.5 0 0 0 325 450 A 87.5 87.5 0 0 0 500 450 A 87.5 87.5 0 0 0 675 450 A 87.5 87.5 0 0 0 850 450"
      ],
@@ -140,6 +152,7 @@
     {
      "type": "finish",
      "say": "Make this mermaid tail sparkle. Fill it with rows of scales from side to side!",
+     "open": true,
      "given": [
       "M 360 160 L 640 160 Q 670 450 540 700 L 720 880 Q 610 810 500 840 Q 390 810 280 880 L 460 700 Q 330 450 360 160 Z"
      ],
@@ -171,6 +184,7 @@
     {
      "type": "finish",
      "say": "This hedgehog needs its prickles! Draw spiky points all along its back.",
+     "open": true,
      "given": [
       "M 180 700 A 280 250 0 0 1 740 700 Z",
       "M 707.2 582.6 L 880 680 L 740 700",
@@ -187,6 +201,7 @@
     {
      "type": "finish",
      "say": "Grow some grass along the ground, on both sides of the flower.",
+     "open": true,
      "given": [
       "M 80 760 L 920 760",
       "M 500 760 L 500 450",
@@ -202,6 +217,7 @@
     {
      "type": "finish",
      "say": "Roar! Give the lion a big spiky mane, all the way around his face.",
+     "open": true,
      "given": [
       "M 270 520 A 230 230 0 1 0 730 520 A 230 230 0 1 0 270 520 Z",
       "M 396 470 A 24 24 0 1 0 444 470 A 24 24 0 1 0 396 470 Z",
@@ -217,6 +233,7 @@
     {
      "type": "finish",
      "say": "Let's give her curly hair! Draw little loops all over the top of her head, like springs.",
+     "open": true,
      "given": [
       "M 280 580 A 220 220 0 1 0 720 580 A 220 220 0 1 0 280 580 Z",
       "M 410 560 A 20 20 0 1 0 450 560 A 20 20 0 1 0 410 560 Z",
@@ -241,6 +258,7 @@
     {
      "type": "finish",
      "say": "Make the dress fancy! Draw a zigzag along the bottom of the skirt.",
+     "open": true,
      "given": [
       "M 420 160 Q 500 230 580 160 L 600 420 L 780 820 L 220 820 L 400 420 Z",
       "M 400 420 L 600 420",
@@ -255,6 +273,7 @@
     {
      "type": "finish",
      "say": "Time for icing! Draw a bumpy, drippy line along the top of the cake.",
+     "open": true,
      "given": [
       "M 220 430 L 220 800 L 780 800 L 780 430 Z",
       "M 140 800 L 860 800",
@@ -268,6 +287,7 @@
     {
      "type": "finish",
      "say": "A crown needs jewels! Draw three round jewels on the band.",
+     "open": true,
      "given": [
       "M 220 780 L 220 380 L 360 520 L 500 300 L 640 520 L 780 380 L 780 780 Z",
       "M 220 600 L 780 600"
@@ -281,6 +301,7 @@
     {
      "type": "finish",
      "say": "Decorate the egg! Draw a stripe near the top, a zigzag in the middle, and a stripe near the bottom.",
+     "open": true,
      "given": [
       "M 260 530 A 240 320 0 0 1 740 530 A 240 240 0 0 1 260 530 Z"
      ],

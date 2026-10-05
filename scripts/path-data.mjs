@@ -7,9 +7,9 @@ const ID = /^[a-z0-9]+(-[a-z0-9]+)*$/; // ids end up in the #stop/<unit>/<stop> 
 // Allowed fields per exercise type; a field not listed here is an error (catches typos like "rotation").
 const FIELDS = {
   trace: { say: 1, strokes: 1 },
-  shape: { say: 1, strokes: 1, rotations: 0, closed: 0 },
+  shape: { say: 1, strokes: 1, also: 0, rotations: 0, closed: 0 },
   memory: { say: 1, strokes: 1 },
-  finish: { say: 1, given: 1, strokes: 1, hint: 0 },
+  finish: { say: 1, given: 1, strokes: 1, hint: 0, open: 0 },
   create: { say: 1 },
   lesson: { lesson: 1, say: 0 },
 }; // 1 required, 0 optional
@@ -36,8 +36,12 @@ function checkExercise(x, where, lessons, errs) {
   for (const [k, req] of Object.entries(spec)) if (req && !(k in x)) e(`missing field "${k}"`);
   if ('say' in x && !text(x.say)) e('say must be a non-empty string');
   for (const k of ['strokes', 'given']) if (k in x) checkStrokes(x[k], (m) => e(`${k}${m.startsWith('[') ? '' : ' '}${m}`));
+  if ('also' in x) { // accepted alternatives: a non-empty array of stroke lists, each checked like `strokes`
+    if (!Array.isArray(x.also) || !x.also.length) e('also must be a non-empty array of alternatives, each an array of SVG path strings');
+    else x.also.forEach((alt, i) => checkStrokes(alt, (m) => e(`also[${i}]${m.startsWith('[') ? '' : ' '}${m}`)));
+  }
   if ('rotations' in x && !(Array.isArray(x.rotations) && x.rotations.every((r) => Number.isFinite(r)))) e('rotations must be an array of numbers (degrees)');
-  for (const k of ['closed', 'hint']) if (k in x && typeof x[k] !== 'boolean') e(`${k} must be true or false`);
+  for (const k of ['closed', 'hint', 'open']) if (k in x && typeof x[k] !== 'boolean') e(`${k} must be true or false`);
   if ('lesson' in x && !lessons.has(x.lesson)) e(`lesson "${x.lesson}" does not exist in lessons/`);
 }
 

@@ -110,9 +110,10 @@ test('Free draw and My Drawings buttons navigate, home buttons return', async ({
 test('free draw: every control is 64px+, paint, Done saves a drawing with no lesson', async ({ page }) => {
   await page.goto('./#draw');
   await expect(page.locator('#paint')).toBeVisible();
+  const narrow = page.viewportSize()!.width < 700;
   for (const b of await page.locator('#free button:visible').all()) {
     const r = (await b.boundingBox())!;
-    expect(r.width).toBeGreaterThanOrEqual(64);
+    expect(r.width).toBeGreaterThanOrEqual(narrow && await b.evaluate((e) => e.matches('.crayon')) ? 56 : 64); // phone crayons: 56px+ (#29)
     expect(r.height).toBeGreaterThanOrEqual(64);
   }
   expect(await stored(page)).toHaveLength(0);

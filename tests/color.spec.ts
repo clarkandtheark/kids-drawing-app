@@ -84,7 +84,8 @@ test('last checkmark enters Color mode: guide hidden, 12 crayons, every tool big
   for (const b of buttons) {
     const r = (await b.boundingBox())!;
     const name = await b.getAttribute('aria-label') ?? '';
-    expect(r.width, name).toBeGreaterThanOrEqual(64);
+    // phones fit 6 crayons across: their one sanctioned exception is 56px wide (index.html, #29)
+    expect(r.width, name).toBeGreaterThanOrEqual(vp.width < 700 && await b.evaluate((e) => e.matches('.crayon')) ? 56 : 64);
     expect(r.height, name).toBeGreaterThanOrEqual(64);
     expect(overlap(r, sheet), name).toBe(false);
     expect(r.x >= 0 && r.y >= 0 && r.x + r.width <= vp.width && r.y + r.height <= vp.height, name).toBe(true);
@@ -111,20 +112,21 @@ test('brush paints the colour canvas under the ink; eraser removes colour and le
 
 test('fill: inside a closed ink shape, no ring at the edge, one undo; outside; no-op refill; fast at 2048', async ({ page }) => {
   await toColor(page, () => touchStroke(page, circle(500, 500, 250)));
-  expect(await page.evaluate(() => document.querySelector<HTMLCanvasElement>('#color')!.width)).toBe(2048);
+  const R = await page.evaluate(() => document.querySelector<HTMLCanvasElement>('#color')!.width);
+  if (page.viewportSize()!.width >= 700) expect(R).toBe(2048); // a phone's canvas is its CSS size x dpr (1170 at 390 x 3)
   await page.locator('.crayon[aria-label=green]').tap();
   await page.locator('[data-tool=fill]').tap();
   const ms = await fillAt(page, [500, 500]);
-  console.log(`fill inside at 2048: ${ms.toFixed(1)} ms`);
+  console.log(`fill inside at ${R}: ${ms.toFixed(1)} ms`);
   expect(ms).toBeLessThan(1000);
   const green = [0x43, 0xc0, 0x4f, 255];
   const [inside, outside] = await colorAt(page, [[500, 500], [100, 100]]);
   expect(inside).toEqual(green);
   expect(outside[3]).toBe(0);
-  // Walk right from the centre (canvas px): every pixel before the ink's solid core must be fully coloured,
+  // Walk right from inside, on a row where the circle edge is slanted so it is anti-aliased at any resolution (canvas px): every pixel before the ink's solid core must be fully coloured,
   // so no white shows through the line's soft edge. Past the line, nothing is coloured.
-  const ring = await page.evaluate(() => {
-    const k = 2048 / 1000, y = Math.round(500 * k), x0 = Math.round(500 * k), w = Math.round(400 * k);
+  const ring = await page.evaluate((R) => {
+    const k = R / 1000, y = Math.round(600 * k), x0 = Math.round(500 * k), w = Math.round(400 * k);
     const c = document.querySelector<HTMLCanvasElement>('#color')!.getContext('2d')!.getImageData(x0, y, w, 1).data;
     const i = document.querySelector<HTMLCanvasElement>('#ink')!.getContext('2d')!.getImageData(x0, y, w, 1).data;
     let x = 0, gaps = 0, soft = 0;
@@ -134,7 +136,7 @@ test('fill: inside a closed ink shape, no ring at the edge, one undo; outside; n
     let leaked = 0;
     for (let j = lineEnd + 3; j < w; j++) if (c[j * 4 + 3] > 0) leaked++;
     return { reached: x < w, soft, gaps, leaked };
-  });
+  }, R);
   expect(ring).toEqual({ reached: true, soft: expect.any(Number), gaps: 0, leaked: 0 });
   expect(ring.soft).toBeGreaterThan(0); // the line really has an anti-aliased edge to cover
 

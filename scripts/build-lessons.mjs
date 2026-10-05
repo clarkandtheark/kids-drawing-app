@@ -1,5 +1,7 @@
-// Concatenate lessons/*.json (ids starting with _ are review fixtures) into public/lessons.json.
+// Concatenate lessons/*.json (ids starting with _ are review fixtures) into public/lessons.json,
+// and the learning path's units (path/*.json, validated) into public/path.json.
 import { readdir, readFile, writeFile, mkdir } from 'node:fs/promises';
+import { loadPath } from './path-data.mjs';
 
 // Spec order within each level; ids not listed sort after these, alphabetically.
 const ORDER = ['face', 'sun', 'house', 'fish', 'rainbow', 'cloud', 'flower', 'balloon', 'snail', 'ladybug',
@@ -16,3 +18,12 @@ lessons.sort((a, b) => crank(a) - crank(b) || (a.category ? 0 : a.difficulty - b
 await mkdir('public', { recursive: true });
 await writeFile('public/lessons.json', JSON.stringify(lessons));
 console.log(`lessons.json: ${lessons.map((l) => l.id).join(', ')}`);
+
+// ponytail: geometry bounds (40..960) need a browser to measure, so only `npm run render:path` checks them.
+const { units, errs } = await loadPath('path', new Map(lessons.map((l) => [l.id, l])));
+if (errs.length) {
+  for (const m of errs) console.error(`path/${m}`);
+  process.exit(1);
+}
+await writeFile('public/path.json', JSON.stringify(units));
+console.log(`path.json: ${units.map((u) => `${u.id} (${u.stops.map((s) => s.id).join(', ')})`).join('; ')}`);

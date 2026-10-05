@@ -416,6 +416,121 @@
       #vbar { flex-direction: column; gap: 10px; }
       #vbar button { width: 64px; height: 64px; }
     }
+
+    /* ===== Path stop player (#36, src/stop.ts): progress bar, one exercise at a time on the canvas, one big check.
+       Portrait: [home | progress] / example / canvas / [replay undo .. check]; landscape: canvas | side column. ===== */
+    #stop { display: grid; grid-template: "sys bar bar" auto "ref ref ref" auto "stage stage stage" 1fr "act act check" auto / auto 1fr auto; }
+    #sact { justify-self: start; }
+    @media (orientation: landscape) {
+      #stop { grid-template: "sys bar bar" auto "stage stage ref" auto "stage stage ." 1fr "stage stage act" auto "stage stage check" auto / auto 1fr 272px; }
+    }
+    #ssys { grid-area: sys; justify-self: start; } #sact { grid-area: act; } #scheck { grid-area: check; }
+    #sstage { grid-area: stage; container-type: size; display: grid; place-items: center; min-width: 0; min-height: 0; }
+    #ssheet { position: relative; width: min(100cqw, 100cqh); height: min(100cqw, 100cqh); overflow: hidden;
+      background: #fff; border-radius: 28px; box-shadow: 0 6px 0 #f4c76b; }
+    #ssheet > * { position: absolute; inset: 0; width: 100%; height: 100%; }
+    #sref { grid-area: ref; justify-self: center; width: 200px; height: 200px; padding: 8px; box-sizing: border-box;
+      background: #fff; border-radius: 24px; box-shadow: 0 5px 0 #f4c76b; }
+    @media (orientation: landscape) { #sref { width: 272px; height: 272px; } }
+    #stop:not([data-kind="shape"]) #sref { display: none; }
+    #sexample { width: 100%; height: 100%; display: block; }
+    :is(#sguide, #sexample) path { fill: none; stroke-width: 14; stroke-linecap: round; stroke-linejoin: round; }
+    #sguide { pointer-events: none; }
+    #sguide .now, #sexample path { stroke: #ff5a36; }
+    #sexample path { stroke-width: 26; }
+    #sguide .now.rest { stroke: #ff9a7a; stroke-width: 13; stroke-dasharray: 0.1 26; }
+    #sguide .given { stroke: #2b2b2b; }
+    #sguide .hint { stroke: #ffd9cc; stroke-width: 10; stroke-dasharray: 0.1 24; }
+    #sguide .thumb { stroke: #5a3d1e; stroke-width: 18; }
+
+    /* Progress: one segment per exercise; done ones take the reaction's look (great gold star, good green, try hollow) */
+    #sbar { grid-area: bar; align-self: center; display: flex; gap: 8px; }
+    #sbar i { position: relative; flex: 1; height: 28px; border-radius: 14px; background: #f4c76b; }
+    #sbar i.on { background: #ff8a3d; box-shadow: 0 0 0 4px #fff8ea, 0 0 0 7px #ff8a3d; }
+    #sbar i[data-r] { animation: dotpop 0.5s cubic-bezier(.2, 1.6, .4, 1); }
+    #sbar i[data-r=great] { background: #ffd21f url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3-5.6-3-5.6 3 1.1-6.3-4.6-4.4 6.3-.9Z' fill='%23fff8ea' stroke='%23d99a00' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E") center / 26px no-repeat; box-shadow: inset 0 0 0 3px #d99a00; }
+    #sbar i[data-r=good] { background: #6fcf5a; box-shadow: inset 0 0 0 3px #3f9a2c; }
+    #sbar i[data-r=try] { background: #fff; box-shadow: inset 0 0 0 3px #f4c76b; animation: nudge 0.5s ease-in-out; }
+    #sbar .pop { position: absolute; z-index: 3; left: 50%; top: 50%; width: 88px; height: 88px; margin: -44px; pointer-events: none;
+      animation: rise 1.1s ease-out both; }
+    #sbar i[data-r=good] .pop { width: 64px; height: 64px; margin: -32px; }
+    #sbar .pop svg { width: 100%; height: 100%; display: block; filter: drop-shadow(0 4px 0 rgb(90 61 30 / 0.2)); }
+
+    /* The big check (a play triangle when the exercise is a whole lesson); it glows once she has drawn something */
+    #sok { width: 112px; height: 112px; background: #3dbb55; color: #fff; box-shadow: 0 6px 0 #279140; --ring: #3dbb55; --base: #279140; }
+    #sok:active { box-shadow: 0 3px 0 #279140; }
+    #sok svg { width: 64px; height: 64px; }
+    #sok.ready { animation: pulse 1.4s ease-out infinite; }
+    #sok.nudge { animation: nudge 0.5s ease-in-out; }
+    #ssheet.wiggle { animation: wiggle 0.6s ease-in-out; }
+    @keyframes wiggle { 20% { transform: rotate(-2deg); } 40% { transform: rotate(2deg); } 60% { transform: rotate(-1.5deg); } 80% { transform: rotate(1deg); } }
+    #stop:not([data-kind="lesson"]) #sok .play, #stop[data-kind="lesson"] #sok .check { display: none; }
+    #stop[data-kind="lesson"] #sundo, #stop[data-phase="busy"] #scheck { visibility: hidden; }
+    #stop[data-kind="lesson"] #sink { pointer-events: none; }
+
+    /* Full-canvas reaction after the check: one to three gold stars pop in over her drawing */
+    .sreact { display: flex; justify-content: center; align-items: center; gap: 4%; background: rgb(255 248 234 / 0.6); }
+    .sreact svg { width: 28%; height: auto; animation: pop 0.6s cubic-bezier(.2, 1.6, .4, 1) var(--d) both; filter: drop-shadow(0 8px 0 rgb(217 154 0 / 0.3)); }
+    .sreact svg path { fill: #ffd21f; stroke: #d99a00; stroke-width: 1.5; stroke-linejoin: round; }
+
+    /* End of the stop: the result card with the stop's sticker as the reward */
+    .result .go.home { color: #fff; }
+    .rcard .sticker { display: grid; place-items: center; font-size: min(28vw, 18vh, 180px); line-height: 1.15; font-style: normal;
+      border-radius: 50%; background: radial-gradient(circle, #fff3b0 0 40%, rgb(255 243 176 / 0) 70%);
+      animation: pop 0.9s cubic-bezier(.2, 1.6, .4, 1) 1.3s both; }
+    @media (prefers-reduced-motion: reduce) {
+      #sbar i[data-r], #sok.ready, #sok.nudge, #ssheet.wiggle { animation: none; }
+      #sbar .pop, .sreact svg, .rcard .sticker { animation-name: fade; }
+    }
+
+    /* Make your own: the colour tools (src/tools.ts) replace replay / undo / check. Same look as in #tools / #ftools. */
+    #stools { display: contents; }
+    #stop:not([data-kind="create"]) #stools, #stop[data-kind="create"] :is(#sact, #scheck) { display: none; }
+    #stop[data-kind="create"] {
+      grid-template: "sys bar bar bar bar" auto "stage stage stage stage stage" 1fr "crayons crayons crayons crayons crayons" auto
+                     "sizes . modes edits finish" auto / auto 1fr auto auto auto;
+    }
+    @media (orientation: landscape) {
+      #stop[data-kind="create"] {
+        grid-template: "sys bar bar bar" auto "stage stage crayons crayons" auto "stage stage sizes sizes" auto
+                       "stage stage modes edits" auto "stage stage . ." 1fr "stage stage finish finish" auto / auto 1fr auto auto;
+      }
+      #stop .crayons { display: grid; grid-template-columns: repeat(4, 72px); gap: 6px 12px; }
+    }
+    #stools .group { gap: 12px; }
+    #stools .group button { width: 72px; height: 72px; }
+    #stools .group svg { width: 42px; height: 42px; }
+    #stools .group button[aria-pressed="true"] { background: #ffe08a; box-shadow: 0 5px 0 #e0a92e, inset 0 0 0 4px #ffb020; }
+    #stools .finish button { width: 112px; height: 112px; background: #3dbb55; box-shadow: 0 6px 0 #279140; }
+    #stools .finish button:active { box-shadow: 0 3px 0 #279140; }
+    #stools .finish svg { width: 76px; height: 76px; color: #a86d00; }
+
+    /* Path stop on phones (both orientations, then each); same breakpoints as the phone blocks above. */
+    @media (max-width: 700px), (orientation: landscape) and (max-height: 480px) {
+      #ssheet { border-radius: 20px; }
+      #sref { width: 132px; height: 132px; padding: 6px; border-radius: 18px; }
+      #sbar { gap: 5px; }
+      #sbar i { height: 22px; border-radius: 11px; }
+      #sbar i[data-r=great] { background-size: 20px; }
+      #sok { width: 80px; height: 80px; }
+      #sok svg { width: 48px; height: 48px; }
+      #stop .crayons { display: grid; grid-template-columns: repeat(6, minmax(0, 64px)); justify-content: center; gap: 0 2px; }
+      #stools .group { gap: 6px; }
+      #stools .group button { width: 64px; height: 64px; }
+      #stools .group svg { width: 36px; height: 36px; }
+      #stools .finish button { width: 72px; height: 72px; }
+      #stools .finish svg { width: 50px; height: 50px; }
+    }
+    @media (max-width: 700px) {
+      #stop[data-kind="create"] { grid-template: "sys bar" auto "stage stage" 1fr "crayons crayons" auto "rowa rowa" auto "rowb rowb" auto / auto 1fr; }
+    }
+    @media (orientation: landscape) and (max-height: 480px) {
+      #stop { grid-template: "stage sys bar" auto "stage ref ref" auto "stage . ." 1fr "stage act act" auto / minmax(0, 1fr) auto minmax(0, 1fr); column-gap: 12px; }
+      #scheck { grid-area: act; justify-self: end; } /* replay + undo at the start of the bottom row, the check at its end */
+      #stop[data-kind="create"] { grid-template: "stage bar" auto "stage crayons" auto "stage rowa" auto "stage rowb" auto "stage ." 1fr / 1fr 360px; }
+      #stop[data-kind="create"] #ssys { grid-area: rowb; }
+      #stop[data-kind="create"] #sbar i { height: 16px; }
+    }
   </style>
 </head>
 <body>
@@ -509,6 +624,28 @@
       </button>
     </div>
     <div id="tools"></div>
+  </main>
+
+  <main id="stop" class="screen" hidden>
+    <div id="ssys" class="group"><button id="sclose" aria-label="Leave">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10" fill="#ffd34d"/><path d="M10 20v-5h4v5"/></svg>
+    </button></div>
+    <div id="sbar"></div>
+    <div id="sref"><svg id="sexample" viewBox="0 0 1000 1000"></svg></div>
+    <div id="sstage"><div id="ssheet"></div></div>
+    <div id="sact" class="group">
+      <button id="sreplay" aria-label="Show me again">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 12a8.5 8.5 0 1 0 2.5-6L3.5 8.5"/><path d="M3.5 3.5v5h5"/><path d="M10 8.5v7l5.5-3.5Z" fill="#ff5a36" stroke="#ff5a36" stroke-width="1.6"/></svg>
+      </button>
+      <button id="sundo" aria-label="Undo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg>
+      </button>
+    </div>
+    <div id="scheck" class="group"><button id="sok" aria-label="Done">
+      <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.5 5 5 10-11"/></svg>
+      <svg class="play" viewBox="0 0 24 24"><path d="M8 4.5v15l12-7.5Z" fill="currentColor" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/></svg>
+    </button></div>
+    <div id="stools"></div>
   </main>
   <script type="module" src="./src/main.ts"></script>
 </body>

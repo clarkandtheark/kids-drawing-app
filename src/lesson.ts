@@ -32,6 +32,10 @@ let guidePts: Point[][][];
 let strokes: Point[][];
 let kept = 0;
 const tolerance = () => (root.dataset.mode === 'copy' ? COPY_TOLERANCE : TOLERANCE);
+// A path stop playing this lesson as one of its exercises (src/stop.ts): told the stars when the result shows,
+// and Done / Home go back to its route instead of home. Set just before routing to the lesson; cleared on close.
+let back: { hash: string; scored: (stars: 1 | 2 | 3) => void } | null = null;
+export const returnTo = (b: typeof back) => { back = b; };
 
 export function openLesson(l: Lesson) {
   if (lesson === l) return;
@@ -56,6 +60,7 @@ export function openLesson(l: Lesson) {
 export function closeLesson() {
   if (!lesson) return;
   lesson = null;
+  back = null;
   run++;
   stopSpeech();
   root.hidden = true;
@@ -78,7 +83,7 @@ async function finishColoring() {
   const l = lesson!;
   const saved = Promise.all([save(), markCompleted(l.id)]);
   await Promise.all([celebrate(), saved.catch((e) => console.warn('save failed', e))]);
-  if (lesson === l) location.hash = '';
+  if (lesson === l) location.hash = back?.hash ?? '';
 }
 
 /** Save her picture and both layers as a new drawing (the guide is SVG, never on these canvases). The
@@ -154,7 +159,11 @@ const on = (id: string, f: () => void) => $(id).addEventListener('click', f);
 on('#next', () => {
   const last = step === lesson!.steps.length - 1, t = { tolerance: tolerance() };
   react(dots.children[step] as HTMLElement, reaction(score([guidePts[step]], strokes, t).steps[0]), !last); // the result chimes for the last
-  if (last) return showResult(lesson!.id, score(guidePts, strokes, t), finishLesson);
+  if (last) {
+    const s = score(guidePts, strokes, t);
+    back?.scored(s.stars);
+    return showResult(lesson!.id, s, finishLesson);
+  }
   step++;
   showStep();
 });
@@ -173,7 +182,7 @@ on('#mode', () => {
   placeGuide();
   animate(); // show the reference drawing itself in its new place
 });
-on('#home', () => { const l = lesson; if (l) leave(ink.history, save, () => lesson === l); });
+on('#home', () => { const l = lesson; if (l) leave(ink.history, save, () => lesson === l, back?.hash); });
 on('#mute', () => {
   setMuted(!muted());
   mute.ariaPressed = String(muted());

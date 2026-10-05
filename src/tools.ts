@@ -155,7 +155,7 @@ export function floodFill(paint: Surface, lines: Surface | null, sx: number, sy:
 }
 
 /** Icon-only dialog with the given buttons; resolves with the tapped button's class, or null for a tap outside. */
-function ask(buttons: string) {
+export function ask(buttons: string) {
   const d = document.createElement('div');
   d.className = 'ask';
   d.innerHTML = `<div class="group">${buttons}</div>`;
@@ -203,13 +203,14 @@ export function snapshot(layers: Surface[], size = 1024) {
  * Home tap on a drawing screen. Without unsaved work (`history.dirty`) it just goes home. Otherwise it asks:
  * save runs `save` and goes home only once that stored something (a failed save stays, so nothing is lost),
  * trash goes home, back stays. `open()` is false once the screen has closed meanwhile (e.g. browser back).
+ * `to` is the route to leave to instead of home.
  */
 // ponytail: only the Home button asks. Browser back or an edited hash still discards unsaved work (the screen's
 // close releases its canvases cleanly); the home-screen app on iPad has no back button. Route hashchange here if it gets one.
 let leaving = false;
-export async function leave(history: History, save: () => Promise<unknown>, open: () => boolean) {
+export async function leave(history: History, save: () => Promise<unknown>, open: () => boolean, to = '') {
   if (leaving) return;
-  if (!history.dirty) { location.hash = ''; return; }
+  if (!history.dirty) { location.hash = to; return; }
   leaving = true;
   try {
     const choice = await askSave();
@@ -218,7 +219,7 @@ export async function leave(history: History, save: () => Promise<unknown>, open
       history.dirty = true;
       return;
     }
-    if (open()) location.hash = '';
+    if (open()) location.hash = to;
   } finally { leaving = false; }
 }
 

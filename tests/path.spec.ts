@@ -18,8 +18,9 @@ test.beforeEach(async ({ page }) => {
   await page.addInitScript(() => {
     const w = window as any;
     w.__said = [];
+    w.__played = [];
     Object.defineProperty(window, 'speechSynthesis', {
-      configurable: true, value: { speak: (u: SpeechSynthesisUtterance) => w.__said.push(u.text), cancel() {}, getVoices: () => [] },
+      configurable: true, value: { speak() {}, cancel() {}, getVoices: () => [] }, // speech.ts records each line in __said
     });
   });
 });
@@ -327,6 +328,8 @@ test('create: colour tools appear, Done saves a drawing with layers to the galle
   await expect(page.locator('.result .sticker')).toHaveText(zigzag.sticker);
   await expect(page.locator('.result .rstars svg.got')).toHaveCount(3);
   expect((await said(page)).at(-1)).toMatch(/sticker/i);
+  // Spoken from a timer after Done (outside any tap), it still plays its clip: audio was unlocked by her first tap.
+  await expect.poll(() => page.evaluate(() => (window as any).__played.at(-1))).toEqual(['Wow, three stars! Here is your sticker!', 'clip']);
   await page.waitForTimeout(2400); // stars and sticker landed
   await shot(page, info, 'result');
   const go = (await page.locator('.result .go').boundingBox())!;

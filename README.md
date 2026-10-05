@@ -58,11 +58,26 @@ Live site: https://clarkandtheark.github.io/kids-drawing-app/
 
 The build writes `dist/sw.js` with a list of every file in `dist/` and a cache version that is a hash of their
 contents, so any change (code, styles, a lesson) gives a new cache. After the first visit the app runs from that
-cache and needs no network.
+cache and needs no network. The narration clips are the exception: they are not in that list (megabytes of audio
+would make the first install slow and fragile) but go into their own cache in the background a few seconds after each
+launch, a few at a time, keeping clips it already has across updates.
 
 A new version downloads quietly in the background and only takes over the next time the app is opened, never
 mid-drawing. To force an update on the iPad: close the app fully (swipe it away) and open it, then close and open
 it once more. If that does not help, remove it from the Home Screen and add it again.
+
+## Narration
+
+Every line the app speaks is a pre-generated clip in `public/voice/` (Kokoro-82M, voice `af_heart` at speed 0.9,
+AAC in `.m4a`), listed in `public/voice/index.json` and played through Web Audio. A line with no clip, or before the
+first tap has unlocked audio, falls back to the browser's own voice.
+
+- Spoken text lives in `lessons/*.json` and `path/*.json` (each `say`) and `src/lines.ts` (everything else).
+- After changing any spoken text run `npm run voice` and commit `public/voice/`. It only generates new lines and
+  deletes clips no longer used. It needs a local Python environment that lives outside the repo: see
+  [tools/tts/README.md](tools/tts/README.md).
+- `npm run build` fails, listing the lines, when a spoken line has no clip (`node scripts/voice.mjs`; no Python).
+- Licence: Kokoro-82M weights are Apache-2.0.
 
 ## Icons
 

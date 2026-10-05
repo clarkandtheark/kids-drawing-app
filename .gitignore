@@ -5,3 +5,4 @@ test-results/
 playwright-report/
 public/lessons.json
 public/path.json
+__pycache__/

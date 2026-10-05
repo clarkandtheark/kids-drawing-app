@@ -371,7 +371,8 @@ test('offline: after the first load, a shortened journey works with no network a
   const face = (await lessonsOf(page)).find((l) => l.id === 'face')!;
 
   await context.setOffline(true);
-  context.on('requestfailed', (r) => failed.push(`${r.url()} ${r.failure()?.errorText}`));
+  // A narration clip not warmed into its cache yet may be tried once; it then falls back to the browser voice (#44).
+  context.on('requestfailed', (r) => { if (!/\/voice\/\w+\.m4a$/.test(r.url())) failed.push(`${r.url()} ${r.failure()?.errorText}`); });
   await page.goto('./#library');
   await page.reload();
   await page.locator('.card[data-id=face]').tap();

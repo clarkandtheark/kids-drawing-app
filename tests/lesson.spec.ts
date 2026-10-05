@@ -11,10 +11,10 @@ test.beforeEach(async ({ page }) => {
   page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
   // Record speech instead of making noise.
   await page.addInitScript(() => {
-    const said: string[] = ((window as any).__said = []);
+    (window as any).__said = [];
     Object.defineProperty(window, 'speechSynthesis', {
       configurable: true,
-      value: { speak: (u: SpeechSynthesisUtterance) => said.push(u.text), cancel() {}, getVoices: () => [] },
+      value: { speak() {}, cancel() {}, getVoices: () => [] }, // speech.ts records each line in __said (clip or not)
     });
   });
 });

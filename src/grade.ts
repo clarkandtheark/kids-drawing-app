@@ -1,7 +1,8 @@
 // Grading UI: the quick reaction on a progress dot after each step, the stars-and-percent result when
 // tracing ends, and the short Web Audio tones for both. Scoring itself is score.ts.
 import type { Reaction } from './score';
-import { muted, say } from './speech';
+import { RESULT_CHEER } from './lines';
+import { audio, muted, say } from './speech';
 import { saveScore } from './store';
 
 const STAR_D = 'm12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3-5.6-3-5.6 3 1.1-6.3-4.6-4.4 6.3-.9Z';
@@ -16,18 +17,15 @@ const SMILE = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#7f
   + '<circle cx="8.6" cy="9.8" r="1.5" fill="#24481a"/><circle cx="15.4" cy="9.8" r="1.5" fill="#24481a"/>'
   + '<path d="M7.3 13.6a5.2 5.2 0 0 0 9.4 0" fill="none" stroke="#24481a" stroke-width="1.9" stroke-linecap="round"/></svg>';
 
-let ac: AudioContext | undefined;
 /**
- * Soft notes (Hz), one every `gap` seconds starting `at` seconds from now. Silent when muted or where
- * Web Audio is missing. Call inside a tap: iOS only lets an AudioContext start from a user gesture.
+ * Soft notes (Hz), one every `gap` seconds starting `at` seconds from now, on the app's one AudioContext (speech.ts).
+ * Silent when muted or where Web Audio is missing. Call inside a tap: iOS only lets an AudioContext start from a user gesture.
  */
 export function tones(notes: number[], { at = 0, gap = 0.09, len = 0.4, vol = 0.14, type = 'triangle' as OscillatorType } = {}) {
   if (muted() || !notes.length) return;
   try {
-    const AC: typeof AudioContext | undefined = window.AudioContext ?? (window as any).webkitAudioContext;
-    if (!AC) return;
-    const a = ac ??= new AC();
-    if (a.state === 'suspended') a.resume();
+    const a = audio();
+    if (!a) return;
     notes.forEach((f, i) => {
       const t = a.currentTime + 0.02 + at + i * gap, o = a.createOscillator(), g = a.createGain();
       o.type = type;
@@ -66,7 +64,6 @@ export function react(dot: HTMLElement, r: Reaction, sound = true) {
   }
 }
 
-const CHEER = ['', 'Nice try! Let\'s color it!', 'Two stars! Great job!', 'Wow, three stars! Amazing!'];
 const STAR_MS = 450, FIRST_MS = 300; // the stars fill in one by one (CSS uses the same timing)
 const ARM_MS = 900; // taps outside the button are ignored this long, so a double-tap on the checkmark can't skip it
 
@@ -83,7 +80,7 @@ export function showResult(lessonId: string, s: { percent: number; stars: 1 | 2 
     <b class="pct">${s.percent}%</b>
     <button class="go" aria-label="Color it">${CRAYON}</button></div>`;
   document.body.append(el);
-  say(CHEER[s.stars]);
+  say(RESULT_CHEER[s.stars]);
   tones([523.25, 659.25, 784].slice(0, s.stars), { at: FIRST_MS / 1000, gap: STAR_MS / 1000, len: 0.6 }); // a note per star as it lands
   const t0 = performance.now();
   const close = () => { el.remove(); removeEventListener('hashchange', close); };

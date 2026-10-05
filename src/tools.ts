@@ -2,6 +2,7 @@
 // (snapshot, celebrate). The lesson's Color mode mounts them; Free draw mounts the same on a blank canvas.
 import type { History } from './engine/history';
 import { LOGICAL, type Surface } from './engine/surface';
+import { PARTY_CHEERS } from './lines';
 import { say } from './speech';
 
 export const COLORS: [string, string][] = [
@@ -228,12 +229,11 @@ export async function leave(history: History, save: () => Promise<unknown>, open
 export const layerPng = (l: Surface) => new Promise<Blob>((resolve, reject) =>
   l.canvas.toBlob((b) => (b ? resolve(b) : reject(new Error('toBlob failed'))), 'image/png'));
 
-const CHEERS = ['Hooray! You did it!', 'Wow, what a beautiful picture!', 'Amazing! Great job!'];
 const CONFETTI = ['#e8402a', '#ff8a1f', '#ffd21f', '#43c04f', '#4cc3ff', '#8e44d9', '#ff7eb6'];
 
 /** Full-screen confetti and a big star with a spoken cheer; resolves when it's over (~2.6s). Call from a tap. */
 export function celebrate() {
-  say(CHEERS[Math.floor(Math.random() * CHEERS.length)]);
+  say(PARTY_CHEERS[Math.floor(Math.random() * PARTY_CHEERS.length)]);
   const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const el = document.createElement('div');
   el.className = calm ? 'party calm' : 'party';

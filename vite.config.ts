@@ -3,12 +3,13 @@ import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, relative, resolve } from 'node:path';
 import { defineConfig, type Plugin } from 'vite';
 
-// Every file in a built dist/ except sw.js itself, as URLs relative to the worker ('index.html' becomes './').
+// Every file in a built dist/ except sw.js itself and the narration clips (warmed into their own cache after install,
+// see src/sw.js), as URLs relative to the worker ('index.html' becomes './'). voice/index.json stays in.
 export const precacheList = (dir: string) =>
   readdirSync(dir, { recursive: true, withFileTypes: true })
     .filter((f) => f.isFile())
     .map((f) => relative(dir, join(f.parentPath, f.name)).split('\\').join('/'))
-    .filter((f) => f !== 'sw.js')
+    .filter((f) => f !== 'sw.js' && !/^voice\/.+\.m4a$/.test(f))
     .sort()
     .map((f) => (f === 'index.html' ? './' : f));
 

@@ -30,7 +30,7 @@ async function warmVoice() {
       // Gone offline: stop at once (the next launch carries on); one failure stops every worker.
       for (let u; navigator.onLine && (u = todo.pop());) {
         const r = await fetch(u).catch((e) => { todo.length = 0; throw e; });
-        if (r.ok) await cache.put(u, r);
+        if (r.status === 200) await cache.put(u, r); // not the worker's 204 for offline
       }
     }));
   } catch { /* offline or quota: the next launch tries again */ }

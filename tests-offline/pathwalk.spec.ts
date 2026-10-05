@@ -235,7 +235,8 @@ test('offline: after the first load, reload offline and play one full stop; no r
   await page.waitForFunction(() => !!navigator.serviceWorker.controller);
   await context.setOffline(true);
   const failed: string[] = [], foreign: string[] = [], origin = new URL(page.url()).origin;
-  page.on('requestfailed', (r) => failed.push(`${r.url()} ${r.failure()?.errorText}`));
+  // The narration warm-up's clip requests in flight when the page reloads are aborted; harmless (#44).
+  page.on('requestfailed', (r) => { if (!/\/voice\/\w+\.m4a$/.test(r.url())) failed.push(`${r.url()} ${r.failure()?.errorText}`); });
   page.on('request', (r) => { if (!/^(data|blob):/.test(r.url()) && new URL(r.url()).origin !== origin) foreign.push(r.url()); });
   await page.reload();
   await expect(page.locator('#path')).toBeVisible();

@@ -15,7 +15,7 @@ test.beforeEach(async ({ page }) => {
     const w = window as any;
     w.__said = [];
     Object.defineProperty(window, 'speechSynthesis', {
-      configurable: true, value: { speak: (u: SpeechSynthesisUtterance) => w.__said.push(u.text), cancel() {}, getVoices: () => [] },
+      configurable: true, value: { speak() {}, cancel() {}, getVoices: () => [] }, // speech.ts records each line in __said
     });
     // A silent AudioContext that records what it is asked to play.
     w.__audio = { contexts: 0, notes: [] as number[] };

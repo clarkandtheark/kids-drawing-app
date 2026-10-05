@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "node scripts/build-lessons.mjs && vite",
-    "build": "node scripts/build-lessons.mjs && tsc --noEmit && vite build",
+    "build": "node scripts/build-lessons.mjs && node scripts/voice.mjs && tsc --noEmit && vite build",
+    "voice": "PY=~/.cache/kids-drawing-tts/venv/bin/python; [ -x $PY ] || { echo \"npm run voice: no Kokoro environment at $PY. Set it up first: see tools/tts/README.md\" >&2; exit 1; }; $PY tools/tts/generate.py",
     "test": "playwright test",
     "render": "node scripts/render-lessons.mjs",
     "render:path": "node scripts/render-path.mjs",

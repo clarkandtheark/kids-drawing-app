@@ -3,7 +3,8 @@ import { History } from './engine/history';
 import { Surface } from './engine/surface';
 import { react, showResult } from './grade';
 import { COPY_TOLERANCE, reaction, samplePath, score, TOLERANCE, type Point } from './score';
-import { muted, say, setMuted, stopSpeech } from './speech';
+import { COLOR_TIME, RESULT_CHEER } from './lines';
+import { muted, prefetch, say, setMuted, stopSpeech } from './speech';
 import { markCompleted, saveDrawing } from './store';
 import { celebrate, layerPng, leave, mountTools, snapshot } from './tools';
 
@@ -75,7 +76,7 @@ function finishLesson() {
   root.dataset.phase = 'color';
   ink.history.clear(); // ponytail: undo in Color mode stops at the start of colouring, so it can't eat her lines
   mountTools(tools, color, ink, finishColoring);
-  say('Time to color! Pick a crayon.');
+  say(COLOR_TIME);
 }
 
 /** Done in Color mode: save to the gallery and mark the lesson done while celebrating, then back to the Library. */
@@ -118,6 +119,7 @@ function showStep() {
   next.classList.toggle('done', last);
   next.ariaLabel = last ? 'Done' : 'Next';
   say(steps[step].say);
+  prefetch([...steps.slice(step + 1).map((s) => s.say), ...RESULT_CHEER.slice(1), COLOR_TIME]); // what she hears next
   animate();
 }
 

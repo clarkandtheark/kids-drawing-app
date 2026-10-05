@@ -185,7 +185,7 @@ test('parent area: unlock all opens every stop, off restores locking; reset clea
   await page.locator('#pclose').tap();
   expect(await states(page)).toEqual(['done', 'current', 'open', 'open', 'open', 'open']);
   await page.reload(); // persisted
-  expect(await states(page)).toEqual(['done', 'current', 'open', 'open', 'open', 'open']);
+  await expect.poll(() => states(page)).toEqual(['done', 'current', 'open', 'open', 'open', 'open']); // the path draws after startup's loads
   await node(page, 'c/s1').scrollIntoViewIfNeeded();
   await node(page, 'c/s1').tap();
   await expect(page).toHaveURL(/#stop\/c\/s1$/);

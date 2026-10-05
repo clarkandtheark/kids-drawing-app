@@ -7,7 +7,8 @@ import { react, star, tones } from './grade';
 import { returnTo, type Lesson } from './lesson';
 import { COPY_TOLERANCE, openAttempt, samplePath, score, TOLERANCE, type Point, type Reaction } from './score';
 import { scoreShape } from './shape';
-import { say, stopSpeech } from './speech';
+import { LESSON_SAY, STOP_CHEER } from './lines';
+import { prefetch, say, stopSpeech } from './speech';
 import { saveDrawing, savePathStop } from './store';
 import { ask, celebrate, ICON, layerPng, mountTools, snapshot } from './tools';
 
@@ -29,8 +30,6 @@ const MEMORY_MS = 3000, FADE_MS = 700; // memory: the drawing stays this long, t
 const REACT_MS = 1500, RETRY_MS = 1300; // the stars over the canvas; her one-star attempt before it clears
 const ARM_MS = 900; // the result card ignores taps outside its button this long (like the tracing result)
 const EXIT = ''; // the result and the close button go home: the path screen
-const LESSON_SAY = "Let's draw a whole picture! Tap the green button.";
-const CHEER = ['', 'You did it! Here is your sticker!', 'Great job! Here is your sticker!', 'Wow, three stars! Here is your sticker!'];
 const HOME = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10" fill="#ffd34d"/><path d="M10 20v-5h4v5"/></svg>';
 
 const SVG = 'http://www.w3.org/2000/svg';
@@ -143,6 +142,7 @@ function showExercise(speak = true) {
   tools.replaceChildren();
   if (x.type === 'create') mountTools(tools, ink, null, createDone);
   if (speak) say(x.say ?? LESSON_SAY);
+  prefetch([...cur!.stop.exercises.slice(cur!.i + 1).map((e) => e.say ?? LESSON_SAY), ...STOP_CHEER.slice(1)]); // what she hears next
   demo();
 }
 
@@ -318,7 +318,7 @@ function showResult() {
     <i class="sticker">${c.stop.sticker}</i>
     <button class="go home" aria-label="Home">${HOME}</button></div>`;
   document.body.append(el);
-  say(CHEER[stars]);
+  say(STOP_CHEER[stars]);
   tones([523.25, 659.25, 784].slice(0, stars), { at: 0.3, gap: 0.45, len: 0.6 });
   tones([784, 1046.5, 1318.5, 1568], { at: 1.4, gap: 0.08, len: 0.5, vol: 0.1 }); // a sparkle as the sticker lands
   const t0 = performance.now();

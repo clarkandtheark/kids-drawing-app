@@ -79,6 +79,7 @@
     #vimg { width: 100%; height: 100%; min-height: 0; object-fit: contain; border-radius: 28px; background: #fff; box-shadow: 0 6px 0 #f4c76b; box-sizing: border-box; }
     #vbar { gap: 40px; }
     #vbar .del { background: #ff7a5c; color: #fff; box-shadow: 0 5px 0 #d4502f; }
+    #vbar .color { background: #8e44d9; color: #fff; box-shadow: 0 5px 0 #6a2fb0; }
     #vbar .share { background: #3dbb55; color: #fff; box-shadow: 0 5px 0 #279140; }
     #vbar .del svg path[fill] { fill: #ffd8cc; }
 
@@ -269,6 +270,15 @@
     .ask .save svg { width: 116px; height: 116px; color: #279140; }
     .ask .save ~ .yes { width: 112px; height: 112px; }
     .ask .save ~ .yes svg { width: 64px; height: 64px; }
+    /* Re-coloured drawing: back | replace | keep both | trash (Home only). Equal size, two colours, neither red. */
+    .ask :is(.replace, .both) { width: 184px; height: 184px; }
+    .ask :is(.replace, .both) svg { width: 116px; height: 116px; }
+    .ask .replace { background: #3dbb55; box-shadow: 0 7px 0 #279140; }
+    .ask .replace svg { color: #279140; }
+    .ask .both { background: #4a8cff; box-shadow: 0 7px 0 #2f63cc; }
+    .ask .both svg { color: #2f63cc; }
+    .ask .both ~ .yes { width: 112px; height: 112px; }
+    .ask .both ~ .yes svg { width: 64px; height: 64px; }
 
     /* Celebration */
     .party { position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; background: rgb(255 233 184 / 0.55); }

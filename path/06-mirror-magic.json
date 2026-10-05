@@ -1,0 +1,58 @@
+{
+  "id": "mirror-magic",
+  "title": "Mirror Magic",
+  "emoji": "🦋",
+  "stops": [
+    {
+      "id": "mirror-lines",
+      "title": "Mirror lines",
+      "sticker": "🪞",
+      "exercises": [
+        {"type": "finish", "say": "The line in the middle is a magic mirror. Draw the same line on the other side, so both sides match!", "given": ["M 500 90 L 500 910", "M 430 250 L 200 750"], "strokes": ["M 570 250 L 800 750"], "hint": true},
+        {"type": "finish", "say": "Here is a curve. Draw a curve on the other side that bends the other way, like a mirror!", "given": ["M 500 90 L 500 910", "M 400 200 Q 120 500 400 800"], "strokes": ["M 600 200 Q 880 500 600 800"], "hint": true},
+        {"type": "finish", "say": "Draw the matching zigzag on the other side of the mirror line.", "given": ["M 500 90 L 500 910", "M 420 180 L 220 330 L 420 480 L 220 630 L 420 780"], "strokes": ["M 580 180 L 780 330 L 580 480 L 780 630 L 580 780"]},
+        {"type": "finish", "say": "Now a wavy line! Draw its mirror twin on the other side.", "given": ["M 500 90 L 500 910", "M 300 150 C 150 300 450 400 300 500 C 150 600 450 700 300 850"], "strokes": ["M 700 150 C 850 300 550 400 700 500 C 850 600 550 700 700 850"]},
+        {"type": "finish", "say": "This curl goes round and round. Draw the same curl on the other side, so they match!", "given": ["M 500 90 L 500 910", "M 430 700 C 430 300 130 250 150 480 C 170 640 360 600 330 480"], "strokes": ["M 570 700 C 570 300 870 250 850 480 C 830 640 640 600 670 480"]},
+        {"type": "create", "say": "Draw a line down the middle of your page. Then draw something on one side, and the same on the other side!"}
+      ]
+    },
+    {
+      "id": "mirror-shapes",
+      "title": "Mirror shapes",
+      "sticker": "🪷",
+      "exercises": [
+        {"type": "finish", "say": "Here is half a heart. Draw the other half, so both sides match!", "given": ["M 500 90 L 500 910", "M 500 330 C 440 170 160 170 160 380 C 160 560 380 700 500 840"], "strokes": ["M 500 330 C 560 170 840 170 840 380 C 840 560 620 700 500 840"], "hint": true},
+        {"type": "finish", "say": "Finish the tree! Draw the other half so it looks the same on both sides.", "given": ["M 500 90 L 500 910", "M 500 130 L 290 400 L 400 400 L 200 670 L 440 670 L 440 850 L 500 850"], "strokes": ["M 500 130 L 710 400 L 600 400 L 800 670 L 560 670 L 560 850 L 500 850"], "hint": true},
+        {"type": "finish", "say": "Half a house is not much fun! Draw the other half of the house and its door.", "given": ["M 500 90 L 500 910", "M 500 140 L 160 460 L 250 460 L 250 860 L 500 860", "M 500 860 L 420 860 L 420 650 L 500 650"], "strokes": ["M 500 140 L 840 460 L 750 460 L 750 860 L 500 860", "M 500 860 L 580 860 L 580 650 L 500 650"]},
+        {"type": "finish", "say": "Draw the other half of this star. Make the points match!", "given": ["M 500 90 L 500 910", "M 500 130 L 406 400.6 L 119.6 406.4 L 347.8 579.4 L 264.9 853.6 L 500 690"], "strokes": ["M 500 130 L 594 400.6 L 880.4 406.4 L 652.2 579.4 L 735.1 853.6 L 500 690"]},
+        {"type": "finish", "say": "This is half of a pretty vase. Draw the other side, so it is the same.", "given": ["M 500 90 L 500 910", "M 500 170 L 390 170 C 390 230 440 260 420 330 C 160 420 170 720 380 840 L 500 840"], "strokes": ["M 500 170 L 610 170 C 610 230 560 260 580 330 C 840 420 830 720 620 840 L 500 840"]},
+        {"type": "create", "say": "Draw your own house or vase, and make both sides the same!"}
+      ]
+    },
+    {
+      "id": "mirror-creatures",
+      "title": "Mirror creatures",
+      "sticker": "🦋",
+      "exercises": [
+        {"type": "finish", "say": "This butterfly has only one wing! Draw the other wing so both sides match.", "given": ["M 500 310 A 32 230 0 1 0 500 770 A 32 230 0 1 0 500 310", "M 474.6 400 C 330 120 60 160 110 400 C 140 520 320 560 468.1 560 C 300 560 150 700 220 820 C 290 900 430 820 475.7 690", "M 486.9 330 Q 440 180 360 140"], "strokes": ["M 525.4 400 C 670 120 940 160 890 400 C 860 520 680 560 531.9 560 C 700 560 850 700 780 820 C 710 900 570 820 524.3 690", "M 513.1 330 Q 560 180 640 140"], "hint": true},
+        {"type": "finish", "say": "Ladybugs have the same spots on both sides. Draw the matching spots!", "given": ["M 500 270 L 500 850", "M 360 300 Q 500 140 640 300", "M 210 560 A 290 290 0 1 0 790 560 A 290 290 0 1 0 210 560", "M 320 470 A 50 50 0 1 0 420 470 A 50 50 0 1 0 320 470", "M 310 660 A 50 50 0 1 0 410 660 A 50 50 0 1 0 310 660"], "strokes": ["M 680 470 A 50 50 0 1 1 580 470 A 50 50 0 1 1 680 470", "M 690 660 A 50 50 0 1 1 590 660 A 50 50 0 1 1 690 660"]},
+        {"type": "finish", "say": "Finish the face! Give it another eye and another ear, the same as the first ones.", "given": ["M 500 440 L 500 600", "M 180 520 A 320 320 0 1 0 820 520 A 320 320 0 1 0 180 520", "M 400 660 Q 500 740 600 660", "M 325 430 A 55 55 0 1 0 435 430 A 55 55 0 1 0 325 430", "M 190.9 437.2 C 70 397.2 70 642.8 190.9 602.8"], "strokes": ["M 675 430 A 55 55 0 1 1 565 430 A 55 55 0 1 1 675 430", "M 809.1 437.2 C 930 397.2 930 642.8 809.1 602.8"]},
+        {"type": "finish", "say": "This owl needs one more big eye and one more wing. Make them match!", "given": ["M 500 160 L 590 240 L 680 160 C 800 300 820 650 700 820 C 600 900 400 900 300 820 C 180 650 200 300 320 160 L 410 240 Z", "M 470 480 L 530 480 L 500 560 Z", "M 320 400 A 80 80 0 1 0 480 400 A 80 80 0 1 0 320 400", "M 380 410 A 20 20 0 1 0 420 410 A 20 20 0 1 0 380 410", "M 270 520 C 330 560 380 650 340 780"], "strokes": ["M 680 400 A 80 80 0 1 1 520 400 A 80 80 0 1 1 680 400", "M 620 410 A 20 20 0 1 1 580 410 A 20 20 0 1 1 620 410", "M 730 520 C 670 560 620 650 660 780"]},
+        {"type": "lesson", "lesson": "butterfly", "say": "Let's draw a whole butterfly, with two wings that match, like a mirror!"}
+      ]
+    },
+    {
+      "id": "mirror-patterns",
+      "title": "Mirror patterns",
+      "sticker": "❄️",
+      "exercises": [
+        {"type": "finish", "say": "Here is half a crown for a king or a queen. Draw the other half so the points match!", "given": ["M 500 90 L 500 910", "M 500 230 L 380 520 L 220 300 L 220 780 L 500 780"], "strokes": ["M 500 230 L 620 520 L 780 300 L 780 780 L 500 780"], "hint": true},
+        {"type": "finish", "say": "This is one arm of a snowflake. Draw the little branches on the other side, the same!", "given": ["M 500 90 L 500 910", "M 500 260 L 380 160", "M 500 420 L 330 300", "M 500 600 L 360 500", "M 500 760 L 400 680"], "strokes": ["M 500 260 L 620 160", "M 500 420 L 670 300", "M 500 600 L 640 500", "M 500 760 L 600 680"]},
+        {"type": "finish", "say": "Draw the matching dots on the other side of the mirror line.", "given": ["M 500 90 L 500 910", "M 340 250 A 40 40 0 1 0 420 250 A 40 40 0 1 0 340 250", "M 210 500 A 40 40 0 1 0 290 500 A 40 40 0 1 0 210 500", "M 340 750 A 40 40 0 1 0 420 750 A 40 40 0 1 0 340 750"], "strokes": ["M 660 250 A 40 40 0 1 1 580 250 A 40 40 0 1 1 660 250", "M 790 500 A 40 40 0 1 1 710 500 A 40 40 0 1 1 790 500", "M 660 750 A 40 40 0 1 1 580 750 A 40 40 0 1 1 660 750"]},
+        {"type": "finish", "say": "Two curly swirls! Draw the same swirls on the other side, so the pattern matches.", "given": ["M 500 90 L 500 910", "M 450 300 C 300 150 150 300 260 400 C 330 460 380 380 320 350", "M 450 700 C 300 850 150 700 260 600 C 330 540 380 620 320 650"], "strokes": ["M 550 300 C 700 150 850 300 740 400 C 670 460 620 380 680 350", "M 550 700 C 700 850 850 700 740 600 C 670 540 620 620 680 650"]},
+        {"type": "lesson", "lesson": "owl", "say": "Let's draw an owl. Its two big eyes and two wings match, like a mirror!"},
+        {"type": "create", "say": "Draw your own mirror picture! Make both sides match, like a butterfly, a crown or a snowflake."}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "id": "big-and-small", "title": "Big and Small", "emoji": "🐘",
+  "stops": [
+    {
+      "id": "big-small", "title": "Big and small", "sticker": "🐻",
+      "exercises": [
+        {"type": "trace", "say": "Trace the big circle. Then trace the little circle next to it.", "strokes": ["M 370 280 A 240 240 0 1 0 370 760 A 240 240 0 1 0 370 280", "M 790 520 A 120 120 0 1 0 790 760 A 120 120 0 1 0 790 520"]},
+        {"type": "trace", "say": "These are the three bears' bowls: a big one, a middle one and a little one. Trace all three.", "strokes": ["M 50 520 L 450 520 A 200 200 0 0 1 50 520", "M 480 580 L 760 580 A 140 140 0 0 1 480 580", "M 770 630 L 950 630 A 90 90 0 0 1 770 630"]},
+        {"type": "memory", "say": "Look at the big ball and the tiny ball. They will hide, then you draw them, one big and one tiny.", "strokes": ["M 360 330 A 250 250 0 1 0 360 830 A 250 250 0 1 0 360 330", "M 800 240 A 90 90 0 1 0 800 420 A 90 90 0 1 0 800 240"]},
+        {"type": "finish", "say": "Baby bear needs a bowl too! Draw a little bowl on the table, next to the others.", "given": ["M 50 720 L 950 720", "M 50 520 L 450 520 A 200 200 0 0 1 50 520", "M 480 580 L 760 580 A 140 140 0 0 1 480 580"], "strokes": ["M 770 630 L 950 630 A 90 90 0 0 1 770 630"]},
+        {"type": "finish", "say": "Here is a big present. Draw a little square present on the floor beside it.", "given": ["M 120 360 L 520 360 L 520 760 L 120 760 Z", "M 320 360 L 320 760", "M 320 360 C 230 250 160 340 320 360", "M 320 360 C 410 250 480 340 320 360", "M 60 760 L 940 760"], "strokes": ["M 640 560 L 840 560 L 840 760 L 640 760 Z"]},
+        {"type": "create", "say": "Draw a big animal and a little animal, like a mummy and her baby!"}
+      ]
+    },
+    {
+      "id": "in-a-row", "title": "Next to and in a row", "sticker": "🎈",
+      "exercises": [
+        {"type": "trace", "say": "Trace three balls in a row, side by side, with a little space in between.", "strokes": ["M 220 360 A 120 120 0 1 0 220 600 A 120 120 0 1 0 220 360", "M 500 360 A 120 120 0 1 0 500 600 A 120 120 0 1 0 500 360", "M 780 360 A 120 120 0 1 0 780 600 A 120 120 0 1 0 780 360"]},
+        {"type": "trace", "say": "Trace the three blocks, one next to the other, all in a line.", "strokes": ["M 130 390 L 350 390 L 350 610 L 130 610 Z", "M 390 390 L 610 390 L 610 610 L 390 610 Z", "M 650 390 L 870 390 L 870 610 L 650 610 Z"]},
+        {"type": "finish", "say": "One balloon is missing! Draw a round balloon on top of the empty string.", "given": ["M 250 550 L 500 900", "M 500 550 L 500 900", "M 750 550 L 500 900", "M 250 330 A 110 110 0 1 0 250 550 A 110 110 0 1 0 250 330", "M 500 330 A 110 110 0 1 0 500 550 A 110 110 0 1 0 500 330"], "strokes": ["M 750 330 A 110 110 0 1 0 750 550 A 110 110 0 1 0 750 330"]},
+        {"type": "memory", "say": "Look at the three pointy tents in a row. They will hide. Can you draw them all in a line?", "strokes": ["M 70 700 L 200 380 L 330 700 Z", "M 370 700 L 500 380 L 630 700 Z", "M 670 700 L 800 380 L 930 700 Z"]},
+        {"type": "finish", "say": "Toot toot! Give the train two boxes behind the engine, in a row on the track.", "given": ["M 60 720 L 940 720", "M 660 460 L 900 460 L 900 720 L 660 720 Z", "M 700 460 L 700 360 L 770 360 L 770 460", "M 720 510 L 840 510 L 840 610 L 720 610 Z"], "strokes": ["M 420 540 L 620 540 L 620 720 L 420 720 Z", "M 180 540 L 380 540 L 380 720 L 180 720 Z"], "hint": true},
+        {"type": "lesson", "say": "A ladybug has round spots in a row on her back. Let's draw one!", "lesson": "ladybug"},
+        {"type": "create", "say": "Draw lots of things side by side, like ducks in a line or flowers in a garden!"}
+      ]
+    },
+    {
+      "id": "on-top", "title": "On top and underneath", "sticker": "☃️",
+      "exercises": [
+        {"type": "trace", "say": "Trace the snowman. Start with the big ball at the bottom, then the middle ball, then the little head on top.", "strokes": ["M 500 540 A 200 200 0 1 0 500 940 A 200 200 0 1 0 500 540", "M 500 260 A 140 140 0 1 0 500 540 A 140 140 0 1 0 500 260", "M 500 70 A 95 95 0 1 0 500 260 A 95 95 0 1 0 500 70"]},
+        {"type": "finish", "say": "Make the tower taller! Draw one more block on the very top.", "given": ["M 380 700 L 620 700 L 620 940 L 380 940 Z", "M 380 460 L 620 460 L 620 700 L 380 700 Z"], "strokes": ["M 380 220 L 620 220 L 620 460 L 380 460 Z"]},
+        {"type": "finish", "say": "It's a party! Draw a pointy triangle hat sitting on top of the head.", "given": ["M 500 370 A 250 250 0 1 0 500 870 A 250 250 0 1 0 500 370", "M 410 545 A 25 25 0 1 0 410 595 A 25 25 0 1 0 410 545", "M 590 545 A 25 25 0 1 0 590 595 A 25 25 0 1 0 590 545", "M 410 680 Q 500 750 590 680"], "strokes": ["M 390.4 395.3 L 500 150 L 609.6 395.3"]},
+        {"type": "memory", "say": "Look at the cake: a big layer on the bottom, a small layer on top, and a candle. It will hide, then you draw it.", "strokes": ["M 220 600 L 780 600 L 780 820 L 220 820 Z", "M 340 600 L 340 420 L 660 420 L 660 600", "M 500 420 L 500 290"]},
+        {"type": "create", "say": "Draw a tall, funny stack, like animals standing on top of each other!"}
+      ]
+    },
+    {
+      "id": "inside", "title": "Inside", "sticker": "🎯",
+      "exercises": [
+        {"type": "trace", "say": "Trace the target: a big circle, a middle circle inside it, and a little circle in the very middle.", "strokes": ["M 500 120 A 380 380 0 1 0 500 880 A 380 380 0 1 0 500 120", "M 500 250 A 250 250 0 1 0 500 750 A 250 250 0 1 0 500 250", "M 500 380 A 120 120 0 1 0 500 620 A 120 120 0 1 0 500 380"]},
+        {"type": "finish", "say": "Here is an egg in a pan. Draw a round yolk inside, right in the middle.", "given": ["M 858.5 520 C 860.3 546.8 852.8 575.8 843.8 601.8 C 834.7 627.7 820.3 652.8 804.2 675.6 C 788.1 698.5 769.6 721.6 747.2 738.9 C 724.8 756.3 697.4 771.3 670 779.8 C 642.6 788.3 611.1 788.8 582.7 790.1 C 554.4 791.5 527.8 787.3 500 788 C 472.2 788.7 445.9 793.2 416.1 794.4 C 386.3 795.6 351.6 801.1 321.3 795 C 291 788.8 256.9 776.3 234.3 757.4 C 211.8 738.4 195.8 708.1 186.1 681.3 C 176.3 654.4 177.1 623.4 175.8 596.5 C 174.6 569.6 176.6 545 178.5 520 C 180.3 495 180.8 470.5 187 446.5 C 193.1 422.4 202.1 397.6 215.3 375.6 C 228.6 353.7 247.3 333.9 266.4 314.7 C 285.5 295.4 306.6 277.5 330 260.2 C 353.4 242.8 378.4 222.6 406.7 210.6 C 435.1 198.5 469.1 187.3 500 188 C 530.9 188.7 565.2 200.3 592.1 214.8 C 619 229.4 640.7 255.6 661.3 275.3 C 681.8 295 696.2 315.5 715.2 333.1 C 734.1 350.8 755.4 363.2 775 381.3 C 794.5 399.3 818.7 418.1 832.7 441.2 C 846.6 464.3 856.6 493.2 858.5 520"], "strokes": ["M 490 390 A 120 120 0 1 0 490 630 A 120 120 0 1 0 490 390"]},
+        {"type": "finish", "say": "These eyes are empty. Draw a little circle inside each eye so they can see!", "given": ["M 500 180 A 340 340 0 1 0 500 860 A 340 340 0 1 0 500 180", "M 375 350 A 80 80 0 1 0 375 510 A 80 80 0 1 0 375 350", "M 625 350 A 80 80 0 1 0 625 510 A 80 80 0 1 0 625 350", "M 360 640 Q 500 740 640 640"], "strokes": ["M 375 413 A 32 32 0 1 0 375 477 A 32 32 0 1 0 375 413", "M 625 413 A 32 32 0 1 0 625 477 A 32 32 0 1 0 625 413"]},
+        {"type": "memory", "say": "Look at the wall with a window inside it. It will hide, then you draw the wall and the window.", "strokes": ["M 200 300 L 800 300 L 800 900 L 200 900 Z", "M 400 450 L 600 450 L 600 650 L 400 650 Z"]},
+        {"type": "lesson", "say": "A face has eyes and a smile inside it. Let's draw a happy face!", "lesson": "face"},
+        {"type": "create", "say": "Draw shapes inside shapes, like a fish bowl with a fish inside, or a house with windows!"}
+      ]
+    }
+  ]
+}

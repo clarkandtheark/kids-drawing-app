@@ -1,0 +1,77 @@
+{
+  "id": "nemo",
+  "title": "Nemo",
+  "difficulty": 3,
+  "category": "characters",
+  "emoji": "🐠",
+  "steps": [
+    {
+      "say": "Draw a big round body for Nemo, with a little opening at the back.",
+      "strokes": [
+        "M 195 448 C 265 330 365 268 495 268 C 705 268 830 370 830 502 C 830 640 705 736 495 736 C 365 736 265 672 195 556"
+      ]
+    },
+    {
+      "say": "Draw a big round tail fin to close the opening.",
+      "strokes": [
+        "M 195 448 C 165 395 125 305 82 305 C 35 305 35 700 82 700 C 125 700 165 610 195 556"
+      ]
+    },
+    {
+      "say": "Draw a fin on top with two round bumps.",
+      "strokes": [
+        "M 285 340.3 C 275 230 300 180 350 180 C 390 180 405 205 410 228 C 420 200 440 188 465 190 C 500 192 515 225 505 268.1"
+      ]
+    },
+    {
+      "say": "Draw a big round eye with a big pupil.",
+      "strokes": [
+        "M 706 370 A 66 66 0 1 1 706 502 A 66 66 0 1 1 706 370 Z",
+        "M 710 401 A 39 39 0 1 1 710 479 A 39 39 0 1 1 710 401 Z"
+      ]
+    },
+    {
+      "say": "Draw a big happy open smile.",
+      "strokes": [
+        "M 665 562 Q 715 596 768 586 C 758 636 722 655 698 643 C 676 630 662 598 665 562 Z"
+      ]
+    },
+    {
+      "say": "Draw two curvy lines close together behind the eye for a white stripe.",
+      "strokes": [
+        "M 598 277.1 C 590 347.1 620 422.2 612 502.2 C 604 582.2 606 657.3 598 727.3",
+        "M 553 270.7 C 545 340.7 575 422.1 567 502.1 C 559 582.1 561 663.4 553 733.4"
+      ]
+    },
+    {
+      "say": "Draw a wide white stripe in the middle that bumps forward.",
+      "strokes": [
+        "M 442 271.7 C 454 341.7 454 421.6 466 501.6 C 478 581.6 426 661.6 438 731.6",
+        "M 385 284.9 C 397 354.9 397 421.1 409 501.1 C 421 581.1 369 647.3 381 717.3"
+      ]
+    },
+    {
+      "say": "Draw a thin white stripe near the tail.",
+      "strokes": [
+        "M 248 375.6 C 251 445.6 245 421.6 248 501.6 C 251 581.6 245 557.6 248 627.6",
+        "M 218 412.7 C 220 482.7 216 421.7 218 501.7 C 220 581.7 216 520.7 218 590.7"
+      ]
+    },
+    {
+      "say": "Draw Nemo's tiny lucky fin on his side, then a bigger fin and a little fin underneath.",
+      "strokes": [
+        "M 568.4 470 C 538.4 455 506.4 470 508.4 495 C 510.4 522 543.4 535 565 525",
+        "M 528 735.2 C 540 785 510 825 468 825 C 428 825 420 785 440 765 C 450 757 462 752 478 735.6",
+        "M 350 704.4 C 345 770 300 790 268 780 C 248 772 262 748 300 674.4"
+      ]
+    },
+    {
+      "say": "Finish with three bubbles!",
+      "strokes": [
+        "M 868 320 A 32 32 0 1 1 932 320 A 32 32 0 1 1 868 320 Z",
+        "M 899 215 A 26 26 0 1 1 951 215 A 26 26 0 1 1 899 215 Z",
+        "M 867 115 A 23 23 0 1 1 913 115 A 23 23 0 1 1 867 115 Z"
+      ]
+    }
+  ]
+}

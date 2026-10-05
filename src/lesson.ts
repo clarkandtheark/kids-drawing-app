@@ -8,7 +8,7 @@ import { markCompleted, saveDrawing } from './store';
 import { celebrate, layerPng, leave, mountTools, snapshot } from './tools';
 
 export type Lesson = {
-  id: string; title: string; difficulty: number; emoji: string;
+  id: string; title: string; difficulty: number; emoji: string; category?: 'characters';
   steps: { say: string; strokes: string[] }[];
 };
 

@@ -4,7 +4,7 @@ import { test, expect, type Page, type TestInfo } from '@playwright/test';
 import { mkdirSync } from 'node:fs';
 import { ink, line, toClient, touchStroke, type P } from '../tests/helpers';
 
-type Lesson = { id: string; title: string; difficulty: number; steps: { say: string; strokes: string[] }[] };
+type Lesson = { id: string; title: string; difficulty: number; category?: string; steps: { say: string; strokes: string[] }[] };
 const OUT = 'review/final';
 mkdirSync(OUT, { recursive: true });
 
@@ -104,15 +104,14 @@ async function traceToColor(page: Page, l: Lesson) {
   await expect(page.locator('#lesson')).toHaveAttribute('data-phase', 'color');
 }
 
-test('fresh home: 30 cards in three levels, nothing overflows sideways, scrolls by touch', async ({ page }, info) => {
+test('fresh home: a card per lesson in three levels, nothing overflows sideways, scrolls by touch', async ({ page }, info) => {
   await page.goto('./');
   const all = await lessonsOf(page);
-  expect(all).toHaveLength(30);
-  await expect(page.locator('.card')).toHaveCount(30);
-  await expect(page.locator('section.level')).toHaveCount(3);
+  await expect(page.locator('.card')).toHaveCount(all.length);
+  await expect(page.locator('section.level[data-level]')).toHaveCount(3);
   for (const n of [1, 2, 3]) {
     const ids = await page.locator(`section.level[data-level="${n}"] .card`).evaluateAll((cs) => cs.map((c) => (c as HTMLElement).dataset.id));
-    expect(ids).toEqual(all.filter((l) => l.difficulty === n).map((l) => l.id));
+    expect(ids).toEqual(all.filter((l) => l.difficulty === n && !l.category).map((l) => l.id));
     expect(ids).toHaveLength(10);
   }
   await expect(page.locator('.card.done')).toHaveCount(0);

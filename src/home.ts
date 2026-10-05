@@ -4,6 +4,8 @@ import { CRAYON, star } from './grade';
 import { getCompleted, getScores } from './store';
 
 const SVG = 'http://www.w3.org/2000/svg';
+// Icon-only header of the characters section; unlike the crayons it is a heart.
+const HEART = '<svg viewBox="0 0 24 24"><path d="M12 21C5 15.5 2.5 12 2.5 8.5A4.8 4.8 0 0 1 12 6.6a4.8 4.8 0 0 1 9.5 1.9C21.5 12 19 15.5 12 21Z" fill="#ff5d8f"/><path d="M6 8.5a2.6 2.6 0 0 1 2.6-2" fill="none" stroke="#fff8ea" stroke-opacity=".8" stroke-width="1.5" stroke-linecap="round"/></svg>';
 const home = document.querySelector<HTMLElement>('#menu')!;
 
 function card(l: Lesson) {
@@ -27,18 +29,22 @@ function card(l: Lesson) {
 /** `open` runs inside the tap so the lesson's first spoken line counts as user-initiated (iOS). */
 export function showHome(lessons: Lesson[], open: (l: Lesson) => void) {
   if (!home.querySelector('.level')) {
-    home.append(...[1, 2, 3].map((n) => {
+    const section = (key: string, value: string, label: string, icon: string, list: Lesson[]) => {
       const s = document.createElement('section');
       s.className = 'level';
-      s.dataset.level = String(n);
-      s.innerHTML = `<h2 class="lvl" aria-label="Level ${n}">${CRAYON.repeat(n)}</h2><div class="cards"></div>`;
-      s.querySelector('.cards')!.append(...lessons.filter((l) => l.difficulty === n).map((l) => {
+      s.dataset[key] = value;
+      s.innerHTML = `<h2 class="lvl" aria-label="${label}">${icon}</h2><div class="cards"></div>`;
+      s.querySelector('.cards')!.append(...list.map((l) => {
         const a = card(l);
         a.addEventListener('click', (e) => { e.preventDefault(); open(l); });
         return a;
       }));
       return s;
-    }));
+    };
+    const chars = lessons.filter((l) => l.category === 'characters');
+    home.append(...[1, 2, 3].map((n) => section('level', String(n), `Level ${n}`, CRAYON.repeat(n),
+      lessons.filter((l) => l.difficulty === n && !l.category))));
+    if (chars.length) home.append(section('category', 'characters', 'Characters', HEART, chars)); // ponytail: one category, no registry
   }
   home.hidden = false;
   refreshStars();

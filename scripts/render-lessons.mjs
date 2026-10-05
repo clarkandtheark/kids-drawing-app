@@ -16,6 +16,7 @@ function validate(id, l, file) {
   if (l.id !== file) e(`id "${l.id}" does not match filename "${file}"`);
   if (typeof l.title !== 'string' || !l.title.trim()) e('title must be a non-empty string');
   if (![1, 2, 3].includes(l.difficulty)) e('difficulty must be 1, 2 or 3');
+  if ('category' in l && l.category !== 'characters') e('category, when present, must be "characters"');
   if (typeof l.emoji !== 'string' || !l.emoji.trim()) e('emoji must be a non-empty string');
   if (!Array.isArray(l.steps) || l.steps.length < 4 || l.steps.length > 10) { e('must have 4 to 10 steps'); return errs; }
   l.steps.forEach((s, i) => {
@@ -102,10 +103,10 @@ for (const id of files) {
   try {
     await access(`review/${id}/sheet.png`);
     const l = JSON.parse(await readFile(`lessons/${id}.json`, 'utf8'));
-    rows.push({ id, title: l.title, difficulty: l.difficulty });
+    rows.push({ id, title: l.title, difficulty: l.difficulty, cat: l.category ? 1 : 0 });
   } catch { /* not rendered */ }
 }
-rows.sort((a, b) => a.difficulty - b.difficulty || a.id.localeCompare(b.id));
+rows.sort((a, b) => a.cat - b.cat || a.difficulty - b.difficulty || a.id.localeCompare(b.id));
 await mkdir('review', { recursive: true });
 await writeFile('review/index.html', `<!doctype html><meta charset="utf-8"><title>Lesson review</title>
 <style>body{font-family:system-ui,sans-serif;margin:24px;background:#fafafa}img{max-width:100%;border:1px solid #ddd;background:#fff}h2{margin:32px 0 8px}</style>

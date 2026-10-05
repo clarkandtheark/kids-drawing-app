@@ -22,7 +22,7 @@ export async function touchStroke(page: Page, pts: P[]) {
 }
 
 /** The lessons the app serves; tests must not assume how many there are. */
-export const lessons = (page: Page) => page.request.get('/lessons.json').then((r) => r.json() as Promise<{ id: string; difficulty: number }[]>);
+export const lessons = (page: Page) => page.request.get('/lessons.json').then((r) => r.json() as Promise<{ id: string; difficulty: number; category?: string }[]>);
 
 // Count inked pixels in a logical-space rectangle (default whole canvas).
 export const ink = (page: Page, [x0, y0, x1, y1] = [0, 0, 1000, 1000]) => page.evaluate(([x0, y0, x1, y1]) => {

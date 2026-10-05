@@ -41,14 +41,14 @@ const holdLogo = async (page: Page, ms: number) => {
 };
 const openParent = async (page: Page) => { await holdLogo(page, 3300); await expect(page.locator('#parent')).toBeVisible(); };
 
-test('home: a card per lesson under three level sections, every target at least 64px', async ({ page }) => {
+test('home: a card per lesson, three level sections, every target at least 64px', async ({ page }) => {
   await page.goto('./');
   const all = await lessons(page);
   await expect(page.locator('.card')).toHaveCount(all.length);
-  await expect(page.locator('section.level')).toHaveCount(3);
+  await expect(page.locator('section.level[data-level]')).toHaveCount(3);
   for (const n of [1, 2, 3]) {
     const sec = page.locator(`section.level[data-level="${n}"]`);
-    await expect(sec.locator('.card')).toHaveCount(all.filter((l) => l.difficulty === n).length);
+    await expect(sec.locator('.card')).toHaveCount(all.filter((l) => l.difficulty === n && !l.category).length);
     await expect(sec.locator('.lvl svg')).toHaveCount(n); // crayons, not stars: stars are her scores
   }
   await expect(page.locator('.card[data-id=cat]')).not.toHaveClass(/done/);

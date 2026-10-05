@@ -82,7 +82,7 @@ export const markCompleted = (lessonId: string) => tx('kv', 'readwrite', (s) => 
   };
 });
 
-export const resetProgress = () => tx('kv', 'readwrite', (s) => { s.delete('completed'); s.delete('scores'); });
+export const resetProgress = () => tx('kv', 'readwrite', (s) => { s.delete('completed'); s.delete('scores'); s.delete('path'); });
 
 export const getSetting = async <T>(key: string, fallback: T) =>
   ((await tx<T>('kv', 'readonly', (s) => s.get(`setting:${key}`))) ?? fallback) as T;
@@ -103,5 +103,20 @@ export const saveScore = (lessonId: string, score: Best) => tx('kv', 'readwrite'
   r.onsuccess = () => {
     const all: Record<string, Best> = r.result ?? {};
     if ((all[lessonId]?.percent ?? -1) < score.percent) s.put({ ...all, [lessonId]: score }, 'scores');
+  };
+});
+
+// Learning path: her best stars per finished stop, one 'path' record in the kv store keyed `unitId/stopId`.
+// A key being present means the stop is done (the sticker source).
+export type PathProgress = Record<string, { stars: 1 | 2 | 3 }>;
+
+export const getPathProgress = async () => (await tx<PathProgress>('kv', 'readonly', (s) => s.get('path'))) ?? {};
+
+/** Record a finished stop; a worse run never lowers its stars. */
+export const savePathStop = (key: string, stars: 1 | 2 | 3) => tx('kv', 'readwrite', (s) => {
+  const r = s.get('path');
+  r.onsuccess = () => {
+    const all: PathProgress = r.result ?? {};
+    if ((all[key]?.stars ?? 0) < stars) s.put({ ...all, [key]: { stars } }, 'path');
   };
 });

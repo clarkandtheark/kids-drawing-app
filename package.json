@@ -7,6 +7,7 @@
     "build": "node scripts/build-lessons.mjs && tsc --noEmit && vite build",
     "test": "playwright test",
     "render": "node scripts/render-lessons.mjs",
+    "render:path": "node scripts/render-path.mjs",
     "test:offline": "playwright test -c playwright.offline.config.ts"
   },
   "devDependencies": {

@@ -21,7 +21,7 @@ let ac: AudioContext | undefined;
  * Soft notes (Hz), one every `gap` seconds starting `at` seconds from now. Silent when muted or where
  * Web Audio is missing. Call inside a tap: iOS only lets an AudioContext start from a user gesture.
  */
-function tones(notes: number[], { at = 0, gap = 0.09, len = 0.4, vol = 0.14, type = 'triangle' as OscillatorType } = {}) {
+export function tones(notes: number[], { at = 0, gap = 0.09, len = 0.4, vol = 0.14, type = 'triangle' as OscillatorType } = {}) {
   if (muted() || !notes.length) return;
   try {
     const AC: typeof AudioContext | undefined = window.AudioContext ?? (window as any).webkitAudioContext;

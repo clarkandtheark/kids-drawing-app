@@ -1,4 +1,5 @@
 // Lesson screen: colour canvas, SVG guide and ink canvas stacked in one square, plus icon controls.
+import { caption } from './caption';
 import { History } from './engine/history';
 import { Surface } from './engine/surface';
 import { react, showResult } from './grade';
@@ -18,7 +19,7 @@ const DRAW_MS = 1500, PAUSE_MS = 400;
 const $ = <T extends Element = HTMLElement>(s: string) => document.querySelector<T>(s)!;
 const root = $('#lesson'), sheet = $('#sheet'), ref = $('#ref'), dots = $('#dots'), tools = $('#tools');
 const guide = $<SVGSVGElement>('#guide');
-const next = $<HTMLButtonElement>('#next'), prev = $<HTMLButtonElement>('#prev'), mute = $('#mute');
+const next = $<HTMLButtonElement>('#next'), prev = $<HTMLButtonElement>('#prev'), mute = $('#mute'), cap = $('#lcap');
 
 let lesson: Lesson | null = null;
 let step = 0;
@@ -77,6 +78,7 @@ function finishLesson() {
   ink.history.clear(); // ponytail: undo in Color mode stops at the start of colouring, so it can't eat her lines
   mountTools(tools, color, ink, finishColoring);
   say(COLOR_TIME);
+  caption(cap, COLOR_TIME);
 }
 
 /** Done in Color mode: save to the gallery and mark the lesson done while celebrating, then back to the Library. */
@@ -120,6 +122,7 @@ function showStep() {
   next.ariaLabel = last ? 'Done' : 'Next';
   say(steps[step].say);
   prefetch([...steps.slice(step + 1).map((s) => s.say), ...RESULT_CHEER.slice(1), COLOR_TIME]); // what she hears next
+  caption(cap, steps[step].say);
   animate();
 }
 
@@ -178,6 +181,8 @@ on('#replay', () => {
   say(lesson!.steps[step].say);
   animate();
 });
+// The caption's speaker: "show me again" while tracing; in Color mode just its line again.
+cap.addEventListener('click', () => (root.dataset.phase === 'color' ? say(COLOR_TIME) : $('#replay').click()));
 on('#undo', () => ink.history.undo().then(() => { strokes.length = Math.min(strokes.length, kept + ink.history.size); }));
 on('#mode', () => {
   root.dataset.mode = root.dataset.mode === 'copy' ? 'trace' : 'copy';

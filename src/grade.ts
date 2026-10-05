@@ -77,7 +77,7 @@ export function showResult(lessonId: string, s: { percent: number; stars: 1 | 2 
   el.className = 'result';
   el.innerHTML = `<div class="rcard"><div class="rstars">${[1, 2, 3].map((i) =>
     `<span style="--d:${FIRST_MS + (i - 1) * STAR_MS}ms">${star(false)}${i <= s.stars ? star(true) : ''}</span>`).join('')}</div>
-    <b class="pct">${s.percent}%</b>
+    <b class="pct">${s.percent}%</b><p class="cheer">${RESULT_CHEER[s.stars]}</p>
     <button class="go" aria-label="Color it">${CRAYON}</button></div>`;
   document.body.append(el);
   say(RESULT_CHEER[s.stars]);

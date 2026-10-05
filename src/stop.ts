@@ -1,6 +1,7 @@
 // Path stop player, #stop/<unitId>/<stopId>: one stop of the learning path (path/*.json, built into path.json) is a
 // short run of exercises on one square canvas. Each graded exercise is scored on the big check; a one-star first
 // attempt gets one gentle retry; the end shows the stars and the stop's sticker and saves progress.
+import { caption } from './caption';
 import { History } from './engine/history';
 import { LOGICAL, Surface } from './engine/surface';
 import { react, star, tones } from './grade';
@@ -29,13 +30,15 @@ const DRAW_MS = 1500, PAUSE_MS = 400; // demonstration: like a lesson step
 const MEMORY_MS = 3000, FADE_MS = 700; // memory: the drawing stays this long, then fades away
 const REACT_MS = 1500, RETRY_MS = 1300; // the stars over the canvas; her one-star attempt before it clears
 const ARM_MS = 900; // the result card ignores taps outside its button this long (like the tracing result)
+const CUE_MS = 2200, CUE_PAD = 70; // finish: the glow over where the missing part goes; padding around its strokes (logical units)
+const INTRO_MS = 2500, FLY_MS = 600; // make your own: the prompt on the blank canvas, then its flight up into the caption
 const EXIT = ''; // the result and the close button go home: the path screen
 const HOME = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10" fill="#ffd34d"/><path d="M10 20v-5h4v5"/></svg>';
 
 const SVG = 'http://www.w3.org/2000/svg';
 const $ = <T extends Element = HTMLElement>(s: string) => document.querySelector<T>(s)!;
 const root = $('#stop'), bar = $('#sbar'), sheet = $('#ssheet'), example = $<SVGSVGElement>('#sexample'), tools = $('#stools');
-const ok = $<HTMLButtonElement>('#sok');
+const ok = $<HTMLButtonElement>('#sok'), cap = $('#scap');
 const guide = document.createElementNS(SVG, 'svg');
 guide.id = 'sguide';
 guide.setAttribute('viewBox', '0 0 1000 1000');
@@ -52,6 +55,7 @@ let strokes: Point[][] = [];
 let kept = 0;
 let run = 0; // bumps to cancel an in-flight demonstration, reaction or timer
 let card: HTMLElement | null = null;
+let intro: HTMLElement | null = null;
 let earned: string | null = null; // a stop finished for the first time, until the path screen plays its payoff
 
 /** The `unitId/stopId` just finished for the first time (once; the path screen asks when it draws). */
@@ -99,6 +103,8 @@ function release() {
   if (ink) ink.canvas.width = ink.canvas.height = 0; // iOS frees canvas memory late
   ink = null;
   sheet.replaceChildren();
+  intro?.remove();
+  intro = null;
 }
 
 const path = (d: string, cls: string) => {
@@ -143,7 +149,45 @@ function showExercise(speak = true) {
   if (x.type === 'create') mountTools(tools, ink, null, createDone);
   if (speak) say(x.say ?? LESSON_SAY);
   prefetch([...cur!.stop.exercises.slice(cur!.i + 1).map((e) => e.say ?? LESSON_SAY), ...STOP_CHEER.slice(1)]); // what she hears next
+  caption(cap, x.say ?? LESSON_SAY);
+  if (x.type === 'create') showIntro(x.say, c);
   demo();
+}
+
+/** Make your own: the prompt big on the blank canvas, so it is never the first thing she sees without context; after a
+ *  moment (or at her first touch) it flies up into the caption. Over the canvas but never in the way: no pointer events. */
+function showIntro(text: string, c: HTMLCanvasElement) {
+  const el = intro = document.createElement('p'), r = sheet.getBoundingClientRect();
+  el.className = 'sintro';
+  el.textContent = text;
+  Object.assign(el.style, { left: `${r.left}px`, top: `${r.top}px`, width: `${r.width}px`, height: `${r.height}px` });
+  root.append(el);
+  const fly = () => {
+    if (intro !== el) return;
+    intro = null;
+    const a = el.getBoundingClientRect(), b = cap.getBoundingClientRect();
+    if (calm() || !b.width) return el.remove();
+    const to = `translate(${b.x + b.width / 2 - a.x - a.width / 2}px, ${b.y + b.height / 2 - a.y - a.height / 2}px) scale(0.3)`;
+    const rm = () => el.remove();
+    el.animate([{}, { transform: to, opacity: 0 }], { duration: FLY_MS, easing: 'ease-in' }).finished.then(rm, rm);
+  };
+  c.addEventListener('pointerdown', fly, { once: true });
+  setTimeout(fly, INTRO_MS);
+}
+
+/** Finish: a soft glow over where the missing part goes (the expected strokes' box, padded), without showing it. */
+function showCue(strokes: string[]) {
+  guide.querySelector('.cue')?.remove();
+  const pts = strokes.flatMap((d) => samplePath(d)), xs = pts.map((p) => p.x), ys = pts.map((p) => p.y);
+  const x0 = Math.min(...xs) - CUE_PAD, y0 = Math.min(...ys) - CUE_PAD;
+  const r = document.createElementNS(SVG, 'rect');
+  r.setAttribute('class', 'cue');
+  for (const [k, v] of Object.entries({ x: x0, y: y0, width: Math.max(...xs) + CUE_PAD - x0, height: Math.max(...ys) + CUE_PAD - y0, rx: 60 })) r.setAttribute(k, String(v));
+  guide.prepend(r);
+  const rm = () => r.remove();
+  if (calm()) return void setTimeout(rm, CUE_MS); // still: just there a moment
+  r.animate([{ opacity: 0 }, { opacity: 1, offset: 0.15 }, { opacity: 0.35, offset: 0.4 }, { opacity: 1, offset: 0.65 }, { opacity: 0 }],
+    { duration: CUE_MS, easing: 'ease-in-out', fill: 'both' }).finished.then(rm, rm);
 }
 
 /** The exercise's demonstration: trace draws its guide, shape its example, memory shows the drawing then hides it. */
@@ -154,11 +198,18 @@ async function demo() {
     if (await drawOn(paths, me)) paths.forEach((p) => p.classList.add('rest'));
   } else if (x.type === 'shape') {
     await drawOn([...example.querySelectorAll('path')], me);
+  } else if (x.type === 'finish') {
+    showCue(x.strokes);
   } else if (x.type === 'memory') {
     phase('demo');
     ink!.enabled = false; // no drawing while she can see it
     if (!await drawOn([...guide.querySelectorAll<SVGPathElement>('.now')], me)) return;
+    const dots = document.createElement('div'); // a countdown: one dot empties per second, then it hides
+    dots.className = 'mcount';
+    dots.innerHTML = [3, 2, 1].map((k) => `<i style="--d:${(k * MEMORY_MS) / 3 - 300}ms"></i>`).join('');
+    sheet.append(dots);
     await wait(MEMORY_MS);
+    dots.remove();
     if (me !== run) return;
     if (!calm()) await guide.animate([{ opacity: 1 }, { opacity: 0 }], { duration: FADE_MS, easing: 'ease-in' }).finished;
     if (me !== run) return;
@@ -197,7 +248,7 @@ export function grade(x: Exercise, ink: Point[][]): 1 | 2 | 3 {
     const opts = { rotations: x.rotations, closed: x.closed, canvas: LOGICAL };
     return Math.max(...[x.strokes, ...(x.also ?? [])].map((t) => scoreShape(sampled(t), ink, opts).stars)) as 1 | 2 | 3;
   }
-  if (x.type === 'finish' && x.open) return openAttempt(sampled(x.strokes), ink) ? 3 : 1;
+  if (x.type === 'finish' && x.open) return openAttempt(sampled(x.strokes), ink, sampled(x.given)) ? 3 : 1;
   const tolerance = x.type === 'memory' ? COPY_TOLERANCE : x.type === 'finish' ? FINISH_TOLERANCE : TOLERANCE;
   return score([sampled((x as { strokes: string[] }).strokes)], ink, { tolerance }).stars;
 }
@@ -286,6 +337,7 @@ $('#sreplay').addEventListener('click', () => {
   say(x.say ?? LESSON_SAY);
   demo();
 });
+cap.addEventListener('click', () => $('#sreplay').click()); // the caption's speaker: the same as "show me again"
 $('#sundo').addEventListener('click', () => {
   const s = ink;
   s?.history.undo().then(() => {
@@ -315,7 +367,7 @@ function showResult() {
   el.className = 'result';
   el.innerHTML = `<div class="rcard"><div class="rstars">${[1, 2, 3].map((i) =>
     `<span style="--d:${300 + (i - 1) * 450}ms">${star(false)}${i <= stars ? star(true) : ''}</span>`).join('')}</div>
-    <i class="sticker">${c.stop.sticker}</i>
+    <i class="sticker">${c.stop.sticker}</i><p class="cheer">${STOP_CHEER[stars]}</p>
     <button class="go home" aria-label="Home">${HOME}</button></div>`;
   document.body.append(el);
   say(STOP_CHEER[stars]);

@@ -178,12 +178,12 @@
     /* Lesson screen: portrait = reference / canvas / dots / buttons stacked; landscape = canvas | side column */
     #lesson {
       display: grid;
-      grid-template: "ref ref ref ref ref" auto "stage stage stage stage stage" 1fr "dots dots dots dots dots" auto
+      grid-template: "cap cap cap cap ref" auto "stage stage stage stage stage" 1fr "dots dots dots dots dots" auto
                      "sys . act . nav" auto / auto 1fr auto 1fr auto;
     }
     @media (orientation: landscape) {
       #lesson {
-        grid-template: "stage sys" auto "stage ref" auto "stage ." 1fr "stage dots" auto "stage act" auto
+        grid-template: "stage sys" auto "stage ref" auto "stage cap" 1fr "stage dots" auto "stage act" auto
                        "stage nav" auto / 1fr 272px;
       }
     }
@@ -299,9 +299,17 @@
       grid-template: "stage stage stage stage stage" 1fr "crayons crayons crayons crayons crayons" auto
                      "sys sizes modes edits finish" auto / auto 1fr auto auto auto;
     }
+    #lesson[data-phase="color"] {
+      grid-template: "cap cap cap cap cap" auto "stage stage stage stage stage" 1fr "crayons crayons crayons crayons crayons" auto
+                     "sys sizes modes edits finish" auto / auto 1fr auto auto auto;
+    }
     @media (orientation: landscape) {
       #lesson[data-phase="color"], #free {
         grid-template: "stage sys sys" auto "stage crayons crayons" auto "stage sizes sizes" auto
+                       "stage modes edits" auto "stage . ." 1fr "stage finish finish" auto / 1fr auto auto;
+      }
+      #lesson[data-phase="color"] {
+        grid-template: "stage sys sys" auto "stage cap cap" auto "stage crayons crayons" auto "stage sizes sizes" auto
                        "stage modes edits" auto "stage . ." 1fr "stage finish finish" auto / 1fr auto auto;
       }
       :is(#lesson, #free) .crayons { display: grid; grid-template-columns: repeat(4, 72px); gap: 6px 12px; }
@@ -363,6 +371,35 @@
     @keyframes pop { from { transform: scale(0) rotate(-140deg); } to { transform: scale(1) rotate(0); } }
     @keyframes fade { from { opacity: 0; } }
 
+    /* On-screen instruction (#50, src/caption.ts): the spoken line, big, with a speaker icon; tap it to hear it again.
+       A box of --lines lines; a longer line shrinks its font a step (never an ellipsis). Portrait: a row above the canvas
+       (beside the example when there is one). Landscape: the top of the side column's spare space. Colour tools: as
+       tall as its text. */
+    .caption {
+      --lines: 3; --pad: 10px; grid-area: cap; align-self: center; display: flex; align-items: center; gap: 0.4em;
+      width: 0; min-width: 100%; min-height: 0; box-sizing: border-box; height: calc(var(--lines) * 1.2em + 2 * var(--pad)); /* fills its cell, never widens it */
+      padding: var(--pad) calc(var(--pad) * 1.8); overflow: hidden; overflow-wrap: break-word;
+      border-radius: 24px; background: #fff; box-shadow: 0 5px 0 #f4c76b; color: #4a2f12;
+      font-size: 28px; font-weight: 800; line-height: 1.2; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+    }
+    .caption svg { flex: none; width: 1.1em; height: 1.1em; color: #ff8a3d; }
+    .caption span { min-width: 0; }
+    .caption.new { animation: capnew 1.4s ease-out; }
+    @keyframes capnew { from { background: #ffe08a; box-shadow: 0 5px 0 #e0a92e, 0 0 0 8px rgb(255 210 31 / 0.55); } }
+    @media (orientation: portrait) {
+      #lesson:not([data-mode="copy"]) #lcap, #stop:not([data-kind="shape"]) #scap { grid-column: 1 / -1; } /* no example beside it */
+      #stop:not([data-kind="shape"]) #scap { --lines: 2; }
+    }
+    @media (orientation: landscape) { #lcap, #scap { align-self: start; align-items: flex-start; height: auto; max-height: 100%; } }
+    #lesson[data-phase="color"] #lcap, #stop[data-kind="create"] #scap {
+      --lines: 2; align-self: stretch; height: auto; max-height: calc(var(--lines) * 1.2em + 2 * var(--pad)); }
+    @media (orientation: landscape) {
+      #lesson[data-phase="color"] #lcap { --lines: 4; }
+      #stop[data-kind="create"] #scap { align-self: start; max-height: 100%; }
+    }
+    /* The results say their cheer in words too: under the percentage (lesson), under the sticker (stop) */
+    .rcard .cheer { margin: 0; max-width: min(640px, 84vw); text-align: center; font-size: 34px; font-weight: 900; line-height: 1.15; }
+
     /* ===== Phones (#29). Everything above is the iPad layout and stays untouched; these rules only apply below iPad
        sizes: phone portrait = narrower than 700px, phone landscape = shorter than 480px (the smallest iPad is 744 x 1133).
        Both share the rules in the first block; the two after it are the per-orientation layouts. ===== */
@@ -417,6 +454,9 @@
       #dots i { width: 16px; height: 16px; }
       #dots i.on { width: 16px; height: 16px; }
       #sheet, #fsheet { border-radius: 20px; }
+      .caption { --pad: 6px; font-size: 21px; border-radius: 18px; box-shadow: 0 4px 0 #f4c76b; }
+      #lesson[data-phase="color"] #lcap, #stop[data-kind="create"] #scap { font-size: 19px; } /* the colour tools leave less room */
+      .rcard .cheer { font-size: 24px; }
 
       /* Colour tools: 12 crayons as a 6 x 2 block (every colour visible, no hidden scroll), 64px tool buttons. */
       :is(#lesson, #free) .crayons { display: grid; grid-template-columns: repeat(6, minmax(0, 64px)); justify-content: center; gap: 0 2px; }
@@ -477,27 +517,35 @@
     @media (max-width: 700px) {
       .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       /* Lesson: [home sound mode | reference] / canvas / dots / [replay undo .. back next] */
-      #lesson { grid-template: "sys ref" auto "stage stage" 1fr "dots dots" auto "act nav" auto / 1fr auto; }
+      /* four columns so the top row (3 buttons | example) and the bottom (2 | 2) fit 359px (375 wide) without overflowing */
+      #lesson { grid-template: "sys sys . ref" auto "cap cap cap cap" auto "stage stage stage stage" 1fr "dots dots dots dots" auto
+                               "act nav nav nav" auto / auto auto 1fr auto; }
       #sys { justify-self: start; }
       #ref { justify-self: end; }
       #act { justify-self: start; }
       #nav { justify-self: end; }
       #lesson[data-phase="color"], #free { grid-template: "stage" 1fr "crayons" auto "rowa" auto "rowb" auto / 100%; }
+      #lesson[data-phase="color"] { grid-template: "cap" auto "stage" 1fr "crayons" auto "rowa" auto "rowb" auto / 100%; }
+      #lcap, #stop:not([data-kind="shape"]) #scap, #lesson[data-phase="color"] #lcap, #stop[data-kind="create"] #scap { --lines: 3; }
     }
 
     /* Phone landscape: the canvas fills the height on the left, the controls share a column on the right. */
     @media (orientation: landscape) and (max-height: 480px) {
       .cards { grid-template-columns: repeat(5, minmax(0, 1fr)); }
       #lesson {
-        grid-template: "stage sys ref" auto "stage act ref" auto "stage . ." 1fr "stage dots dots" auto
+        grid-template: "stage sys ref" auto "stage act ref" auto "stage cap cap" 1fr "stage dots dots" auto
                        "stage nav nav" auto / 1fr auto auto;
         column-gap: 12px;
       }
+      #lcap { width: max(220px, 100vw - 100vh - 40px); } /* widens the side column into the room the square canvas leaves */
       :is(#sys, #act, #nav, #dots) { justify-self: center; }
       #lesson[data-phase="color"], #free {
         grid-template: "stage ." 1fr "stage crayons" auto "stage rowa" auto "stage rowb" auto "stage ." 1fr / 1fr 360px;
         column-gap: 12px;
       }
+      /* Colour tools fill the side column: the caption goes over the canvas, which moves down by its height (--caph) */
+      #lesson[data-phase="color"] #lcap, #stop[data-kind="create"] #scap { grid-area: stage; width: 0; align-self: start; --lines: 3; max-height: calc(var(--lines) * 1.2em + 2 * var(--pad)); }
+      #lesson[data-phase="color"] #stage, #stop[data-kind="create"] #sstage { padding-top: calc(var(--caph, 0px) + 8px); }
       .rstars span { width: min(24vw, 22vh); }
       .rstars span:nth-child(2) { width: min(28vw, 26vh); }
       .result .pct { font-size: 15vh; }
@@ -510,11 +558,12 @@
     }
 
     /* ===== Path stop player (#36, src/stop.ts): progress bar, one exercise at a time on the canvas, one big check.
-       Portrait: [home | progress] / example / canvas / [replay undo .. check]; landscape: canvas | side column. ===== */
-    #stop { display: grid; grid-template: "sys bar bar" auto "ref ref ref" auto "stage stage stage" 1fr "act act check" auto / auto 1fr auto; }
+       Portrait: [home | progress] / [caption | example] / canvas / [replay undo .. check]; landscape: canvas | side column. ===== */
+    #stop { display: grid; grid-template: "sys bar bar" auto "cap cap ref" auto "stage stage stage" 1fr "act act check" auto / auto 1fr auto; }
     #sact { justify-self: start; }
+    @media (orientation: portrait) { #scheck { justify-self: end; } }
     @media (orientation: landscape) {
-      #stop { grid-template: "sys bar bar" auto "stage stage ref" auto "stage stage ." 1fr "stage stage act" auto "stage stage check" auto / auto 1fr 272px; }
+      #stop { grid-template: "sys bar bar" auto "stage stage ref" auto "stage stage cap" 1fr "stage stage act" auto "stage stage check" auto / auto 1fr 272px; }
     }
     #ssys { grid-area: sys; justify-self: start; } #sact { grid-area: act; } #scheck { grid-area: check; }
     #sstage { grid-area: stage; container-type: size; display: grid; place-items: center; min-width: 0; min-height: 0; }
@@ -531,9 +580,19 @@
     #sguide .now, #sexample path { stroke: #ff5a36; }
     #sexample path { stroke-width: 26; }
     #sguide .now.rest { stroke: #ff9a7a; stroke-width: 13; stroke-dasharray: 0.1 26; }
-    #sguide .given { stroke: #2b2b2b; }
+    #sguide .given { stroke: #8a9fc8; } /* "the picture so far": a soft grey-blue, so her near-black ink stands out */
     #sguide .hint { stroke: #ffd9cc; stroke-width: 10; stroke-dasharray: 0.1 24; }
     #sguide .thumb { stroke: #5a3d1e; stroke-width: 18; }
+    /* Finish: where the missing part goes, a soft glow that pulses and fades (src/stop.ts) */
+    #sguide .cue { fill: rgb(255 210 31 / 0.3); stroke: rgb(255 170 0 / 0.55); stroke-width: 10; stroke-dasharray: 2 22; stroke-linecap: round; }
+    /* Memory: three dots that empty one by one while the picture shows, then it hides */
+    #ssheet > .mcount { inset: auto 0 3% 0; width: auto; height: auto; display: flex; justify-content: center; gap: 14px; pointer-events: none; }
+    .mcount i { width: 22px; height: 22px; border-radius: 50%; background: #ff8a3d; box-shadow: inset 0 0 0 4px #ff8a3d;
+      animation: empty 0.3s linear var(--d) forwards; }
+    @keyframes empty { to { background: #fff; } }
+    /* Make your own: the prompt big on the blank canvas first, then it flies up into the caption */
+    .sintro { position: fixed; z-index: 4; display: grid; place-items: center; box-sizing: border-box; margin: 0; padding: 8%;
+      text-align: center; font-size: clamp(26px, 4.2vmin, 48px); font-weight: 900; line-height: 1.2; color: #4a2f12; pointer-events: none; }
 
     /* Progress: one segment per exercise; done ones take the reaction's look (great gold star, good green, try hollow) */
     #sbar { grid-area: bar; align-self: center; display: flex; gap: 8px; }
@@ -579,13 +638,13 @@
     #stools { display: contents; }
     #stop:not([data-kind="create"]) #stools, #stop[data-kind="create"] :is(#sact, #scheck) { display: none; }
     #stop[data-kind="create"] {
-      grid-template: "sys bar bar bar bar" auto "stage stage stage stage stage" 1fr "crayons crayons crayons crayons crayons" auto
-                     "sizes . modes edits finish" auto / auto 1fr auto auto auto;
+      grid-template: "sys bar bar bar bar" auto "cap cap cap cap cap" auto "stage stage stage stage stage" 1fr
+                     "crayons crayons crayons crayons crayons" auto "sizes . modes edits finish" auto / auto 1fr auto auto auto;
     }
     @media (orientation: landscape) {
       #stop[data-kind="create"] {
-        grid-template: "sys bar bar bar" auto "stage stage crayons crayons" auto "stage stage sizes sizes" auto
-                       "stage stage modes edits" auto "stage stage . ." 1fr "stage stage finish finish" auto / auto 1fr auto auto;
+        grid-template: "sys bar bar bar" auto "stage stage cap cap" 1fr "stage stage crayons crayons" auto "stage stage sizes sizes" auto
+                       "stage stage modes edits" auto "stage stage finish finish" auto / auto 1fr auto auto;
       }
       #stop .crayons { display: grid; grid-template-columns: repeat(4, 72px); gap: 6px 12px; }
     }
@@ -600,7 +659,8 @@
     /* Path stop on phones (both orientations, then each); same breakpoints as the phone blocks above. */
     @media (max-width: 700px), (orientation: landscape) and (max-height: 480px) {
       #ssheet { border-radius: 20px; }
-      #sref { width: 132px; height: 132px; padding: 6px; border-radius: 18px; }
+      /* the example sits in the bottom row, between replay / undo and the check: the caption has the row above the canvas */
+      #sref { grid-area: act; justify-self: end; width: min(132px, 100vw - 248px); height: auto; aspect-ratio: 1; padding: 6px; border-radius: 18px; }
       #sbar { gap: 5px; }
       #sbar i { height: 22px; border-radius: 11px; }
       #sbar i[data-r=great] { background-size: 20px; }
@@ -614,11 +674,20 @@
       #stools .finish svg { width: 50px; height: 50px; }
     }
     @media (max-width: 700px) {
-      #stop[data-kind="create"] { grid-template: "sys bar" auto "stage stage" 1fr "crayons crayons" auto "rowa rowa" auto "rowb rowb" auto / auto 1fr; }
+      #stop { grid-template: "sys bar bar" auto "cap cap cap" auto "stage stage stage" 1fr "act act check" auto / auto 1fr auto; }
+      /* Make your own: home joins undo / clear / Done in the last row, so the caption gets the room above the canvas */
+      #stop[data-kind="create"] { grid-template: "bar" auto "cap" auto "stage" 1fr "crayons" auto "rowa" auto "rowb" auto / 100%; }
+      #stop[data-kind="create"] #ssys { grid-area: rowb; }
+    }
+    /* Tall phones in portrait have room above the canvas for a fourth caption line, so the longest prompts keep ~21px
+       (the colour tools keep three: no room there). Short phones keep three lines and shrink a step. */
+    @media (max-width: 700px) and (min-height: 700px) {
+      #lcap, #stop:not([data-kind="create"]) #scap { --lines: 4; }
     }
     @media (orientation: landscape) and (max-height: 480px) {
-      #stop { grid-template: "stage sys bar" auto "stage ref ref" auto "stage . ." 1fr "stage act act" auto / minmax(0, 1fr) auto minmax(0, 1fr); column-gap: 12px; }
+      #stop { grid-template: "stage sys bar" auto "stage cap cap" 1fr "stage act act" auto / minmax(0, 1fr) auto minmax(0, 1fr); column-gap: 12px; }
       #scheck { grid-area: act; justify-self: end; } /* replay + undo at the start of the bottom row, the check at its end */
+      #sref { margin-right: 88px; }
       #stop[data-kind="create"] { grid-template: "stage bar" auto "stage crayons" auto "stage rowa" auto "stage rowb" auto "stage ." 1fr / 1fr 360px; }
       #stop[data-kind="create"] #ssys { grid-area: rowb; }
       #stop[data-kind="create"] #sbar i { height: 16px; }
@@ -704,6 +773,7 @@
   </div>
 
   <main id="lesson" class="screen" data-mode="trace" hidden>
+    <div id="lcap" class="caption" aria-live="polite"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 9.5v5h4l5 4.5v-14l-5 4.5h-4Z" fill="currentColor"/><path d="M16 9a4.5 4.5 0 0 1 0 6"/><path d="M18.8 6a8.5 8.5 0 0 1 0 12"/></svg><span></span></div>
     <div id="ref"><svg id="guide" viewBox="0 0 1000 1000"></svg></div>
     <div id="stage"><div id="sheet"></div></div>
     <div id="dots"></div>
@@ -744,6 +814,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10" fill="#ffd34d"/><path d="M10 20v-5h4v5"/></svg>
     </button></div>
     <div id="sbar"></div>
+    <div id="scap" class="caption" aria-live="polite"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 9.5v5h4l5 4.5v-14l-5 4.5h-4Z" fill="currentColor"/><path d="M16 9a4.5 4.5 0 0 1 0 6"/><path d="M18.8 6a8.5 8.5 0 0 1 0 12"/></svg><span></span></div>
     <div id="sref"><svg id="sexample" viewBox="0 0 1000 1000"></svg></div>
     <div id="sstage"><div id="ssheet"></div></div>
     <div id="sact" class="group">

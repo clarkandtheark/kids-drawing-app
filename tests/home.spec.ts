@@ -1,4 +1,4 @@
-// Home screen, Free draw, My Drawings, parent area.
+// The Library (the lesson grid, home before the path), Free draw, My Drawings, parent area. The path home screen is pathhome.spec.ts.
 import { test, expect, type Page } from '@playwright/test';
 
 import { unzipSync } from 'fflate';
@@ -41,8 +41,8 @@ const holdLogo = async (page: Page, ms: number) => {
 };
 const openParent = async (page: Page) => { await holdLogo(page, 3300); await expect(page.locator('#parent')).toBeVisible(); };
 
-test('home: a card per lesson, three level sections, every target at least 64px', async ({ page }) => {
-  await page.goto('./');
+test('Library: a card per lesson, three level sections, every target at least 64px', async ({ page }) => {
+  await page.goto('./#library');
   const all = await lessons(page);
   await expect(page.locator('.card')).toHaveCount(all.length);
   await expect(page.locator('section.level[data-level]')).toHaveCount(3);
@@ -59,9 +59,9 @@ test('home: a card per lesson, three level sections, every target at least 64px'
   }
 });
 
-test('home scrolls by touch; pinch and the drawing screens stay blocked', async ({ page }) => {
+test('Library scrolls by touch; pinch and the drawing screens stay blocked', async ({ page }) => {
   await page.setViewportSize({ width: 1024, height: 500 }); // short enough that even a few lessons overflow
-  await page.goto('./');
+  await page.goto('./#library');
   await expect(page.locator('.card').first()).toBeVisible();
   const cdp = await page.context().newCDPSession(page);
   const touch = (type: 'touchStart' | 'touchMove' | 'touchEnd', y: number) => cdp.send('Input.dispatchTouchEvent', { type, touchPoints: type === 'touchEnd' ? [] : [{ x: 512, y, id: 1 }] });
@@ -94,16 +94,16 @@ test('Free draw and My Drawings buttons navigate, home buttons return', async ({
   await page.locator('#tofree').tap();
   await expect(page).toHaveURL(/#draw$/);
   await expect(page.locator('#free')).toBeVisible();
-  await expect(page.locator('#menu')).toBeHidden();
+  await expect(page.locator('#path')).toBeHidden();
   await page.locator('#fhome').tap();
-  await expect(page.locator('#menu')).toBeVisible();
+  await expect(page.locator('#path')).toBeVisible();
   await expect(page.locator('#free')).toBeHidden();
   await expect(page.locator('#paint')).toHaveCount(0); // the canvas is released
   await page.locator('#togallery').tap();
   await expect(page).toHaveURL(/#gallery$/);
   await expect(page.locator('#gallery')).toBeVisible();
   await page.locator('#ghome').tap();
-  await expect(page.locator('#menu')).toBeVisible();
+  await expect(page.locator('#path')).toBeVisible();
   await expect(page.locator('#gallery')).toBeHidden();
 });
 
@@ -120,7 +120,7 @@ test('free draw: every control is 64px+, paint, Done saves a drawing with no les
   await touchStroke(page, line([100, 500], [900, 500]));
   await page.locator('[data-act=done]').tap();
   await expect(page.locator('.party')).toBeVisible();
-  await expect(page.locator('#menu')).toBeVisible({ timeout: 5000 });
+  await expect(page.locator('#path')).toBeVisible({ timeout: 5000 });
   const list = await stored(page);
   expect(list).toHaveLength(1);
   expect(list[0]).toMatchObject({ lessonId: null, type: 'image/png' });
@@ -132,7 +132,7 @@ test('free draw: home with paint asks; trash discards', async ({ page }) => {
   await touchStroke(page, line([100, 500], [900, 500]));
   await page.locator('#fhome').tap();
   await page.locator('.ask .yes').tap();
-  await expect(page.locator('#menu')).toBeVisible();
+  await expect(page.locator('#path')).toBeVisible();
   await expect(page.locator('#paint')).toHaveCount(0);
   expect(await stored(page)).toHaveLength(0);
 });
@@ -242,14 +242,20 @@ test('parent area: reset progress removes stars only, after asking', async ({ pa
   await page.goto('./');
   await seed(page, [['#ff0000', 'cat', 1000]]);
   await page.evaluate(async () => (await import('/src/store.ts' as string)).markCompleted('cat'));
+  await page.goto('./#library');
   await page.reload();
   await expect(page.locator('.card[data-id=cat]')).toHaveClass(/done/);
+  await page.locator('#lhome').tap(); // to the path (the logo), same page: the Library's cards stay, hidden
   await openParent(page);
   await page.locator('#preset').tap();
   await page.locator('.ask .no').tap();
   await expect(page.locator('.card[data-id=cat]')).toHaveClass(/done/);
   await page.locator('#preset').tap();
   await page.locator('.ask .yes').tap();
+  await expect(page.locator('.card.done')).toHaveCount(0);
+  await page.locator('#pclose').tap();
+  await page.locator('#tolibrary').tap();
+  await expect(page.locator('.card[data-id=cat]')).toBeVisible();
   await expect(page.locator('.card.done')).toHaveCount(0);
   expect(await stored(page)).toHaveLength(1);
 });
@@ -290,9 +296,10 @@ test('home, free draw, gallery and parent review screenshots', async ({ page }, 
   await page.goto('./');
   await seed(page, [['#ffd21f', 'cat', 1000], ['#4cc3ff', null, 2000]]);
   await page.evaluate(async () => (await import('/src/store.ts' as string)).markCompleted('cat'));
+  await page.goto('./#library');
   await page.reload();
   await expect(page.locator('.card[data-id=cat]')).toHaveClass(/done/);
-  await page.screenshot({ path: name('home') });
+  await page.screenshot({ path: name('library') });
   await page.goto('./#draw');
   await expect(page.locator('#paint')).toBeVisible();
   await touchStroke(page, line([150, 300], [850, 700]));

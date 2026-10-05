@@ -64,8 +64,8 @@ const pixel = (page: Page, sel: string, [x, y]: P) => page.evaluate(([sel, x, y]
   return [...c.getContext('2d')!.getImageData(Math.floor((x as number) * k), Math.floor((y as number) * k), 1, 1).data];
 }, [sel, x, y]);
 
-test('home: every lesson card and its title sit fully inside the screen', async ({ page }) => {
-  await page.goto('./');
+test('Library: every lesson card and its title sit fully inside the screen; the path header is one row', async ({ page }) => {
+  await page.goto('./#library');
   await expect(page.locator('.card')).not.toHaveCount(0);
   await fits(page);
   const vw = page.viewportSize()!.width;
@@ -84,13 +84,16 @@ test('home: every lesson card and its title sit fully inside the screen', async 
     expect(c.title, `${c.id} title`).toBe(true);
     expect(c.thumb, `${c.id} thumbnail`).toBe(true);
   }
+  await page.goto('./');
+  await expect(page.locator('#path')).toBeVisible();
+  await fits(page);
   for (const b of await boxes(page, '#top > *')) expect(b.y + b.height).toBeLessThan(150); // the header is one row
 });
 
 test('a lesson end to end by touch: trace, copy mode, result, Color mode tools, fill, brush, Done, gallery, viewer, re-colour', async ({ page }) => {
   test.setTimeout(90_000);
   const vp = page.viewportSize()!;
-  await page.goto('./');
+  await page.goto('./#library');
   await page.locator('.card[data-id=cloud]').tap();
   await expect(page.locator('#ink')).toBeVisible();
   const sheet = (await page.locator('#sheet').boundingBox())!;
@@ -162,6 +165,7 @@ test('a lesson end to end by touch: trace, copy mode, result, Color mode tools, 
   await expect(page.locator('.party')).toBeVisible();
   await expect(page.locator('#menu')).toBeVisible({ timeout: 5000 });
 
+  await page.locator('#lhome').tap();
   await page.locator('#togallery').tap();
   await expect(page.locator('.pic')).toHaveCount(1);
   await fits(page);

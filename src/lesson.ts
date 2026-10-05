@@ -33,7 +33,7 @@ let strokes: Point[][];
 let kept = 0;
 const tolerance = () => (root.dataset.mode === 'copy' ? COPY_TOLERANCE : TOLERANCE);
 // A path stop playing this lesson as one of its exercises (src/stop.ts): told the stars when the result shows,
-// and Done / Home go back to its route instead of home. Set just before routing to the lesson; cleared on close.
+// and Done / Home go back to its route instead of the Library. Set just before routing to the lesson; cleared on close.
 let back: { hash: string; scored: (stars: 1 | 2 | 3) => void } | null = null;
 export const returnTo = (b: typeof back) => { back = b; };
 
@@ -78,12 +78,12 @@ function finishLesson() {
   say('Time to color! Pick a crayon.');
 }
 
-/** Done in Color mode: save to the gallery and mark the lesson done while celebrating, then go home. */
+/** Done in Color mode: save to the gallery and mark the lesson done while celebrating, then back to the Library. */
 async function finishColoring() {
   const l = lesson!;
   const saved = Promise.all([save(), markCompleted(l.id)]);
   await Promise.all([celebrate(), saved.catch((e) => console.warn('save failed', e))]);
-  if (lesson === l) location.hash = back?.hash ?? '';
+  if (lesson === l) location.hash = back?.hash ?? '#library';
 }
 
 /** Save her picture and both layers as a new drawing (the guide is SVG, never on these canvases). The
@@ -182,7 +182,7 @@ on('#mode', () => {
   placeGuide();
   animate(); // show the reference drawing itself in its new place
 });
-on('#home', () => { const l = lesson; if (l) leave(ink.history, save, () => lesson === l, back?.hash); });
+on('#home', () => { const l = lesson; if (l) leave(ink.history, save, () => lesson === l, back?.hash ?? '#library'); });
 on('#mute', () => {
   setMuted(!muted());
   mute.ariaPressed = String(muted());

@@ -24,13 +24,13 @@ const said = (page: Page) => page.evaluate(() => (window as any).__said as strin
 const count = (page: Page, sel: string) => page.locator(sel).count();
 const phase = (page: Page) => page.locator('#lesson').getAttribute('data-phase');
 const openCat = async (page: Page) => {
-  await page.goto('./');
+  await page.goto('./#library');
   await page.locator('.card[data-id=cat]').tap();
   await expect(page.locator('#lesson')).toBeVisible();
 };
 
 test('picker shows a card per lesson; tapping cat opens it', async ({ page }) => {
-  await page.goto('./');
+  await page.goto('./#library');
   await expect(page.locator('.card')).toHaveCount((await lessons(page)).length);
   await expect(page.locator('.card[data-id=cat] svg path')).toHaveCount(cat.steps.flatMap((s) => s.strokes).length);
   await page.locator('.card[data-id=cat]').tap();
@@ -159,7 +159,7 @@ test('every control is at least 64px and clear of the canvas, in both modes', as
 
 test('review screenshots', async ({ page }, info) => {
   const name = (s: string) => `review/lesson-${s}-${info.project.name}.png`;
-  await page.goto('./');
+  await page.goto('./#library');
   await expect(page.locator('.card')).toHaveCount((await lessons(page)).length);
   await page.screenshot({ path: name('picker') });
   await page.locator('.card[data-id=cat]').tap();

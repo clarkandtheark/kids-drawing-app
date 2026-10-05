@@ -7,6 +7,7 @@ import { cpSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } f
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { precacheList } from '../vite.config';
+import { line, touchStroke } from '../tests/helpers';
 
 test('path.json is built into dist/, precached by the worker, and served offline', async ({ page, context }) => {
   expect(precacheList('dist')).toContain('path.json');
@@ -22,6 +23,26 @@ test('path.json is built into dist/, precached by the worker, and served offline
   await page.goto('./#stop/lines/straight');
   await expect(page.locator('#stop')).toBeVisible();
   await expect(page.locator('#sbar i')).toHaveCount(6);
+});
+
+test('offline after the first load: the path home screen draws and its current stop plays', async ({ page, context }) => {
+  await page.addInitScript(() => Object.defineProperty(window, 'speechSynthesis', { configurable: true, value: { speak() {}, cancel() {}, getVoices: () => [] } }));
+  await page.goto('./');
+  await page.evaluate(() => navigator.serviceWorker.ready);
+  await page.waitForFunction(() => !!navigator.serviceWorker.controller);
+  await context.setOffline(true);
+  await page.reload();
+  await expect(page.locator('#path')).toBeVisible();
+  const units = JSON.parse(readFileSync('dist/path.json', 'utf8'));
+  await expect(page.locator('.unit')).toHaveCount(units.length);
+  await expect(page.locator('.stop[data-state=current]')).toHaveCount(1);
+  await page.locator('.stop[data-state=current]').tap();
+  await expect(page.locator('#stop')).toBeVisible();
+  // Whatever the curriculum's first exercise is: draw something and check it; it gets a reaction (curriculum-independent).
+  await expect(page.locator('#stop')).toHaveAttribute('data-phase', 'draw', { timeout: 15_000 });
+  await touchStroke(page, line([200, 500], [800, 500], 30));
+  await page.locator('#sok').tap();
+  await expect(page.locator('#sbar i').first()).toHaveAttribute('data-r', /./);
 });
 
 const ok = () => ({

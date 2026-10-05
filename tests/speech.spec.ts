@@ -18,7 +18,7 @@ const open = async (page: Page, voices: [string, string][]) => {
       },
     });
   }, voices);
-  await page.goto('./');
+  await page.goto('./#library');
   await page.locator('.card[data-id=cat]').tap();
   await expect(page.locator('#lesson')).toBeVisible();
   return () => page.evaluate(() => (window as any).__spoken[0]);

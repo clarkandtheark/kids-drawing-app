@@ -26,7 +26,7 @@ const DRAW_MS = 1500, PAUSE_MS = 400; // demonstration: like a lesson step
 const MEMORY_MS = 3000, FADE_MS = 700; // memory: the drawing stays this long, then fades away
 const REACT_MS = 1500, RETRY_MS = 1300; // the stars over the canvas; her one-star attempt before it clears
 const ARM_MS = 900; // the result card ignores taps outside its button this long (like the tracing result)
-const EXIT = ''; // ponytail: the result and the close button always go home; #37 sends her back to the path screen
+const EXIT = ''; // the result and the close button go home: the path screen
 const LESSON_SAY = "Let's draw a whole picture! Tap the green button.";
 const CHEER = ['', 'You did it! Here is your sticker!', 'Great job! Here is your sticker!', 'Wow, three stars! Here is your sticker!'];
 const HOME = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10" fill="#ffd34d"/><path d="M10 20v-5h4v5"/></svg>';
@@ -52,6 +52,10 @@ let kept = 0;
 let target: Point[][] = []; // the exercise's strokes, sampled
 let run = 0; // bumps to cancel an in-flight demonstration, reaction or timer
 let card: HTMLElement | null = null;
+let earned: string | null = null; // a stop finished for the first time, until the path screen plays its payoff
+
+/** The `unitId/stopId` just finished for the first time (once; the path screen asks when it draws). */
+export const takeEarned = () => { const k = earned; earned = null; return k; };
 
 const ex = () => cur!.stop.exercises[cur!.i];
 const seg = (i: number) => bar.children[i] as HTMLElement;
@@ -299,7 +303,7 @@ $('#sclose').addEventListener('click', async () => {
 function showResult() {
   const c = cur!, graded = c.results.filter((r) => r > 0);
   const stars = (graded.length ? Math.max(1, Math.round(graded.reduce((a, b) => a + b, 0) / graded.length)) : 3) as 1 | 2 | 3;
-  savePathStop(c.key, stars);
+  savePathStop(c.key, stars).then((fresh) => { if (fresh) earned = c.key; });
   phase('result');
   tools.replaceChildren(); // her last drawing stays under the card; closeStop releases it
   const el = card = document.createElement('div');

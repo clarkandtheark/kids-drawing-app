@@ -75,7 +75,7 @@ async function freeDrawing(page: Page) {
   await touchStroke(page, line([100, 500], [900, 500]));
   await page.locator('#fhome').tap();
   await page.locator('.ask .save').tap();
-  await expect(page.locator('#menu')).toBeVisible();
+  await expect(page.locator('#path')).toBeVisible();
 }
 /** A drawing from before layers existed: a flat 1024px picture, a black line on a green square. */
 async function legacyDrawing(page: Page) {
@@ -110,7 +110,7 @@ test('the viewer has a big colour button; it opens her lines and her colour, oth
   await page.locator('#vbar .color').tap();
   await expect(page).toHaveURL(/#color\/\d+$/);
   await expect(page.locator('#color')).toBeVisible();
-  for (const s of ['#gallery', '#view', '#menu', '#lesson']) await expect(page.locator(s)).toBeHidden();
+  for (const s of ['#gallery', '#view', '#menu', '#path', '#lesson']) await expect(page.locator(s)).toBeHidden();
   expect(await pixel(page, '#color', IN)).toEqual(RED);
   expect((await pixel(page, '#ink', ON))[3]).toBe(255);
   expect((await pixel(page, '#color', ON))[3]).toBe(0);
@@ -234,7 +234,7 @@ test('go back keeps her work; Home with unsaved work asks, and trash discards', 
   expect(await digest(page, '#color')).toBe(d);
   await page.locator('#fhome').tap();
   await page.locator('.ask .yes').tap();
-  await expect(page.locator('#menu')).toBeVisible();
+  await expect(page.locator('#path')).toBeVisible();
   expect(await records(page)).toEqual(before);
 });
 
@@ -292,7 +292,7 @@ test('a drawing that is not there returns to My Drawings', async ({ page }) => {
   await expect(page.locator('#gallery')).toBeVisible();
   await expect(page.locator('#free')).toBeHidden();
   await page.goto('./#color/abc'); // not an id: like any unknown hash, home
-  await expect(page.locator('#menu')).toBeVisible();
+  await expect(page.locator('#path')).toBeVisible();
 });
 
 test('review screenshots', async ({ page }, info) => {

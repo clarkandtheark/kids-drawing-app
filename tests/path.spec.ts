@@ -77,9 +77,9 @@ test('path.json is built and served with the sample unit; the stop route opens t
   expect([...types].sort()).toEqual(['create', 'finish', 'lesson', 'memory', 'shape', 'trace']);
   await open(page, 'straight');
   await expect(page.locator('#sbar i')).toHaveCount(straight.exercises.length);
-  await expect(page.locator('#menu')).toBeHidden();
+  await expect(page.locator('#path')).toBeHidden();
   await page.goto('./#stop/lines/nope'); // an unknown stop is just home
-  await expect(page.locator('#menu')).toBeVisible();
+  await expect(page.locator('#path')).toBeVisible();
 });
 
 test('trace: the guide demonstrates, tracing it scores great; empty check does nothing but nudge and repeat', async ({ page }, info) => {
@@ -285,7 +285,7 @@ test('create: colour tools appear, Done saves a drawing with layers to the galle
   expect(Math.min(go.width, go.height)).toBeGreaterThanOrEqual(64);
   await expect.poll(async () => (await progress(page))['lines/zigzag']).toEqual({ stars: 3 });
   await page.locator('.result .go').tap();
-  await expect(page.locator('#menu')).toBeVisible();
+  await expect(page.locator('#path')).toBeVisible();
   await expect(page.locator('.result')).toHaveCount(0);
 
   // A worse run (every graded exercise wrong twice) does not lower it.
@@ -316,10 +316,10 @@ test('create: colour tools appear, Done saves a drawing with layers to the galle
   await expect.poll(() => progress(page)).toEqual({});
 });
 
-test('leaving mid-stop asks first: keep going stays, leave goes home', async ({ page }, info) => {
+test('leaving mid-stop asks first: keep going stays, leave goes home (the path)', async ({ page }, info) => {
   await open(page, 'straight');
   await page.locator('#sclose').tap(); // nothing done yet: straight home
-  await expect(page.locator('#menu')).toBeVisible();
+  await expect(page.locator('#path')).toBeVisible();
   await open(page, 'straight');
   await touchStroke(page, line([200, 500], [600, 500]));
   await page.locator('#sclose').tap();
@@ -331,7 +331,7 @@ test('leaving mid-stop asks first: keep going stays, leave goes home', async ({ 
   expect(await ink(page)).toBeGreaterThan(0);
   await page.locator('#sclose').tap();
   await page.locator('.ask .yes').tap();
-  await expect(page.locator('#menu')).toBeVisible();
+  await expect(page.locator('#path')).toBeVisible();
   await expect(stopEl(page)).toBeHidden();
 });
 

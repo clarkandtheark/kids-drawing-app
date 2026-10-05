@@ -1,0 +1,80 @@
+{
+  "id": "pooh",
+  "title": "Winnie the Pooh",
+  "difficulty": 3,
+  "category": "characters",
+  "emoji": "🍯",
+  "steps": [
+    {
+      "say": "Draw Pooh's big round head, with a little round snout poking out.",
+      "strokes": [
+        "M 424.1 303.1 C 430 258.4 448.3 219.3 478 182 C 515.8 134.4 539.2 104 600 104 C 660.8 104 684.2 134.4 722 182 C 758.7 228.2 778 277 778 336 C 778 445 709 462 600 462 C 534.9 462 484.2 456 453.8 427.9 A 84 64 0 0 1 424.1 303.1 Z"
+      ]
+    },
+    {
+      "say": "Draw two small round ears on top.",
+      "strokes": [
+        "M 728.2 190 A 50 50 0 1 0 678.6 132.5",
+        "M 471.9 189.9 A 44 44 0 1 1 517 136.6"
+      ]
+    },
+    {
+      "say": "Draw a round nose on the tip, and two little dot eyes.",
+      "strokes": [
+        "M 366.6 371.5 A 36 36 0 0 0 404.3 310.3",
+        "M 530 245 A 7 11 0 1 0 530 267 A 7 11 0 1 0 530 245 Z",
+        "M 594 251 A 7 11 0 1 0 594 273 A 7 11 0 1 0 594 251 Z"
+      ]
+    },
+    {
+      "say": "Add two short eyebrows up high, and a smile under his nose.",
+      "strokes": [
+        "M 506 208 Q 526 190 548 204",
+        "M 578 210 Q 600 192 624 206",
+        "M 418 390 Q 460 408 504 394 Q 522 386 530 368"
+      ]
+    },
+    {
+      "say": "Draw a great big round tummy.",
+      "strokes": [
+        "M 491 449.3 A 258 228 0 1 0 709 449.3"
+      ]
+    },
+    {
+      "say": "Draw his little shirt: a curve at the neck, and a line across his tummy.",
+      "strokes": [
+        "M 482 445.8 A 118 40 0 1 0 718 445.8",
+        "M 342.6 672 Q 600 588 857.4 672"
+      ]
+    },
+    {
+      "say": "Draw two short arms with round paws.",
+      "strokes": [
+        "M 401.5 510.4 L 291.4 566 A 50 50 0 1 0 331 644.6 L 342.7 638.6",
+        "M 795.9 507.7 L 887.4 525.1 A 50 50 0 1 1 870.1 615.5 L 853.2 612.3"
+      ]
+    },
+    {
+      "say": "Add a line on each arm for his short sleeves.",
+      "strokes": [
+        "M 364 529.3 L 305.3 657.6",
+        "M 837.2 515.6 L 894.5 620.2"
+      ]
+    },
+    {
+      "say": "Draw two round feet at the bottom.",
+      "strokes": [
+        "M 464.7 850.1 A 80 52 0 1 0 572.5 882.7",
+        "M 627.5 882.7 A 80 52 0 1 0 735.3 850.1"
+      ]
+    },
+    {
+      "say": "Draw a honey pot under his paw, with honey dripping down!",
+      "strokes": [
+        "M 250 645.9 A 100 26 0 1 0 278 664.5",
+        "M 126 686.2 C 106 716.2 42 736.2 42 820 C 42 900 104 938 178 938 C 252 938 314 900 314 820 C 314 736.2 250 716.2 230 686.2",
+        "M 71.6 738.2 L 102.8 738.2 C 102.8 799.4 146.8 799.4 146.8 738.2 L 156 738.2 C 156 820.7 200 820.7 200 738.2 L 209.2 738.2 C 209.2 799.4 253.2 799.4 253.2 738.2 L 284.4 738.2"
+      ]
+    }
+  ]
+}

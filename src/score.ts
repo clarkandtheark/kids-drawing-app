@@ -32,7 +32,7 @@ export function samplePath(d: string, spacing = 8): Point[] {
 }
 
 /** Points of a polyline with consecutive points at most `spacing` apart. */
-function resample(stroke: Point[], spacing: number): Point[] {
+export function resample(stroke: Point[], spacing: number): Point[] {
   const out = stroke.slice(0, 1);
   for (let i = 1; i < stroke.length; i++) {
     const a = stroke[i - 1], b = stroke[i];

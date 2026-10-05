@@ -52,6 +52,7 @@ async function toColor(page: Page, draw = async () => {}) {
   await expect(page.locator('#ink')).toBeVisible();
   await draw();
   for (let i = 0; i < cat.steps.length; i++) await page.locator('#next').tap();
+  await page.locator('.result .go').tap(); // the result card (#21) sits between tracing and Color mode
   await expect(page.locator('#lesson')).toHaveAttribute('data-phase', 'color');
 }
 async function fillAt(page: Page, p: P) {

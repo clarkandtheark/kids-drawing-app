@@ -288,6 +288,132 @@
     .party.calm svg { animation: fade 0.4s ease-out both; }
     @keyframes pop { from { transform: scale(0) rotate(-140deg); } to { transform: scale(1) rotate(0); } }
     @keyframes fade { from { opacity: 0; } }
+
+    /* ===== Phones (#29). Everything above is the iPad layout and stays untouched; these rules only apply below iPad
+       sizes: phone portrait = narrower than 700px, phone landscape = shorter than 480px (the smallest iPad is 744 x 1133).
+       Both share the rules in the first block; the two after it are the per-orientation layouts. ===== */
+    @media (max-width: 700px), (orientation: landscape) and (max-height: 480px) {
+      .screen {
+        gap: 8px;
+        padding: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right))
+                 max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left));
+      }
+      /* Home scrolls: start it below the status bar so the cards never slide under the clock / Dynamic Island. */
+      #menu { top: env(safe-area-inset-top); padding-top: 12px; gap: 20px; }
+      #top { gap: 12px; flex-wrap: nowrap; }
+      #logo { width: 80px; height: 80px; flex: none; }
+      #top .big { width: 120px; height: 80px; border-radius: 40px; }
+      #top .big svg { width: 52px; height: 52px; }
+      .level { border-radius: 28px; padding: 12px 12px 24px; }
+      .lvl { margin-bottom: 12px; }
+      .lvl svg { width: 56px; height: 56px; }
+      .cards { gap: 16px 12px; }
+      .card { min-width: 0; padding: 12px 8px 12px; border-radius: 28px; gap: 4px; }
+      .card span { font-size: 22px; line-height: 1.15; max-width: 100%; overflow-wrap: break-word; }
+      .card .score svg { width: 26px; height: 26px; }
+      .card .score b { font-size: 20px; margin-left: 4px; }
+
+      .group { gap: 8px; }
+      .group button { width: 64px; height: 64px; }
+      .group svg { width: 36px; height: 36px; }
+      #next { width: 80px; height: 80px; }
+      #next svg { width: 48px; height: 48px; }
+      #ref { width: 132px; height: 132px; padding: 6px; border-radius: 18px; }
+      #dots { gap: 8px; }
+      #dots i { width: 16px; height: 16px; }
+      #dots i.on { width: 16px; height: 16px; }
+      #sheet, #fsheet { border-radius: 20px; }
+
+      /* Colour tools: 12 crayons as a 6 x 2 block (every colour visible, no hidden scroll), 64px tool buttons. */
+      :is(#lesson, #free) .crayons { display: grid; grid-template-columns: repeat(6, minmax(0, 64px)); justify-content: center; gap: 0 2px; }
+      /* ponytail: crayons are the one target under 64px on phones: 56-64px wide (6 across in 359-374px) x 72px tall */
+      .crayon { width: 100%; height: 72px; margin-top: 12px; }
+      .crayon[aria-pressed="true"] { transform: translateY(-12px); }
+      .crayon:active { transform: translateY(-6px); }
+      :is(#tools, #ftools) .group { gap: 6px; }
+      :is(#tools, #ftools) .group button { width: 64px; height: 64px; }
+      :is(#tools, #ftools) .group svg { width: 36px; height: 36px; }
+      .sizes i { width: calc(var(--d) * 0.85); height: calc(var(--d) * 0.85); }
+      :is(#tools, #ftools) .finish button { width: 72px; height: 72px; }
+      :is(#tools, #ftools) .finish svg { width: 50px; height: 50px; }
+      /* rows: [sizes .. eraser fill] and [home (mute) .. undo clear .. Done], each group pinned in its row */
+      .sizes { grid-area: rowa; justify-self: start; }
+      .modes { grid-area: rowa; justify-self: end; }
+      :is(#lesson[data-phase="color"], #free) :is(#sys, #fsys) { grid-area: rowb; justify-self: start; }
+      .edits { grid-area: rowb; justify-self: end; margin-right: 78px; }
+      .finish { grid-area: rowb; justify-self: end; }
+
+      /* Dialogs: big choices on the first row, back and trash under them; never wider than the screen. */
+      .ask { padding: 12px; }
+      .ask .group { display: grid; grid-template-columns: auto auto; justify-content: center; justify-items: center;
+        gap: 20px 24px; padding: 24px; border-radius: 36px; }
+      .ask button { width: 96px; height: 96px; }
+      .ask svg { width: 56px; height: 56px; }
+      .ask :is(.save, .replace, .both) { order: -1; width: 124px; height: 124px; }
+      .ask :is(.save, .replace, .both) svg { width: 80px; height: 80px; }
+      .ask .save { grid-column: 1 / -1; }
+      .ask .group:not(:has(.yes)) .no { grid-column: 1 / -1; }
+      .ask :is(.save, .both) ~ .yes { width: 80px; height: 80px; }
+      .ask :is(.save, .both) ~ .yes svg { width: 48px; height: 48px; }
+
+      .rcard { gap: 12px; padding: 24px 20px 28px; border-radius: 40px; }
+      .rstars { gap: 8px; }
+      .rstars span { width: min(24vw, 20vh); }
+      .rstars span:nth-child(2) { width: min(28vw, 24vh); }
+      .result .go { width: 112px; height: 112px; }
+      .result .go svg { width: 88px; height: 88px; }
+
+      #gallery { gap: 8px; }
+      #grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; padding: 4px 4px 16px; }
+      .pic { padding: 8px; border-radius: 24px; }
+      .pic img { border-radius: 16px; }
+      #empty { gap: 24px; }
+      #empty > svg { width: min(200px, 40vh); height: min(200px, 40vh); }
+      #empty .big { width: 160px; height: 88px; }
+      #vimg { border-radius: 20px; height: auto; max-height: 100%; aspect-ratio: 1; align-self: center; justify-self: center; }
+      #vbar { gap: 16px; }
+      #vbar button { width: 72px; height: 72px; }
+
+      #parent .panel { width: min(560px, 100vw - 24px); max-height: calc(100% - 24px); padding: 20px; gap: 12px; font-size: 18px; border-radius: 28px; }
+      #parent h2 { font-size: 24px; }
+      .pbtn { gap: 12px; text-align: left; }
+    }
+
+    /* Phone portrait: everything stacks under a full-width canvas. */
+    @media (max-width: 700px) {
+      .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      /* Lesson: [home sound mode | reference] / canvas / dots / [replay undo .. back next] */
+      #lesson { grid-template: "sys ref" auto "stage stage" 1fr "dots dots" auto "act nav" auto / 1fr auto; }
+      #sys { justify-self: start; }
+      #ref { justify-self: end; }
+      #act { justify-self: start; }
+      #nav { justify-self: end; }
+      #lesson[data-phase="color"], #free { grid-template: "stage" 1fr "crayons" auto "rowa" auto "rowb" auto / 100%; }
+    }
+
+    /* Phone landscape: the canvas fills the height on the left, the controls share a column on the right. */
+    @media (orientation: landscape) and (max-height: 480px) {
+      .cards { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+      #lesson {
+        grid-template: "stage sys ref" auto "stage act ref" auto "stage . ." 1fr "stage dots dots" auto
+                       "stage nav nav" auto / 1fr auto auto;
+        column-gap: 12px;
+      }
+      :is(#sys, #act, #nav, #dots) { justify-self: center; }
+      #lesson[data-phase="color"], #free {
+        grid-template: "stage ." 1fr "stage crayons" auto "stage rowa" auto "stage rowb" auto "stage ." 1fr / 1fr 360px;
+        column-gap: 12px;
+      }
+      .rstars span { width: min(24vw, 22vh); }
+      .rstars span:nth-child(2) { width: min(28vw, 26vh); }
+      .result .pct { font-size: 15vh; }
+      .result .go { width: 88px; height: 88px; }
+      .result .go svg { width: 68px; height: 68px; }
+      #view { grid-template: "img bar" 1fr / 1fr auto; column-gap: 16px; }
+      #vimg { width: auto; height: 100%; }
+      #vbar { flex-direction: column; gap: 10px; }
+      #vbar button { width: 64px; height: 64px; }
+    }
   </style>
 </head>
 <body>

@@ -62,6 +62,7 @@ async function lessonDrawing(page: Page, fill = true) {
   await expect(page.locator('#ink')).toBeVisible();
   await touchStroke(page, circle(500, 500, 250));
   for (let i = 0; i < cat.steps.length; i++) await page.locator('#next').tap();
+  await page.locator('.result .go').tap(); // the result card (#21) sits between tracing and Color mode
   await expect(page.locator('#lesson')).toHaveAttribute('data-phase', 'color');
   if (fill) await fillAt(page, IN);
   await page.locator('[data-act=done]').tap();

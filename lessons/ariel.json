@@ -1,0 +1,79 @@
+{
+  "id": "ariel",
+  "title": "Ariel",
+  "difficulty": 3,
+  "category": "characters",
+  "emoji": "🧜‍♀️",
+  "steps": [
+    {
+      "say": "Draw a big circle for Ariel's head.",
+      "strokes": [
+        "M 285 240 A 95 95 0 1 1 475 240 A 95 95 0 1 1 285 240 Z"
+      ]
+    },
+    {
+      "say": "Draw her body with an arm on each side and round mitten hands.",
+      "strokes": [
+        "M 355 331.7 C 355 372 290 366 261 402 C 243 445 227 495 217 528 A 27 27 0 1 0 267 540 C 273 510 275 485 278 460 C 284 510 300 555 315 592",
+        "M 405 331.7 C 405 372 470 366 499 402 C 517 445 533 495 543 528 A 27 27 0 1 1 493 540 C 487 510 485 485 482 460 C 476 510 460 555 445 592"
+      ]
+    },
+    {
+      "say": "Draw Ariel's big swoopy hair, way up high and floating down one side.",
+      "strokes": [
+        "M 424.6 156.1 C 430 100 400 40 330 40 C 240 40 195 110 205 180 C 150 210 130 300 180 340 C 115 375 105 455 175 475 C 150 515 190 530 218 500 C 228 488 236 470 245.4 441.9",
+        "M 424.6 156.1 C 400 205 330 225 288.2 215.4"
+      ]
+    },
+    {
+      "say": "Draw her hair down the other side, and a swoopy line in her hair.",
+      "strokes": [
+        "M 424.6 156.1 C 450 120 500 100 522 150 C 560 200 580 290 545 350 C 600 390 590 450 540 470 C 532 474 528 470 517 448.7",
+        "M 424.6 156.1 C 390 105 300 85 236.7 76.1"
+      ]
+    },
+    {
+      "say": "Draw two seashells on her top, with lines like a fan.",
+      "strokes": [
+        "M 326 468 L 339 532 Q 305 512 300 486 Q 303 448 326 468 Q 339 434 352 468 L 339 532 Q 373 512 378 486 Q 375 448 352 468",
+        "M 408 468 L 421 532 Q 387 512 382 486 Q 385 448 408 468 Q 421 434 434 468 L 421 532 Q 455 512 460 486 Q 457 448 434 468"
+      ]
+    },
+    {
+      "say": "Draw a pointy fin band at her waist, then her long tail curving to the side.",
+      "strokes": [
+        "M 315 592 Q 322 628 345 640 Q 352 680 380 705 Q 408 680 415 640 Q 438 628 445 592",
+        "M 315 592 C 280 700 330 800 450 812 C 560 822 660 805 735 770",
+        "M 445 592 C 445 660 470 715 540 722 C 610 730 660 710 715 690"
+      ]
+    },
+    {
+      "say": "Draw a big flowy fin with two round ends on her tail.",
+      "strokes": [
+        "M 715 690 C 740 610 820 540 905 520 C 910 600 880 660 820 700 C 880 720 930 790 920 880 C 850 870 780 820 735 770"
+      ]
+    },
+    {
+      "say": "Draw a big round rock for Ariel to sit on.",
+      "strokes": [
+        "M 318 725.7 C 230 760 170 910 300 915 L 640 915 C 730 915 730 850 634 802.8"
+      ]
+    },
+    {
+      "say": "Draw a little fish friend swimming by!",
+      "strokes": [
+        "M 760 185 A 85 65 0 1 1 760 315 A 85 65 0 1 1 760 185 Z",
+        "M 835.1 219.5 L 925 180 Q 900 250 925 320 L 835.1 280.5",
+        "M 707 232 A 15 15 0 1 1 737 232 A 15 15 0 1 1 707 232 Z"
+      ]
+    },
+    {
+      "say": "Give Ariel two big eyes and a happy smile!",
+      "strokes": [
+        "M 345 249 A 15 19 0 1 1 345 287 A 15 19 0 1 1 345 249 Z",
+        "M 415 249 A 15 19 0 1 1 415 287 A 15 19 0 1 1 415 249 Z",
+        "M 350 300 Q 380 330 410 300"
+      ]
+    }
+  ]
+}

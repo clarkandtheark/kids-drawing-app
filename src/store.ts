@@ -112,11 +112,12 @@ export type PathProgress = Record<string, { stars: 1 | 2 | 3 }>;
 
 export const getPathProgress = async () => (await tx<PathProgress>('kv', 'readonly', (s) => s.get('path'))) ?? {};
 
-/** Record a finished stop; a worse run never lowers its stars. */
-export const savePathStop = (key: string, stars: 1 | 2 | 3) => tx('kv', 'readwrite', (s) => {
+/** Record a finished stop; a worse run never lowers its stars. Resolves true when the stop was not done before. */
+export const savePathStop = (key: string, stars: 1 | 2 | 3) => tx<PathProgress | undefined>('kv', 'readwrite', (s) => {
   const r = s.get('path');
   r.onsuccess = () => {
     const all: PathProgress = r.result ?? {};
     if ((all[key]?.stars ?? 0) < stars) s.put({ ...all, [key]: { stars } }, 'path');
   };
-});
+  return r;
+}).then((before) => !before?.[key]);

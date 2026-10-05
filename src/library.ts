@@ -1,4 +1,5 @@
-// Home screen: the lesson cards grouped by level (the header with logo and entry buttons is static in index.html).
+// Library, #library: the lesson cards grouped by level, plus the characters (the header with its home button is static
+// in index.html). Without a learning path it is the home screen and takes the path's header (src/main.ts).
 import type { Lesson } from './lesson';
 import { CRAYON, star } from './grade';
 import { getCompleted, getScores } from './store';
@@ -7,6 +8,7 @@ const SVG = 'http://www.w3.org/2000/svg';
 // Icon-only header of the characters section; unlike the crayons it is a heart.
 const HEART = '<svg viewBox="0 0 24 24"><path d="M12 21C5 15.5 2.5 12 2.5 8.5A4.8 4.8 0 0 1 12 6.6a4.8 4.8 0 0 1 9.5 1.9C21.5 12 19 15.5 12 21Z" fill="#ff5d8f"/><path d="M6 8.5a2.6 2.6 0 0 1 2.6-2" fill="none" stroke="#fff8ea" stroke-opacity=".8" stroke-width="1.5" stroke-linecap="round"/></svg>';
 const home = document.querySelector<HTMLElement>('#menu')!;
+document.querySelector('#lhome')!.addEventListener('click', () => { location.hash = ''; });
 
 function card(l: Lesson) {
   const a = document.createElement('a');
@@ -27,7 +29,7 @@ function card(l: Lesson) {
 }
 
 /** `open` runs inside the tap so the lesson's first spoken line counts as user-initiated (iOS). */
-export function showHome(lessons: Lesson[], open: (l: Lesson) => void) {
+export function showLibrary(lessons: Lesson[], open: (l: Lesson) => void) {
   if (!home.querySelector('.level')) {
     const section = (key: string, value: string, label: string, icon: string, list: Lesson[]) => {
       const s = document.createElement('section');
@@ -50,7 +52,7 @@ export function showHome(lessons: Lesson[], open: (l: Lesson) => void) {
   refreshStars();
 }
 
-export const hideHome = () => { home.hidden = true; };
+export const hideLibrary = () => { home.hidden = true; };
 
 /** Her best on each card: three stars (earned ones gold) and the percent. A lesson completed before scores
  *  existed has no percent, so it shows one gold star: nothing she earned disappears. */

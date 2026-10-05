@@ -175,7 +175,7 @@ test('free draw: save-on-leave and the star both store a colour layer and no ink
   await expect(page.locator('.ask button')).toHaveCount(3);
   await page.screenshot({ path: `review/saves/leave-free-${info.project.name}.png` });
   await page.locator('.ask .save').tap();
-  await expect(page.locator('#menu')).toBeVisible();
+  await expect(page.locator('#path')).toBeVisible();
   expect(await page.evaluate(() => (window as any).__party ?? false)).toBe(false);
 
   await page.locator('#tofree').tap();
@@ -183,7 +183,7 @@ test('free draw: save-on-leave and the star both store a colour layer and no ink
   const R = await canvasSize(page);
   await touchStroke(page, line([500, 100], [500, 900]));
   await page.locator('[data-act=done]').tap();
-  await expect(page.locator('#menu')).toBeVisible({ timeout: 5000 });
+  await expect(page.locator('#path')).toBeVisible({ timeout: 5000 });
   const list = await records(page, [[500, 500]]);
   expect(list).toHaveLength(2);
   for (const d of list) {
@@ -200,10 +200,11 @@ test('no unsaved work: Home leaves at once, from a lesson and from Free draw', a
   await page.locator('#next').tap(); // stepping is not drawing
   await page.locator('#home').tap();
   await expect(page.locator('#menu')).toBeVisible();
+  await page.locator('#lhome').tap();
   await page.locator('#tofree').tap();
   await expect(page.locator('#paint')).toBeVisible();
   await page.locator('#fhome').tap();
-  await expect(page.locator('#menu')).toBeVisible();
+  await expect(page.locator('#path')).toBeVisible();
   await expect(page.locator('.ask')).toHaveCount(0);
 });
 
@@ -273,7 +274,7 @@ test('legacy: a database made by the pre-layers code opens intact; its drawings 
     };
     r.onerror = () => reject(r.error);
   }));
-  await page.goto('./');
+  await page.goto('./#library');
   await expect(page.locator('.card[data-id=cat]')).toHaveClass(/done/);
   const list = await records(page, [[500, 500]]);
   expect(list.map((d) => [d.keys, d.ink, d.color, d.png!.px[0]])).toEqual([
@@ -283,6 +284,7 @@ test('legacy: a database made by the pre-layers code opens intact; its drawings 
 
   // export: flat pictures only, no layers folder
   const hold = async () => { await page.locator('#logo').hover(); await page.mouse.down(); await page.waitForTimeout(3300); await page.mouse.up(); };
+  await page.goto('./'); // the logo is on the path
   await hold();
   const dl = page.waitForEvent('download');
   await page.locator('#pexport').tap();
@@ -314,7 +316,7 @@ test('zip: flat pictures plus layers/; round trip restores layers; an old flat-o
   await touchStroke(page, line([100, 500], [900, 500]));
   await page.locator('#fhome').tap();
   await page.locator('.ask .save').tap();
-  await expect(page.locator('#menu')).toBeVisible();
+  await expect(page.locator('#path')).toBeVisible();
   await page.evaluate(async () => {
     const c = new OffscreenCanvas(64, 64), x = c.getContext('2d')!;
     x.fillRect(0, 0, 64, 64);

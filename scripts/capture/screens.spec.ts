@@ -25,12 +25,12 @@ const circle = (cx: number, cy: number, r: number, n = 48): P[] =>
   Array.from({ length: n + 2 }, (_, i) => [cx + r * Math.cos((i / n) * 2 * Math.PI), cy + r * Math.sin((i / n) * 2 * Math.PI)]);
 
 test('home, empty gallery, parent', async ({ page }, info) => {
-  await page.goto('./');
+  await page.goto('./#library');
   await expect(page.locator('.card')).not.toHaveCount(0);
   await shot(page, info, '01-home');
   await page.locator('#menu').evaluate((e) => { e.scrollTop = e.scrollHeight; });
   await shot(page, info, '02-home-end');
-  await page.locator('#menu').evaluate((e) => { e.scrollTop = 0; });
+  await page.goto('./'); // the path: the logo opens the parent area
   await page.locator('#logo').hover();
   await page.mouse.down();
   await page.waitForTimeout(3300);
@@ -85,7 +85,7 @@ test('lesson, result, colour, dialogs, celebration, then gallery, viewer and re-
   await touchStroke(page, line([150, 300], [850, 700]));
   await shot(page, info, '20-free');
   await page.locator('[data-act=done]').tap();
-  await expect(page.locator('#menu')).toBeVisible({ timeout: 5000 });
+  await expect(page.locator('#path')).toBeVisible({ timeout: 5000 });
 
   await page.goto('./#gallery');
   await expect(page.locator('.pic')).toHaveCount(2);

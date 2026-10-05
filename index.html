@@ -68,6 +68,78 @@
     .card svg { width: 100%; height: auto; aspect-ratio: 1; fill: none; stroke: #5a3d1e; stroke-width: 22; stroke-linecap: round; stroke-linejoin: round; }
     .card span { font-size: 30px; font-weight: 800; text-align: center; }
 
+    /* Path home (src/path.ts): header on top, the trail scrolls under it. A unit banner, then its stops winding
+       left / centre / right along a dotted road (solid where she has been), a trophy at the end. */
+    #path { display: grid; grid-template-rows: auto minmax(0, 1fr); gap: 12px; }
+    #tolibrary { --bg: #3dbb55; --sh: #279140; }
+    #tostickers { --bg: #ff5d8f; --sh: #d23c6c; }
+    #tostickers.bump { animation: bump 0.5s cubic-bezier(.2, 1.6, .4, 1); }
+    @keyframes bump { 40% { transform: scale(1.2) rotate(-6deg); } }
+    #lbar, #skbar .group { justify-content: flex-start; }
+    #trail { margin: 0 -16px; padding: 0 16px; }
+    #road { position: relative; display: grid; justify-items: center; padding: 8px 0 40px; --amp: min(20vw, 190px); }
+    #roadline { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+    #roadline path { fill: none; stroke-linecap: round; }
+    #roadline .all { stroke: #e2b866; stroke-width: 12; stroke-dasharray: 0.1 26; }
+    #roadline .walked { stroke: #ffb347; stroke-width: 20; }
+    .emoji { font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif; font-style: normal; font-weight: 400; line-height: 1; }
+    .unit { position: relative; justify-self: stretch; display: grid; place-items: center; height: 120px; margin: 16px 0 56px;
+      border-radius: 40px; background: var(--tint); box-shadow: 0 6px 0 rgb(90 61 30 / 0.12); font-size: 80px; }
+    .unit:first-of-type { margin-top: 0; }
+    .stop, .trophy { position: relative; display: grid; place-items: center; width: 112px; height: 112px; margin-bottom: 84px;
+      border-radius: 50%; translate: calc(var(--k) * var(--amp)) 0; box-sizing: border-box; }
+    .stop { text-decoration: none; color: #fff; -webkit-tap-highlight-color: transparent; touch-action: manipulation; font-size: 66px; }
+    .stop > * { display: none; }
+    .stop svg { width: 56%; height: 56%; }
+    .stop[data-state=done] { background: #ffe680; box-shadow: 0 7px 0 #e0a92e, inset 0 0 0 6px #fff4c2; }
+    .stop[data-state=done] .sticker, .stop[data-state=locked] .lock, .stop:is([data-state=open], [data-state=current]) :is(.play, .arrow) { display: block; }
+    .stop[data-state=done] .stars { display: flex; }
+    .stop .stars { position: absolute; top: calc(100% + 10px); gap: 2px; }
+    .stop .stars svg { width: 30px; height: 30px; }
+    .stop .stars svg:not(.got) path { fill: #fff8ea; stroke: #e2c58f; stroke-width: 1.5; stroke-linejoin: round; }
+    .stop[data-state=open] { background: #fff; color: #ff8a3d; box-shadow: 0 7px 0 #f4c76b, inset 0 0 0 6px #ffd9b8; }
+    .stop[data-state=open] .arrow { display: none; }
+    .stop[data-state=current] { background: #ff8a3d; box-shadow: 0 7px 0 #d9621c; scale: 1.2; z-index: 2;
+      --ring: #ff8a3d; --base: #d9621c; animation: pulse 1.4s ease-out infinite; }
+    .stop[data-state=locked] { background: #ddd6cb; color: #9a9184; box-shadow: 0 7px 0 #bdb3a4; }
+    .stop[data-state=locked] svg { width: 46%; height: 46%; }
+    .stop:active:not([data-state=locked]) { transform: translateY(4px); }
+    .stop .arrow { position: absolute; bottom: calc(100% + 6px); width: 50%; height: 50%; filter: drop-shadow(0 3px 0 rgb(90 61 30 / 0.2));
+      animation: point 0.9s ease-in-out infinite alternate; }
+    @keyframes point { to { transform: translateY(-14px); } }
+    .stop.shake { animation: nudge 0.4s ease-in-out; }
+    .stop.flip { animation: flip 0.5s ease-in-out; }
+    @keyframes flip { 50% { transform: rotateY(90deg) scale(1.15); } }
+    :is(.stop, .trophy).pop { animation: grow 0.6s cubic-bezier(.2, 1.6, .4, 1); }
+    @keyframes grow { from { transform: scale(0.3); } }
+    .trophy { width: 128px; height: 128px; margin-bottom: 0; font-size: 84px; background: #fff3b0; box-shadow: 0 7px 0 #e0c060;
+      filter: grayscale(1); opacity: 0.45; }
+    .trophy.won { filter: none; opacity: 1; box-shadow: 0 7px 0 #e0a92e, 0 0 0 14px rgb(255 210 31 / 0.35); }
+    .flying { position: fixed; z-index: 12; width: 1em; height: 1em; margin: -0.5em; font-size: 80px; text-align: center; pointer-events: none;
+      filter: drop-shadow(0 4px 0 rgb(90 61 30 / 0.25)); }
+    @media (prefers-reduced-motion: reduce) {
+      .stop[data-state=current], .stop .arrow { animation: none; }
+    }
+
+    /* Sticker book (src/stickers.ts): a page per unit; earned stickers die-cut with a white edge and a slight tilt,
+       the rest dashed outlines with a faint question mark. */
+    #stickers { display: grid; grid-template-rows: auto minmax(0, 1fr); }
+    #skbar { display: flex; align-items: center; justify-content: space-between; }
+    #skcount { display: flex; align-items: center; gap: 4px; padding-right: 8px; font-size: 56px; font-weight: 900; }
+    #skcount svg { width: 72px; height: 72px; margin-right: 8px; filter: drop-shadow(0 3px 0 rgb(90 61 30 / 0.2)); }
+    #skcount span { opacity: 0.45; }
+    #skbook { display: grid; align-content: start; gap: 28px; padding-bottom: 24px; }
+    .skunit { border-radius: 40px; padding: 16px 24px 32px; background: var(--tint); }
+    .skunit h2 { margin: 0 0 8px; text-align: center; font-size: 64px; }
+    .sks { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px 32px; }
+    .slot { display: grid; place-items: center; width: 144px; height: 144px; box-sizing: border-box; border-radius: 50%; font-style: normal; }
+    .slot.got { border: 0; padding: 0; background: none; rotate: var(--r); font-size: 96px; -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+      filter: drop-shadow(5px 0 0 #fff) drop-shadow(-5px 0 0 #fff) drop-shadow(0 5px 0 #fff) drop-shadow(0 -5px 0 #fff) drop-shadow(0 6px 4px rgb(90 61 30 / 0.3)); }
+    .slot:not(.got) { border: 5px dashed rgb(90 61 30 / 0.22); color: rgb(90 61 30 / 0.2); font-size: 64px; font-weight: 900; }
+    .slot.wobble { animation: wobble 0.7s ease-in-out; }
+    @keyframes wobble { 20% { transform: rotate(-12deg) scale(1.15); } 45% { transform: rotate(10deg) scale(1.15); } 70% { transform: rotate(-6deg); } }
+    @media (prefers-reduced-motion: reduce) { .slot.wobble { animation-name: fade; } }
+
     /* My Drawings */
     #gallery { display: grid; grid-template-rows: auto 1fr; justify-items: start; }
     #grid { justify-self: stretch; display: grid; align-content: start; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 24px; padding: 8px 8px 24px; }
@@ -99,8 +171,8 @@
       -webkit-tap-highlight-color: transparent;
     }
     .pbtn:active { transform: translateY(2px); box-shadow: 0 2px 0 #f4c76b; }
-    #pvoice b { padding: 4px 16px; border-radius: 16px; background: #3dbb55; color: #fff; }
-    #pvoice[aria-checked="false"] b { background: #c5c9cf; }
+    :is(#pvoice, #punlock) b { padding: 4px 16px; border-radius: 16px; background: #3dbb55; color: #fff; }
+    :is(#pvoice, #punlock)[aria-checked="false"] b { background: #c5c9cf; }
     #pclose { justify-content: center; background: #ffe08a; }
 
     /* Lesson screen: portrait = reference / canvas / dots / buttons stacked; landscape = canvas | side column */
@@ -302,10 +374,30 @@
       }
       /* Home scrolls: start it below the status bar so the cards never slide under the clock / Dynamic Island. */
       #menu { top: env(safe-area-inset-top); padding-top: 12px; gap: 20px; }
-      #top { gap: 12px; flex-wrap: nowrap; }
-      #logo { width: 80px; height: 80px; flex: none; }
-      #top .big { width: 120px; height: 80px; border-radius: 40px; }
-      #top .big svg { width: 52px; height: 52px; }
+      /* One row: the logo, then up to four buttons sharing what is left (64px each at the narrowest, 375px). */
+      #top { gap: 6px; flex-wrap: nowrap; }
+      #logo { width: 72px; height: 72px; flex: none; }
+      #top .big { flex: 1 1 0; width: auto; min-width: 64px; max-width: 120px; height: 72px; border-radius: 28px; }
+      #top .big svg { width: 48px; height: 48px; }
+      #path { gap: 8px; }
+      #trail { margin: 0 -8px; padding: 0 8px; }
+      #road { --amp: 25vw; padding-bottom: 24px; }
+      .unit { height: 88px; margin: 8px 0 44px; border-radius: 28px; font-size: 58px; }
+      .stop, .trophy { width: 88px; height: 88px; margin-bottom: 68px; }
+      .stop { font-size: 52px; }
+      .stop .stars { top: calc(100% + 8px); }
+      .stop .stars svg { width: 24px; height: 24px; }
+      .trophy { width: 100px; height: 100px; font-size: 64px; margin-bottom: 0; }
+      .flying { font-size: 60px; }
+      #skcount { font-size: 40px; }
+      #skcount svg { width: 52px; height: 52px; }
+      #skbook { gap: 16px; }
+      .skunit { border-radius: 28px; padding: 12px 12px 20px; }
+      .skunit h2 { font-size: 48px; }
+      .sks { gap: 12px 8px; }
+      .slot { width: 76px; height: 76px; }
+      .slot.got { font-size: 52px; filter: drop-shadow(4px 0 0 #fff) drop-shadow(-4px 0 0 #fff) drop-shadow(0 4px 0 #fff) drop-shadow(0 -4px 0 #fff) drop-shadow(0 5px 3px rgb(90 61 30 / 0.3)); }
+      .slot:not(.got) { border-width: 4px; font-size: 36px; }
       .level { border-radius: 28px; padding: 12px 12px 24px; }
       .lvl { margin-bottom: 12px; }
       .lvl svg { width: 56px; height: 56px; }
@@ -534,13 +626,19 @@
   </style>
 </head>
 <body>
-  <main id="menu" class="screen scroll" hidden>
+  <main id="path" class="screen" hidden>
     <header id="top">
       <button id="logo" aria-label="Draw!">
         <svg viewBox="0 0 100 100"><circle class="ring" cx="50" cy="50" r="46" pathLength="100" transform="rotate(-90 50 50)"/>
           <g transform="rotate(35 50 46)"><rect x="38" y="30" width="24" height="46" rx="3" fill="#ff5a36"/><path d="M38 30 50 10 62 30Z" fill="#ff5a36"/><path d="M45 20 50 10 55 20Z" fill="#b8321a"/><rect x="38" y="42" width="24" height="5" fill="#fff8ea" opacity=".75"/><rect x="38" y="62" width="24" height="5" fill="#fff8ea" opacity=".75"/></g>
           <path d="M24 82q7-9 14 0t14 0 14 0" fill="none" stroke="#2f5bea" stroke-width="5" stroke-linecap="round"/></svg>
       </button>
+      <a id="tolibrary" class="big" href="#library" aria-label="Library">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#1f6e30" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.2C9.6 4.6 6.6 4.1 2.8 4.3v14.2c3.8-.2 6.8.3 9.2 2 2.4-1.7 5.4-2.2 9.2-2V4.3c-3.8-.2-6.8.3-9.2 1.9Z" fill="#fff"/><path d="M12 6.2v14.3"/><circle cx="7.2" cy="10" r="2" fill="#ffd21f" stroke="none"/><path d="M4.8 15.5c1.2-1.6 3.6-1.6 4.8 0" stroke="#ff5a36" stroke-width="2"/><path d="M14.6 9h4.2M14.6 12h4.2M14.6 15h3" stroke="#4cc3ff" stroke-width="2"/></svg>
+      </a>
+      <a id="tostickers" class="big" href="#stickers" aria-label="Sticker book">
+        <svg viewBox="0 0 24 24"><path d="m12 2.3 2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.2l-5.9 3.1 1.2-6.5-4.8-4.6 6.6-.9Z" fill="#ffd21f" stroke="#fff" stroke-width="2.2" stroke-linejoin="round"/><circle cx="10" cy="11.2" r="1.1" fill="#5a3d1e"/><circle cx="14" cy="11.2" r="1.1" fill="#5a3d1e"/><path d="M10 13.8a2.4 2.4 0 0 0 4 0" fill="none" stroke="#5a3d1e" stroke-width="1.3" stroke-linecap="round"/></svg>
+      </a>
       <a id="tofree" class="big" href="#draw" aria-label="Free draw">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m4 20 1-5L16.5 3.5l4 4L9 19Z" fill="#ffd34d" stroke="#fff"/><path d="M14 6l4 4" stroke="#fff"/><path d="m4 20 1-5 4 4Z" fill="#5a3d1e" stroke="#fff"/></svg>
       </a>
@@ -548,6 +646,20 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3.5" fill="#fff" stroke="#fff"/><circle cx="9" cy="9.5" r="2" fill="#ffd21f" stroke="none"/><path d="m4.5 18 4.5-4.5 3.5 3 3-4 4.5 5.5Z" fill="#43c04f" stroke="none"/></svg>
       </a>
     </header>
+    <div id="trail" class="scroll"><div id="road"></div></div>
+  </main>
+
+  <main id="menu" class="screen scroll" hidden>
+    <div id="lbar" class="group"><button id="lhome" aria-label="Home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10" fill="#ffd34d"/><path d="M10 20v-5h4v5"/></svg>
+    </button></div>
+  </main>
+
+  <main id="stickers" class="screen" hidden>
+    <div id="skbar"><div class="group"><button id="skhome" aria-label="Home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10" fill="#ffd34d"/><path d="M10 20v-5h4v5"/></svg>
+    </button></div><div id="skcount" role="img"></div></div>
+    <div id="skbook" class="scroll"></div>
   </main>
 
   <main id="free" class="screen" hidden>
@@ -582,7 +694,8 @@
     <div class="panel scroll">
       <h2>Parent area</h2>
       <button id="pvoice" class="pbtn" role="switch">Read instructions aloud <b></b></button>
-      <button id="preset" class="pbtn">Reset progress (remove all stars)</button>
+      <button id="punlock" class="pbtn" role="switch">Unlock all stops <b></b></button>
+      <button id="preset" class="pbtn">Reset progress (remove all stars and stickers)</button>
       <button id="pexport" class="pbtn">Export drawings (zip)</button>
       <label class="pbtn">Import drawings (zip)<input id="pimport" type="file" accept=".zip,application/zip" hidden></label>
       <p id="pstatus" role="status"></p>

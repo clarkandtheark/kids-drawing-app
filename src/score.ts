@@ -79,6 +79,22 @@ export function score(guide: Point[][][], ink: Point[][], { tolerance = TOLERANC
   return { steps, precision, percent, stars: percent >= THREE_STARS ? 3 : percent >= TWO_STARS ? 2 : 1 };
 }
 
+// Open finish ("any way you like"): her ink is not matched against the expected strokes, only checked for a real attempt
+// in the right place. Generous on purpose: a different face, house or tree top is just as right.
+export const OPEN_MIN_INK = 150; // her ink must be at least this long in total (logical units): a dot or a tick is not an attempt
+export const OPEN_MARGIN = 150; // the right place: the expected strokes' bounding box, grown by this on every side
+export const OPEN_INSIDE = 0.5; // at least this fraction of her ink must lie in that place
+
+/** A real attempt at an open finish: enough ink, and at least half of it near the `expected` strokes (sampled). */
+export function openAttempt(expected: Point[][], ink: Point[][]): boolean {
+  const len = ink.reduce((a, s) => a + s.reduce((b, p, i) => (i ? b + Math.hypot(p.x - s[i - 1].x, p.y - s[i - 1].y) : 0), 0), 0);
+  const xs = expected.flat().map((p) => p.x), ys = expected.flat().map((p) => p.y);
+  const x0 = Math.min(...xs) - OPEN_MARGIN, x1 = Math.max(...xs) + OPEN_MARGIN, y0 = Math.min(...ys) - OPEN_MARGIN, y1 = Math.max(...ys) + OPEN_MARGIN;
+  const pts = ink.flatMap((s) => resample(s, INK_SPACING));
+  const inside = pts.filter((p) => p.x >= x0 && p.x <= x1 && p.y >= y0 && p.y <= y1).length;
+  return len >= OPEN_MIN_INK && inside >= OPEN_INSIDE * pts.length;
+}
+
 /** The quick reaction after a step, from that step's coverage. */
 export const reaction = (coverage: number): Reaction =>
   coverage >= REACT_GREAT ? 'great' : coverage >= REACT_GOOD ? 'good' : 'try';

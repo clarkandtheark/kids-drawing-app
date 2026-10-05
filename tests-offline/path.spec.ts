@@ -7,30 +7,60 @@ import { cpSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } f
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { precacheList } from '../vite.config';
+import { line, touchStroke } from '../tests/helpers';
 
 test('path.json is built into dist/, precached by the worker, and served offline', async ({ page, context }) => {
   expect(precacheList('dist')).toContain('path.json');
   expect(readFileSync('dist/sw.js', 'utf8')).toContain('"path.json"');
+  // Whatever the curriculum is: its first stop, picked from the built path.json.
   const units = JSON.parse(readFileSync('dist/path.json', 'utf8'));
-  expect(units.map((u: { id: string }) => u.id)).toContain('lines');
+  expect(units.length).toBeGreaterThan(0);
+  const [u] = units, [s] = u.stops;
 
   await page.addInitScript(() => Object.defineProperty(window, 'speechSynthesis', { configurable: true, value: { speak() {}, cancel() {}, getVoices: () => [] } }));
   await page.goto('./');
   await page.evaluate(() => navigator.serviceWorker.ready);
   await page.waitForFunction(() => !!navigator.serviceWorker.controller);
   await context.setOffline(true);
-  await page.goto('./#stop/lines/straight');
+  await page.goto(`./#stop/${u.id}/${s.id}`);
   await expect(page.locator('#stop')).toBeVisible();
-  await expect(page.locator('#sbar i')).toHaveCount(6);
+  await expect(page.locator('#sbar i')).toHaveCount(s.exercises.length);
+});
+
+test('offline after the first load: the path home screen draws and its current stop plays', async ({ page, context }) => {
+  await page.addInitScript(() => Object.defineProperty(window, 'speechSynthesis', { configurable: true, value: { speak() {}, cancel() {}, getVoices: () => [] } }));
+  await page.goto('./');
+  await page.evaluate(() => navigator.serviceWorker.ready);
+  await page.waitForFunction(() => !!navigator.serviceWorker.controller);
+  await context.setOffline(true);
+  await page.reload();
+  await expect(page.locator('#path')).toBeVisible();
+  const units = JSON.parse(readFileSync('dist/path.json', 'utf8'));
+  await expect(page.locator('.unit')).toHaveCount(units.length);
+  await expect(page.locator('.stop[data-state=current]')).toHaveCount(1);
+  await page.locator('.stop[data-state=current]').tap();
+  await expect(page.locator('#stop')).toBeVisible();
+  // Whatever the curriculum's first exercise is (read from path.json): play it and it gets a result.
+  const first = units[0].stops[0].exercises[0].type;
+  await expect(page.locator('#stop')).toHaveAttribute('data-kind', first);
+  await expect(page.locator('#stop')).toHaveAttribute('data-phase', 'draw', { timeout: 15_000 });
+  if (first === 'lesson') { // the play button opens the linked lesson, offline too
+    await page.locator('#sok').tap();
+    await expect(page.locator('#lesson')).toBeVisible();
+    return;
+  }
+  await touchStroke(page, line([200, 500], [800, 500], 30));
+  await page.locator(first === 'create' ? '#stools [data-act=done]' : '#sok').tap();
+  await expect(page.locator('#sbar i').first()).toHaveAttribute('data-r', /./, { timeout: 10_000 });
 });
 
 const ok = () => ({
   id: 'demo', title: 'Demo', emoji: '⭐',
   stops: [{ id: 'one', title: 'One', sticker: '⭐', exercises: [
     { type: 'trace', say: 'Trace it.', strokes: ['M 200 500 L 800 500'] },
-    { type: 'shape', say: 'Draw it.', strokes: ['M 200 500 L 800 500'], rotations: [90], closed: false },
+    { type: 'shape', say: 'Draw it.', strokes: ['M 200 500 L 800 500'], also: [['M 200 450 L 500 550 L 800 450']], rotations: [90], closed: false },
     { type: 'memory', say: 'Remember it.', strokes: ['M 200 500 L 800 500'] },
-    { type: 'finish', say: 'Finish it.', given: ['M 200 200 L 800 200'], strokes: ['M 200 500 L 800 500'], hint: true },
+    { type: 'finish', say: 'Finish it.', given: ['M 200 200 L 800 200'], strokes: ['M 200 500 L 800 500'], hint: true, open: true },
     { type: 'create', say: 'Make one.' },
     { type: 'lesson', lesson: 'sun' },
   ] }],
@@ -70,6 +100,13 @@ test('the build accepts a good unit and rejects each kind of bad input with a cl
     ['unknown lesson', ex((xs) => { xs[5].lesson = 'nope'; }), /lesson "nope" does not exist/],
     ['unknown field', ex((xs) => { xs[1].rotation = [90]; }), /unknown field "rotation"/],
     ['bad rotations', ex((xs) => { xs[1].rotations = 'all'; }), /rotations must be an array/],
+    ['also not a list', ex((xs) => { xs[1].also = 'M 0 0'; }), /also must be a non-empty array of alternatives/],
+    ['also empty', ex((xs) => { xs[1].also = []; }), /also must be a non-empty array of alternatives/],
+    ['also a bare path', ex((xs) => { xs[1].also = ['M 200 500 L 800 500']; }), /also\[0\] must be a non-empty array/],
+    ['also bad stroke', ex((xs) => { xs[1].also = [['M 200 500 L 800 500'], ['M 200 500 l 100 0']]; }), /also\[1\]\[0\] illegal character "l"/],
+    ['also on a trace', ex((xs) => { xs[0].also = [['M 200 500 L 800 500']]; }), /unknown field "also" for type trace/],
+    ['open not boolean', ex((xs) => { xs[3].open = 'yes'; }), /open must be true or false/],
+    ['open on a shape', ex((xs) => { xs[1].open = true; }), /unknown field "open" for type shape/],
     ['relative command', ex((xs) => { xs[0].strokes = ['M 200 500 l 100 0']; }), /illegal character "l"/],
     ['too few exercises', (u) => { u.stops[0].exercises.splice(2); }, /must have 3 to 7 exercises \(has 2\)/],
     ['too many exercises', (u) => { u.stops[0].exercises.push(...u.stops[0].exercises.slice(0, 2)); }, /must have 3 to 7 exercises \(has 8\)/],
@@ -91,11 +128,16 @@ test('the build accepts a good unit and rejects each kind of bad input with a cl
   expect(run('build-lessons.mjs', { '01-demo.json': '{ nope' }).err).toMatch(/invalid JSON/);
 });
 
-test('render:path rejects geometry outside 40..960 (the build cannot measure it)', () => {
+test('render:path rejects geometry outside 40..960 (the build cannot measure it), alternatives included', () => {
   test.skip(test.info().project.name !== 'portrait', 'node-only: once is enough');
   const u = ok();
   (u.stops[0].exercises[3] as Ex).given = ['M 200 500 C 200 -300 800 -300 800 500'];
   const r = run('render-path.mjs', { '01-demo.json': u });
   expect(r.code).toBe(1);
   expect(r.err).toMatch(/exercise 4 \(finish\) stroke "M 200 500 C.*outside 40\.\.960/);
+  const v = ok();
+  (v.stops[0].exercises[1] as Ex).also = [['M 200 500 L 990 500']];
+  const a = run('render-path.mjs', { '01-demo.json': v });
+  expect(a.code).toBe(1);
+  expect(a.err).toMatch(/exercise 2 \(shape\) stroke "M 200 500 L 990 500".*outside 40\.\.960/);
 });

@@ -5,7 +5,7 @@ import { History } from './engine/history';
 import { LOGICAL, Surface } from './engine/surface';
 import { react, star, tones } from './grade';
 import { returnTo, type Lesson } from './lesson';
-import { COPY_TOLERANCE, samplePath, score, TOLERANCE, type Point, type Reaction } from './score';
+import { COPY_TOLERANCE, openAttempt, samplePath, score, TOLERANCE, type Point, type Reaction } from './score';
 import { scoreShape } from './shape';
 import { say, stopSpeech } from './speech';
 import { saveDrawing, savePathStop } from './store';
@@ -13,8 +13,10 @@ import { ask, celebrate, ICON, layerPng, mountTools, snapshot } from './tools';
 
 export type Exercise =
   | { type: 'trace' | 'memory'; say: string; strokes: string[] }
-  | { type: 'shape'; say: string; strokes: string[]; rotations?: number[]; closed?: boolean }
-  | { type: 'finish'; say: string; given: string[]; strokes: string[]; hint?: boolean }
+  // also: accepted alternative templates (each a list of strokes), scored like `strokes`; the best wins. Only `strokes` is shown.
+  | { type: 'shape'; say: string; strokes: string[]; also?: string[][]; rotations?: number[]; closed?: boolean }
+  // open: any reasonable answer is right (openAttempt), `strokes` only marks where it goes.
+  | { type: 'finish'; say: string; given: string[]; strokes: string[]; hint?: boolean; open?: boolean }
   | { type: 'create'; say: string }
   | { type: 'lesson'; lesson: string; say?: string };
 export type Stop = { id: string; title: string; sticker: string; exercises: Exercise[] };
@@ -26,7 +28,7 @@ const DRAW_MS = 1500, PAUSE_MS = 400; // demonstration: like a lesson step
 const MEMORY_MS = 3000, FADE_MS = 700; // memory: the drawing stays this long, then fades away
 const REACT_MS = 1500, RETRY_MS = 1300; // the stars over the canvas; her one-star attempt before it clears
 const ARM_MS = 900; // the result card ignores taps outside its button this long (like the tracing result)
-const EXIT = ''; // ponytail: the result and the close button always go home; #37 sends her back to the path screen
+const EXIT = ''; // the result and the close button go home: the path screen
 const LESSON_SAY = "Let's draw a whole picture! Tap the green button.";
 const CHEER = ['', 'You did it! Here is your sticker!', 'Great job! Here is your sticker!', 'Wow, three stars! Here is your sticker!'];
 const HOME = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10" fill="#ffd34d"/><path d="M10 20v-5h4v5"/></svg>';
@@ -49,9 +51,12 @@ let ink: Surface | null = null;
 // Her strokes for the current exercise, kept in step with undo exactly like lesson.ts: every history entry is one stroke.
 let strokes: Point[][] = [];
 let kept = 0;
-let target: Point[][] = []; // the exercise's strokes, sampled
 let run = 0; // bumps to cancel an in-flight demonstration, reaction or timer
 let card: HTMLElement | null = null;
+let earned: string | null = null; // a stop finished for the first time, until the path screen plays its payoff
+
+/** The `unitId/stopId` just finished for the first time (once; the path screen asks when it draws). */
+export const takeEarned = () => { const k = earned; earned = null; return k; };
 
 const ex = () => cur!.stop.exercises[cur!.i];
 const seg = (i: number) => bar.children[i] as HTMLElement;
@@ -126,7 +131,6 @@ function showExercise(speak = true) {
     kept = Math.max(kept, strokes.length - ink!.history.size);
     ok.classList.add('ready');
   };
-  target = 'strokes' in x ? x.strokes.map((d) => samplePath(d)) : [];
   example.replaceChildren(...(x.type === 'shape' ? x.strokes.map((d) => path(d, '')) : []));
   const l = x.type === 'lesson' ? lessons.find((l) => l.id === x.lesson) : undefined;
   guide.replaceChildren(...{
@@ -186,11 +190,16 @@ async function drawOn(paths: SVGPathElement[], me: number) {
   return true;
 }
 
-/** Stars for her drawing on a graded exercise. */
-function grade(x: Exercise): 1 | 2 | 3 {
-  if (x.type === 'shape') return scoreShape(target, strokes, { rotations: x.rotations, closed: x.closed, canvas: LOGICAL }).stars;
+/** Stars for her `ink` on a graded exercise (trace, shape, memory, finish). Exported for the grading tests. */
+export function grade(x: Exercise, ink: Point[][]): 1 | 2 | 3 {
+  const sampled = (ds: string[]) => ds.map((d) => samplePath(d));
+  if (x.type === 'shape') {
+    const opts = { rotations: x.rotations, closed: x.closed, canvas: LOGICAL };
+    return Math.max(...[x.strokes, ...(x.also ?? [])].map((t) => scoreShape(sampled(t), ink, opts).stars)) as 1 | 2 | 3;
+  }
+  if (x.type === 'finish' && x.open) return openAttempt(sampled(x.strokes), ink) ? 3 : 1;
   const tolerance = x.type === 'memory' ? COPY_TOLERANCE : x.type === 'finish' ? FINISH_TOLERANCE : TOLERANCE;
-  return score([target], strokes, { tolerance }).stars;
+  return score([sampled((x as { strokes: string[] }).strokes)], ink, { tolerance }).stars;
 }
 
 /** Exercise finished with `stars` (0: ungraded): the segment takes the result, stars pop over the canvas, then on. */
@@ -240,7 +249,7 @@ ok.addEventListener('click', () => {
     say(x.say);
     return;
   }
-  const stars = grade(x);
+  const stars = grade(x, strokes);
   if (stars === 1 && cur.tries === 0) retry();
   else done(stars);
 });
@@ -299,7 +308,7 @@ $('#sclose').addEventListener('click', async () => {
 function showResult() {
   const c = cur!, graded = c.results.filter((r) => r > 0);
   const stars = (graded.length ? Math.max(1, Math.round(graded.reduce((a, b) => a + b, 0) / graded.length)) : 3) as 1 | 2 | 3;
-  savePathStop(c.key, stars);
+  savePathStop(c.key, stars).then((fresh) => { if (fresh) earned = c.key; });
   phase('result');
   tools.replaceChildren(); // her last drawing stays under the card; closeStop releases it
   const el = card = document.createElement('div');

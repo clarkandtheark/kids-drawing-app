@@ -1,0 +1,50 @@
+{
+  "id": "shapes-together", "title": "Shapes Together", "emoji": "🧩",
+  "stops": [
+    {
+      "id": "circles-together", "title": "Circles together", "sticker": "🐛",
+      "exercises": [
+        {"type": "trace", "say": "Trace the wiggly caterpillar, one round circle after another.", "strokes": ["M 182.5 450 A 110 110 0 1 0 182.5 670 A 110 110 0 1 0 182.5 450", "M 394.2 390 A 110 110 0 1 0 394.2 610 A 110 110 0 1 0 394.2 390", "M 605.8 450 A 110 110 0 1 0 605.8 670 A 110 110 0 1 0 605.8 450", "M 817.5 390 A 110 110 0 1 0 817.5 610 A 110 110 0 1 0 817.5 390"]},
+        {"type": "finish", "say": "This caterpillar has no head! Draw a big round head at the front.", "given": ["M 200 520 A 100 100 0 1 0 200 720 A 100 100 0 1 0 200 520", "M 400 520 A 100 100 0 1 0 400 720 A 100 100 0 1 0 400 520", "M 600 520 A 100 100 0 1 0 600 720 A 100 100 0 1 0 600 520", "M 250 706.6 L 250 790", "M 150 706.6 L 150 790", "M 450 706.6 L 450 790", "M 350 706.6 L 350 790", "M 650 706.6 L 650 790", "M 550 706.6 L 550 790"], "strokes": ["M 788.4 358.1 A 130 130 0 1 0 788.4 618.1 A 130 130 0 1 0 788.4 358.1"]},
+        {"type": "trace", "say": "Trace the teddy bear's big round head, then his two little round ears.", "strokes": ["M 500 310 A 270 270 0 1 0 500 850 A 270 270 0 1 0 500 310", "M 252.5 472 A 110 110 0 1 1 392 332.5", "M 608 332.5 A 110 110 0 1 1 747.5 472"]},
+        {"type": "finish", "say": "Poor teddy has no ears. Draw a round ear on each side of his head.", "given": ["M 500 310 A 270 270 0 1 0 500 850 A 270 270 0 1 0 500 310", "M 500 570 A 90 90 0 1 0 500 750 A 90 90 0 1 0 500 570", "M 400 495 A 25 25 0 1 0 400 545 A 25 25 0 1 0 400 495", "M 600 495 A 25 25 0 1 0 600 545 A 25 25 0 1 0 600 495", "M 470 625 L 530 625 L 500 660 Z"], "strokes": ["M 252.5 472 A 110 110 0 1 1 392 332.5", "M 608 332.5 A 110 110 0 1 1 747.5 472"]},
+        {"type": "memory", "say": "Look at the two round cherries and their stems. They will hide, then you draw them.", "strokes": ["M 370 610 A 110 110 0 1 0 370 830 A 110 110 0 1 0 370 610", "M 650 630 A 110 110 0 1 0 650 850 A 110 110 0 1 0 650 630", "M 370 610 Q 410 390 560 240 Q 610 420 650 630"]},
+        {"type": "create", "say": "Draw a creature made of circles, like a caterpillar, a snowman or a bear!"}
+      ]
+    },
+    {
+      "id": "squares-triangles", "title": "Squares and triangles", "sticker": "🏠",
+      "exercises": [
+        {"type": "trace", "say": "Trace a house: a big square, then a pointy triangle roof on top.", "strokes": ["M 250 430 L 750 430 L 750 930 L 250 930 Z", "M 250 430 L 500 130 L 750 430"]},
+        {"type": "shape", "say": "Now draw a house shape all by yourself: a square with a pointy roof.", "also": [["M 250 430 L 500 130 L 750 430 L 750 930 L 250 930 Z", "M 250 430 L 750 430"]], "strokes": ["M 250 430 L 500 130 L 750 430 L 750 930 L 250 930 Z"], "closed": true},
+        {"type": "finish", "say": "The boat needs a sail! Draw a big triangle sail next to the pole.", "open": true, "given": ["M 180 640 L 820 640 L 710 790 L 290 790 Z", "M 480 640 L 480 200", "M 80 815 C 91.7 823.3 126.7 865 150 865 C 173.3 865 196.7 815 220 815 C 243.3 815 266.7 865 290 865 C 313.3 865 336.7 815 360 815 C 383.3 815 406.7 865 430 865 C 453.3 865 476.7 815 500 815 C 523.3 815 546.7 865 570 865 C 593.3 865 616.7 815 640 815 C 663.3 815 686.7 865 710 865 C 733.3 865 756.7 815 780 815 C 803.3 815 826.7 865 850 865 C 873.3 865 908.3 823.3 920 815"], "strokes": ["M 480 220 L 760 590 L 480 590"]},
+        {"type": "finish", "say": "Ready for space? Give the rocket a pointy triangle on top.", "given": ["M 400 380 L 600 380 L 600 820 L 400 820 Z", "M 500 445 A 55 55 0 1 0 500 555 A 55 55 0 1 0 500 445", "M 400 700 L 320 840 L 400 820", "M 600 700 L 680 840 L 600 820"], "strokes": ["M 400 380 L 500 160 L 600 380"]},
+        {"type": "memory", "say": "Look at the tall castle tower with its pointy roof. It will hide. Can you draw it?", "strokes": ["M 380 380 L 380 900 L 620 900 L 620 380", "M 340 380 L 500 120 L 660 380 Z"]},
+        {"type": "lesson", "say": "A rocket is a tall shape with a pointy top. Let's draw one, all the way!", "lesson": "rocket"}
+      ]
+    },
+    {
+      "id": "mixing", "title": "Mixing shapes", "sticker": "🍦",
+      "exercises": [
+        {"type": "trace", "say": "Trace the ice cream: a triangle cone, then a round scoop on top.", "strokes": ["M 350 480 L 500 900 L 650 480 Z", "M 350 480 A 170 170 0 1 1 650 480"]},
+        {"type": "finish", "say": "Here is a lollipop with no stick! Draw a long straight stick under the candy.", "given": ["M 500 140 A 220 220 0 1 0 500 580 A 220 220 0 1 0 500 140", "M 505.9 364.1 C 506 365.2 507 368.6 506.3 370.9 C 505.5 373.2 503.8 376.2 501.3 378 C 498.8 379.8 495.1 381.5 491.3 381.7 C 487.6 382 482.8 381.4 478.8 379.5 C 474.7 377.5 470.2 374.1 467.2 369.8 C 464.3 365.5 461.6 359.7 460.9 353.8 C 460.2 347.8 460.7 340.6 463.1 334.3 C 465.5 328 469.7 321.1 475.3 316.1 C 480.9 311.1 488.5 306.4 496.5 304.3 C 504.5 302.2 514.3 301.5 523.1 303.3 C 532 305.2 541.8 309.3 549.5 315.4 C 557.2 321.5 564.7 330.3 569.1 339.9 C 573.6 349.5 576.6 361.5 576.3 372.9 C 576.1 384.2 573.2 397.2 567.5 407.9 C 561.9 418.6 553 429.6 542.6 437.2 C 532.2 444.8 518.5 451.1 505.1 453.5 C 491.6 455.8 475.7 455.4 461.8 451.3 C 447.9 447.3 433.1 439.5 421.8 429.2 C 410.6 419 400.2 404.7 394.3 389.8 C 388.4 374.9 385.2 356.6 386.6 339.9 C 387.9 323.2 393.3 304.5 402.2 289.4 C 411.1 274.3 424.8 259.3 440.1 249.2 C 455.4 239 475.1 231.2 494 228.7 C 513 226.2 535 227.9 553.8 234.2 C 572.7 240.6 592.5 252.1 607.2 266.6 C 622 281.1 635.2 300.9 642.4 321.1 C 649.6 341.4 652.9 365.8 650.4 387.9 C 648 410 639.9 434.3 627.7 453.8 C 615.4 473.3 596.9 492.2 576.7 504.7 C 556.5 517.3 530.7 526.6 506.3 529.1 C 481.8 531.6 442.7 521.5 429.9 519.9"], "strokes": ["M 500 580 L 500 920"]},
+        {"type": "finish", "say": "This tree has a trunk, but no leaves. Draw a big round tree top on the trunk.", "given": ["M 450 560 L 440 900", "M 550 560 L 560 900", "M 100 900 L 900 900"], "strokes": ["M 450 560 A 206.2 206.2 0 1 1 550 560"]},
+        {"type": "finish", "say": "This mushroom lost its cap! Draw a big round dome on top of the stem.", "given": ["M 420 540 L 400 860 Q 500 900 600 860 L 580 540", "M 100 880 L 900 880"], "strokes": ["M 220 540 A 280 280 0 0 1 780 540 L 220 540"]},
+        {"type": "shape", "say": "Draw a fish all by yourself: an oval body with a triangle tail.", "also": [["M 120 500 A 300 190 0 1 0 720 500 A 300 190 0 1 0 120 500 Z", "M 720 500 L 920 650 L 920 350 Z"]], "strokes": ["M 691.9 419.7 A 300 190 0 1 0 691.9 580.3 L 920 650 L 920 350 Z"], "closed": true},
+        {"type": "lesson", "say": "A cupcake is a cup shape with puffy round shapes on top. Let's draw one!", "lesson": "cupcake"}
+      ]
+    },
+    {
+      "id": "animals", "title": "Animals from shapes", "sticker": "🐱",
+      "exercises": [
+        {"type": "trace", "say": "Trace a cat's face: a big round head and two pointy triangle ears.", "strokes": ["M 500 290 A 290 290 0 1 0 500 870 A 290 290 0 1 0 500 290", "M 243.9 443.9 L 290 170 L 391.4 311.1", "M 608.6 311.1 L 710 170 L 756.1 443.9"]},
+        {"type": "shape", "say": "Now draw a cat head by yourself: a circle with two pointy ears on top.", "also": [["M 210 580 A 290 290 0 1 0 790 580 A 290 290 0 1 0 210 580 Z", "M 243.9 443.9 L 290 170 L 391.4 311.1", "M 608.6 311.1 L 710 170 L 756.1 443.9"]], "strokes": ["M 243.9 443.9 L 290 170 L 391.4 311.1 A 290 290 0 0 1 608.6 311.1 L 710 170 L 756.1 443.9 A 290 290 0 1 1 243.9 443.9 Z"], "closed": true},
+        {"type": "trace", "say": "Here is a bird made of shapes. Trace the oval body, the triangle beak, the wing and the eye.", "strokes": ["M 440 370 A 290 210 0 1 0 440 790 A 290 210 0 1 0 440 370", "M 721.4 529.2 L 900 560 L 721.4 630.8", "M 400 515 A 150 85 0 1 0 400 685 A 150 85 0 1 0 400 515", "M 620 476 A 24 24 0 1 0 620 524 A 24 24 0 1 0 620 476"]},
+        {"type": "finish", "say": "A bunny needs long ears! Draw two tall ears on top of the head.", "given": ["M 500 400 A 240 240 0 1 0 500 880 A 240 240 0 1 0 500 400", "M 420 586 A 24 24 0 1 0 420 634 A 24 24 0 1 0 420 586", "M 580 586 A 24 24 0 1 0 580 634 A 24 24 0 1 0 580 586", "M 500 658 A 22 22 0 1 0 500 702 A 22 22 0 1 0 500 658", "M 450 730 Q 500 760 550 730"], "strokes": ["M 372.8 436.5 C 330 60 450 40 470.8 401.8", "M 529.2 401.8 C 550 40 670 60 627.2 436.5"]},
+        {"type": "memory", "say": "Look at the fish: an oval body and a triangle tail. It will swim away, then you draw it.", "strokes": ["M 440 330 A 260 170 0 1 0 440 670 A 260 170 0 1 0 440 330", "M 700 500 L 880 370 L 880 630 Z"]},
+        {"type": "lesson", "say": "A bunny is circles and long ovals put together. Let's draw one!", "lesson": "bunny"},
+        {"type": "create", "say": "Make your own animal out of shapes. Circles, ovals, squares and triangles, all together!"}
+      ]
+    }
+  ]
+}

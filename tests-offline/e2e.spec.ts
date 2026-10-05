@@ -104,8 +104,8 @@ async function traceToColor(page: Page, l: Lesson) {
   await expect(page.locator('#lesson')).toHaveAttribute('data-phase', 'color');
 }
 
-test('fresh home: a card per lesson in three levels, nothing overflows sideways, scrolls by touch', async ({ page }, info) => {
-  await page.goto('./');
+test('fresh Library: a card per lesson in three levels, nothing overflows sideways, scrolls by touch', async ({ page }, info) => {
+  await page.goto('./#library');
   const all = await lessonsOf(page);
   await expect(page.locator('.card')).toHaveCount(all.length);
   await expect(page.locator('section.level[data-level]')).toHaveCount(3);
@@ -146,9 +146,9 @@ test('fresh home: a card per lesson in three levels, nothing overflows sideways,
 
 test('every lesson: trace a stroke per step, the guide shows the right strokes, reach Color mode', async ({ page }, info) => {
   test.setTimeout(300_000);
-  await page.goto('./');
   const all = await lessonsOf(page);
   const shots = new Set(['house', 'owl', 'unicorn']); // one per level, mid-lesson, Trace and Copy
+  await page.goto('./#library');
   for (const l of all) {
     await page.locator(`.card[data-id="${l.id}"]`).tap();
     await expect(page.locator('#lesson')).toBeVisible();
@@ -195,7 +195,7 @@ test('every lesson: trace a stroke per step, the guide shows the right strokes, 
 });
 
 test('step animation: ~1.5s highlight draw then a pause, earlier strokes gray, dotted resting guide; Copy panel', async ({ page }) => {
-  await page.goto('./');
+  await page.goto('./#library');
   await page.locator('.card[data-id=cat]').tap();
   await expect.poll(() => phase(page), { timeout: 5000 }).toBe('guide');
   // Record phase changes with page timestamps.
@@ -236,7 +236,7 @@ test('step animation: ~1.5s highlight draw then a pause, earlier strokes gray, d
 });
 
 test('colour phase: brush undo goes back at least 30 levels', async ({ page }) => {
-  await page.goto('./');
+  await page.goto('./#library');
   await page.locator('.card[data-id=sun]').tap();
   for (let i = 0; i < 6; i++) await page.locator('#next').tap();
   await page.locator('.result .go').tap();
@@ -262,7 +262,7 @@ test('colour phase: brush undo goes back at least 30 levels', async ({ page }) =
 
 test('full journey: trace, fill and paint, celebrate, star, gallery, full-screen, share, delete', async ({ page }, info) => {
   test.setTimeout(90_000);
-  await page.goto('./');
+  await page.goto('./#library');
   const face = (await lessonsOf(page)).find((l) => l.id === 'face')!;
   await page.locator('.card[data-id=face]').tap();
   await traceToColor(page, face);
@@ -302,6 +302,7 @@ test('full journey: trace, fill and paint, celebrate, star, gallery, full-screen
   await expect(page.locator('.card[data-id=face] .score svg.got')).toHaveCount(3); // traced closely: three stars
   await expect(page.locator('.card.done')).toHaveCount(1);
 
+  await page.locator('#lhome').tap();
   await page.locator('#togallery').tap();
   await expect(page.locator('.pic')).toHaveCount(1);
   expect(await nonWhite(page, '.pic img')).toBeGreaterThan(50_000);
@@ -342,7 +343,7 @@ test('free draw: paint, Done, saved to the gallery', async ({ page }, info) => {
   await shot(page, info, 'free-draw');
   await page.locator('[data-act=done]').tap();
   await expect(page.locator('.party')).toBeVisible();
-  await expect(page.locator('#menu')).toBeVisible({ timeout: 5000 });
+  await expect(page.locator('#path')).toBeVisible({ timeout: 5000 });
   await page.locator('#togallery').tap();
   await expect(page.locator('.pic')).toHaveCount(1);
   expect(await nonWhite(page, '.pic img')).toBeGreaterThan(50_000);
@@ -371,6 +372,7 @@ test('offline: after the first load, a shortened journey works with no network a
 
   await context.setOffline(true);
   context.on('requestfailed', (r) => failed.push(`${r.url()} ${r.failure()?.errorText}`));
+  await page.goto('./#library');
   await page.reload();
   await page.locator('.card[data-id=face]').tap();
   await traceToColor(page, face);
@@ -380,6 +382,7 @@ test('offline: after the first load, a shortened journey works with no network a
   await page.locator('[data-act=done]').tap();
   await expect(page.locator('#menu')).toBeVisible({ timeout: 5000 });
   await expect(page.locator('.card[data-id=face]')).toHaveClass(/done/);
+  await page.locator('#lhome').tap();
   await page.locator('#togallery').tap();
   await expect(page.locator('.pic')).toHaveCount(1);
   expect(await nonWhite(page, '.pic img')).toBeGreaterThan(50_000);
@@ -388,7 +391,7 @@ test('offline: after the first load, a shortened journey works with no network a
 });
 
 test('rotation mid-lesson: ink survives, layout intact, new strokes land under the finger', async ({ page }, info) => {
-  await page.goto('./');
+  await page.goto('./#library');
   await page.locator('.card[data-id=cat]').tap();
   await page.locator('#next').tap();
   await touchStroke(page, line([200, 300], [800, 300]));

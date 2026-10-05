@@ -27,7 +27,7 @@ async function serve(page: Page, withCharacters: boolean) {
 
 test('characters: a fourth section after level 3 holds only the categorised lessons', async ({ page }) => {
   await serve(page, true);
-  await page.goto('./');
+  await page.goto('./#library');
   const sections = page.locator('#menu > section');
   await expect(sections).toHaveCount(4);
   await expect(sections.nth(3)).toHaveAttribute('data-category', 'characters');
@@ -50,7 +50,7 @@ test('characters: a fourth section after level 3 holds only the categorised less
 
 test('characters: a categorised lesson opens and plays like any other', async ({ page }) => {
   await serve(page, true);
-  await page.goto('./');
+  await page.goto('./#library');
   await page.locator('.card[data-id=fx-one]').scrollIntoViewIfNeeded();
   await page.locator('.card[data-id=fx-one]').tap();
   await expect(page).toHaveURL(/#lesson\/fx-one$/);
@@ -68,7 +68,7 @@ test('characters: a categorised lesson opens and plays like any other', async ({
 
 test('characters: with none present there is no fourth section', async ({ page }) => {
   await serve(page, false);
-  await page.goto('./');
+  await page.goto('./#library');
   await expect(page.locator('section[data-level="3"] .card').first()).toBeVisible();
   await expect(page.locator('#menu > section')).toHaveCount(3);
   await expect(page.locator('section[data-category]')).toHaveCount(0);

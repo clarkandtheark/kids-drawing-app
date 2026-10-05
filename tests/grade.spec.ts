@@ -208,7 +208,7 @@ test('muted: no AudioContext at all; and nothing throws without Web Audio', asyn
 });
 
 test('best score persists, shows on the home card, only ever goes up', async ({ page }) => {
-  const home = async () => { await load(page, './'); await expect(card(page, 'cloud')).toBeVisible(); };
+  const home = async () => { await load(page, './#library'); await expect(card(page, 'cloud')).toBeVisible(); };
   await play(page, (i) => i < 3);
   const mid = await result(page);
   await expect.poll(async () => (await best(page)).cloud?.percent).toBe(mid.percent);
@@ -238,7 +238,7 @@ async function openParent(page: Page) {
 }
 
 test('home: scored, legacy-completed and untouched cards; reset clears scores; no orphan card; big targets', async ({ page }, info) => {
-  await page.goto('./');
+  await page.goto('./#library');
   await page.evaluate(async () => {
     const s = await import('/src/store.ts' as string);
     await s.saveScore('sun', { percent: 100, stars: 3 });
@@ -275,10 +275,12 @@ test('home: scored, legacy-completed and untouched cards; reset clears scores; n
   await page.locator('section.level[data-level="2"]').scrollIntoViewIfNeeded();
   await shot(page, info, 'home-level2');
 
+  await page.goto('./'); // the parent area opens from the logo on the path
   await openParent(page);
   await page.locator('#preset').tap();
   await page.locator('.ask .yes').tap();
   await expect(page.locator('.card .score')).toHaveCount(0);
+  await page.goto('./#library');
   await page.reload();
   await expect(page.locator('.card').first()).toBeVisible();
   await expect(page.locator('.card .score')).toHaveCount(0);

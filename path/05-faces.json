@@ -1,0 +1,60 @@
+{
+  "id": "faces",
+  "title": "Faces and Feelings",
+  "emoji": "😊",
+  "stops": [
+    {
+      "id": "eyes",
+      "title": "Eyes",
+      "sticker": "👀",
+      "exercises": [
+        {"type": "trace", "say": "Eyes help a face look at you! Trace the two round eyes and the dots in the middle.", "strokes": ["M 210 500 A 110 110 0 1 0 430 500 A 110 110 0 1 0 210 500", "M 292 500 A 28 28 0 1 0 348 500 A 28 28 0 1 0 292 500", "M 570 500 A 110 110 0 1 0 790 500 A 110 110 0 1 0 570 500", "M 652 500 A 28 28 0 1 0 708 500 A 28 28 0 1 0 652 500"]},
+        {"type": "finish", "say": "This face has only one eye. Draw the other eye with a dot in it, so they match!", "given": ["M 160 520 A 340 340 0 1 0 840 520 A 340 340 0 1 0 160 520", "M 330 450 A 50 50 0 1 0 430 450 A 50 50 0 1 0 330 450", "M 368 455 A 12 12 0 1 0 392 455 A 12 12 0 1 0 368 455", "M 370 640 Q 500 760 630 640"], "strokes": ["M 570 450 A 50 50 0 1 0 670 450 A 50 50 0 1 0 570 450", "M 608 455 A 12 12 0 1 0 632 455 A 12 12 0 1 0 608 455"], "hint": true},
+        {"type": "trace", "say": "These eyes are fast asleep. Trace the sleepy curves, like little bowls.", "strokes": ["M 190 460 Q 320 640 450 460", "M 550 460 Q 680 640 810 460"]},
+        {"type": "shape", "say": "Some eyes are pointy at both ends, like a lemon. Draw one big lemon eye!", "strokes": ["M 180 500 Q 500 180 820 500 Q 500 820 180 500"], "closed": true},
+        {"type": "finish", "say": "Give this face pretty eyelashes. Draw two little lines on top of each eye.", "open": true, "given": ["M 160 520 A 340 340 0 1 0 840 520 A 340 340 0 1 0 160 520", "M 330 450 A 50 50 0 1 0 430 450 A 50 50 0 1 0 330 450", "M 368 455 A 12 12 0 1 0 392 455 A 12 12 0 1 0 368 455", "M 570 450 A 50 50 0 1 0 670 450 A 50 50 0 1 0 570 450", "M 608 455 A 12 12 0 1 0 632 455 A 12 12 0 1 0 608 455", "M 370 640 Q 500 760 630 640"], "strokes": ["M 358.9 404.7 L 329.3 341.2", "M 336.7 425 L 276.1 390", "M 641.1 404.7 L 670.7 341.2", "M 663.3 425 L 723.9 390"]},
+        {"type": "create", "say": "Draw a face with your favourite eyes. Round, sleepy, or with long eyelashes!"}
+      ]
+    },
+    {
+      "id": "feelings",
+      "title": "Mouths and feelings",
+      "sticker": "😮",
+      "exercises": [
+        {"type": "trace", "say": "A smile makes a face happy! Trace the big smile.", "strokes": ["M 230 420 Q 500 800 770 420"]},
+        {"type": "shape", "say": "Now draw a sad mouth. It bends down, the other way from a smile.", "strokes": ["M 230 640 Q 500 300 770 640"]},
+        {"type": "finish", "say": "This face is surprised! Give it a round O mouth.", "given": ["M 160 520 A 340 340 0 1 0 840 520 A 340 340 0 1 0 160 520", "M 330 450 A 50 50 0 1 0 430 450 A 50 50 0 1 0 330 450", "M 368 455 A 12 12 0 1 0 392 455 A 12 12 0 1 0 368 455", "M 570 450 A 50 50 0 1 0 670 450 A 50 50 0 1 0 570 450", "M 608 455 A 12 12 0 1 0 632 455 A 12 12 0 1 0 608 455", "M 320 360 Q 380 300 440 360", "M 560 360 Q 620 300 680 360"], "strokes": ["M 435 680 A 65 65 0 1 0 565 680 A 65 65 0 1 0 435 680"]},
+        {"type": "finish", "say": "Make this face cross! Draw two eyebrows that slant down to the middle.", "given": ["M 160 520 A 340 340 0 1 0 840 520 A 340 340 0 1 0 160 520", "M 330 450 A 50 50 0 1 0 430 450 A 50 50 0 1 0 330 450", "M 368 455 A 12 12 0 1 0 392 455 A 12 12 0 1 0 368 455", "M 570 450 A 50 50 0 1 0 670 450 A 50 50 0 1 0 570 450", "M 608 455 A 12 12 0 1 0 632 455 A 12 12 0 1 0 608 455", "M 380 700 Q 500 600 620 700"], "strokes": ["M 300 320 L 440 380", "M 700 320 L 560 380"]},
+        {"type": "memory", "say": "Look at this laughing face. It will hide, then you draw it!", "strokes": ["M 260 420 Q 340 300 420 420", "M 580 420 Q 660 300 740 420", "M 280 560 L 720 560 C 720 820 280 820 280 560"]},
+        {"type": "create", "say": "Draw a face that is VERY surprised, or very happy, or a little bit sad!"}
+      ]
+    },
+    {
+      "id": "whole-faces",
+      "title": "Whole faces",
+      "sticker": "🥰",
+      "exercises": [
+        {"type": "trace", "say": "Trace a whole face: the round head, two eyes up high, and a smile down low.", "strokes": ["M 160 520 A 340 340 0 1 0 840 520 A 340 340 0 1 0 160 520", "M 330 450 A 50 50 0 1 0 430 450 A 50 50 0 1 0 330 450", "M 570 450 A 50 50 0 1 0 670 450 A 50 50 0 1 0 570 450", "M 370 640 Q 500 760 630 640"]},
+        {"type": "finish", "say": "This face needs a nose! Draw it in the middle, between the eyes and the smile.", "given": ["M 160 520 A 340 340 0 1 0 840 520 A 340 340 0 1 0 160 520", "M 330 450 A 50 50 0 1 0 430 450 A 50 50 0 1 0 330 450", "M 368 455 A 12 12 0 1 0 392 455 A 12 12 0 1 0 368 455", "M 570 450 A 50 50 0 1 0 670 450 A 50 50 0 1 0 570 450", "M 608 455 A 12 12 0 1 0 632 455 A 12 12 0 1 0 608 455", "M 370 640 Q 500 760 630 640"], "strokes": ["M 500 480 L 465 575 L 515 575"], "hint": true},
+        {"type": "finish", "say": "This face is empty! Draw two eyes up high, and a smile under the nose.", "given": ["M 160 520 A 340 340 0 1 0 840 520 A 340 340 0 1 0 160 520", "M 500 480 L 465 575 L 515 575"], "strokes": ["M 330 450 A 50 50 0 1 0 430 450 A 50 50 0 1 0 330 450", "M 570 450 A 50 50 0 1 0 670 450 A 50 50 0 1 0 570 450", "M 370 640 Q 500 760 630 640"]},
+        {"type": "finish", "say": "How will this face hear? Draw an ear on each side of the head.", "given": ["M 160 520 A 340 340 0 1 0 840 520 A 340 340 0 1 0 160 520", "M 330 450 A 50 50 0 1 0 430 450 A 50 50 0 1 0 330 450", "M 368 455 A 12 12 0 1 0 392 455 A 12 12 0 1 0 368 455", "M 570 450 A 50 50 0 1 0 670 450 A 50 50 0 1 0 570 450", "M 608 455 A 12 12 0 1 0 632 455 A 12 12 0 1 0 608 455", "M 500 480 L 465 575 L 515 575", "M 370 640 Q 500 760 630 640"], "strokes": ["M 171.6 432 C 60 392 60 648 171.6 608", "M 828.4 432 C 940 392 940 648 828.4 608"]},
+        {"type": "finish", "say": "Give this face some curly hair, bump, bump, bump, all over the top!", "open": true, "given": ["M 160 520 A 340 340 0 1 0 840 520 A 340 340 0 1 0 160 520", "M 330 450 A 50 50 0 1 0 430 450 A 50 50 0 1 0 330 450", "M 368 455 A 12 12 0 1 0 392 455 A 12 12 0 1 0 368 455", "M 570 450 A 50 50 0 1 0 670 450 A 50 50 0 1 0 570 450", "M 608 455 A 12 12 0 1 0 632 455 A 12 12 0 1 0 608 455", "M 500 480 L 465 575 L 515 575", "M 370 640 Q 500 760 630 640", "M 171.6 432 C 60 392 60 648 171.6 608", "M 828.4 432 C 940 392 940 648 828.4 608"], "strokes": ["M 180.5 403.7 Q 126.9 268.4 272.5 267.3 Q 288.7 122.7 417.7 190.1 Q 500 70 582.3 190.1 Q 711.3 122.7 727.5 267.3 Q 873.1 268.4 819.5 403.7"]},
+        {"type": "lesson", "lesson": "face", "say": "Now let's draw a whole face, step by step. Eyes, nose, mouth and hair!"}
+      ]
+    },
+    {
+      "id": "animal-faces",
+      "title": "Animal faces",
+      "sticker": "😺",
+      "exercises": [
+        {"type": "finish", "say": "Let's turn this circle into a cat! Draw two pointy ears on top.", "given": ["M 220 600 A 280 280 0 1 0 780 600 A 280 280 0 1 0 220 600", "M 362 550 A 38 38 0 1 0 438 550 A 38 38 0 1 0 362 550", "M 390 555 A 10 10 0 1 0 410 555 A 10 10 0 1 0 390 555", "M 562 550 A 38 38 0 1 0 638 550 A 38 38 0 1 0 562 550", "M 590 555 A 10 10 0 1 0 610 555 A 10 10 0 1 0 590 555", "M 465 630 L 535 630 L 500 670 Z", "M 500 670 L 500 700", "M 440 700 Q 470 740 500 700 Q 530 740 560 700"], "strokes": ["M 262.5 451.6 L 250 220 L 413.5 333.7", "M 737.5 451.6 L 750 220 L 586.5 333.7"], "hint": true},
+        {"type": "finish", "say": "Every cat needs whiskers! Draw two long lines on each side of the nose.", "open": true, "given": ["M 220 600 A 280 280 0 1 0 780 600 A 280 280 0 1 0 220 600", "M 362 550 A 38 38 0 1 0 438 550 A 38 38 0 1 0 362 550", "M 390 555 A 10 10 0 1 0 410 555 A 10 10 0 1 0 390 555", "M 562 550 A 38 38 0 1 0 638 550 A 38 38 0 1 0 562 550", "M 590 555 A 10 10 0 1 0 610 555 A 10 10 0 1 0 590 555", "M 465 630 L 535 630 L 500 670 Z", "M 500 670 L 500 700", "M 440 700 Q 470 740 500 700 Q 530 740 560 700", "M 262.5 451.6 L 250 220 L 413.5 333.7", "M 737.5 451.6 L 750 220 L 586.5 333.7"], "strokes": ["M 410 650 L 150 600", "M 410 680 L 150 720", "M 590 650 L 850 600", "M 590 680 L 850 720"]},
+        {"type": "finish", "say": "Now make a bear! Give it two round ears on top of its head.", "given": ["M 220 600 A 280 280 0 1 0 780 600 A 280 280 0 1 0 220 600", "M 362 550 A 38 38 0 1 0 438 550 A 38 38 0 1 0 362 550", "M 390 555 A 10 10 0 1 0 410 555 A 10 10 0 1 0 390 555", "M 562 550 A 38 38 0 1 0 638 550 A 38 38 0 1 0 562 550", "M 590 555 A 10 10 0 1 0 610 555 A 10 10 0 1 0 590 555", "M 465 630 L 535 630 L 500 670 Z", "M 500 670 L 500 700", "M 440 700 Q 470 740 500 700 Q 530 740 560 700"], "strokes": ["M 262.5 451.6 A 105 105 0 1 1 404.2 336.9", "M 737.5 451.6 A 105 105 0 1 0 595.8 336.9"]},
+        {"type": "finish", "say": "Hop hop! Draw two long, tall ears to make a bunny.", "given": ["M 220 600 A 280 280 0 1 0 780 600 A 280 280 0 1 0 220 600", "M 362 550 A 38 38 0 1 0 438 550 A 38 38 0 1 0 362 550", "M 390 555 A 10 10 0 1 0 410 555 A 10 10 0 1 0 390 555", "M 562 550 A 38 38 0 1 0 638 550 A 38 38 0 1 0 562 550", "M 590 555 A 10 10 0 1 0 610 555 A 10 10 0 1 0 590 555", "M 465 630 L 535 630 L 500 670 Z", "M 500 670 L 500 700", "M 440 700 Q 470 740 500 700 Q 530 740 560 700", "M 410 650 L 150 600", "M 410 680 L 150 720", "M 590 650 L 850 600", "M 590 680 L 850 720"], "strokes": ["M 360 357.5 C 260 -20 450 -20 461 322.7", "M 640 357.5 C 740 -20 550 -20 539 322.7"]},
+        {"type": "finish", "say": "Woof! Draw two floppy ears hanging down the sides to make a puppy.", "given": ["M 220 600 A 280 280 0 1 0 780 600 A 280 280 0 1 0 220 600", "M 362 550 A 38 38 0 1 0 438 550 A 38 38 0 1 0 362 550", "M 390 555 A 10 10 0 1 0 410 555 A 10 10 0 1 0 390 555", "M 562 550 A 38 38 0 1 0 638 550 A 38 38 0 1 0 562 550", "M 590 555 A 10 10 0 1 0 610 555 A 10 10 0 1 0 590 555", "M 465 630 L 535 630 L 500 670 Z", "M 500 670 L 500 700", "M 440 700 Q 470 740 500 700 Q 530 740 560 700"], "strokes": ["M 404.2 336.9 C 160 260 60 600 140 680 C 190 720 230 640 229.5 527.5", "M 595.8 336.9 C 840 260 940 600 860 680 C 810 720 770 640 770.5 527.5"]},
+        {"type": "lesson", "lesson": "cat", "say": "Let's draw a whole cat, with pointy ears and whiskers!"},
+        {"type": "create", "say": "Draw your own animal face. Will it be a cat, a puppy, a bear or a bunny?"}
+      ]
+    }
+  ]
+}

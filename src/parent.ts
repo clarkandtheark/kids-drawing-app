@@ -1,14 +1,15 @@
-// Parent area: long-press the logo for 3 seconds. Voice toggle, reset stars, export / import the gallery as a zip.
+// Parent area: long-press the logo for 3 seconds. Voice and unlock-all toggles, reset stars, export / import the gallery as a zip.
 import { unzipSync, zipSync } from 'fflate';
 import { shareFile } from './gallery';
-import { refreshStars } from './home';
+import { refreshStars } from './library';
+import { refreshPath } from './path';
 import { muted, setMuted } from './speech';
-import { drawingName, listDrawings, parseDrawingName, resetProgress, saveDrawing, type Layers } from './store';
+import { drawingName, getSetting, listDrawings, parseDrawingName, resetProgress, saveDrawing, setSetting, type Layers } from './store';
 import { confirmTrash } from './tools';
 
 const HOLD_MS = 3000, SLOP = 24; // px a finger may wobble before the hold is cancelled
 const $ = <T extends HTMLElement = HTMLElement>(s: string) => document.querySelector<T>(s)!;
-const logo = $('#logo'), panel = $('#parent'), voice = $('#pvoice'), status = $('#pstatus');
+const logo = $('#logo'), panel = $('#parent'), voice = $('#pvoice'), unlock = $('#punlock'), status = $('#pstatus');
 let zip: Promise<File>; // built ahead so Export can share straight from the tap (iOS user activation)
 
 async function buildZip() {
@@ -24,10 +25,12 @@ async function buildZip() {
   return new File([zipSync(files, { level: 0 }) as BlobPart], `drawings-${new Date().toLocaleDateString('en-CA')}.zip`, { type: 'application/zip' }); // PNGs are already compressed: level 0
 }
 
-const showVoice = () => { voice.ariaChecked = String(!muted()); voice.querySelector('b')!.textContent = muted() ? 'Off' : 'On'; };
+const showSwitch = (b: HTMLElement, on: boolean) => { b.ariaChecked = String(on); b.querySelector('b')!.textContent = on ? 'On' : 'Off'; };
+const showVoice = () => showSwitch(voice, !muted());
 
 function open() {
   showVoice();
+  getSetting('unlockAll', false).then((on) => showSwitch(unlock, on));
   status.textContent = '';
   zip = buildZip();
   panel.hidden = false;
@@ -69,11 +72,18 @@ export function initParent() {
   for (const t of ['pointerup', 'pointerleave', 'pointercancel']) logo.addEventListener(t, stop);
 
   voice.addEventListener('click', () => { setMuted(!muted()); showVoice(); });
+  unlock.addEventListener('click', async () => {
+    const on = unlock.ariaChecked !== 'true';
+    showSwitch(unlock, on);
+    await setSetting('unlockAll', on);
+    refreshPath();
+  });
   $('#preset').addEventListener('click', async () => {
     if (!await confirmTrash('Reset stars')) return;
     await resetProgress();
     refreshStars();
-    status.textContent = 'Stars removed. Drawings are kept.';
+    refreshPath();
+    status.textContent = 'Stars and stickers removed. Drawings are kept.';
   });
   $('#pexport').addEventListener('click', async () => { await shareFile(await zip); }); // the zip is already built, so the tap's activation is intact
   $<HTMLInputElement>('#pimport').addEventListener('change', (e) => {

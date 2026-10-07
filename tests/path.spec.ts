@@ -454,3 +454,116 @@ test('phone landscape (844 x 390): trace, shape and create fit beside the canvas
   await layoutOk(page, 'create');
   await shot(page, info, 'create-start-landscape');
 });
+
+// On-screen instructions (#50): the caption shows the current exercise's prompt the whole time it is on screen.
+const cap = (page: Page) => page.locator('#scap span');
+
+test('caption: every exercise type shows exactly its say, through drawing, the retry and colouring; a tap speaks it again', async ({ page }) => {
+  test.setTimeout(90_000);
+  await open(page, 'zigzag');
+  for (const [i, x] of zigzag.exercises.entries()) {
+    await expect(stopEl(page)).toHaveAttribute('data-kind', x.type);
+    await expect(cap(page)).toHaveText(x.say!);
+    await expect(page.locator('#scap')).toBeVisible();
+    if (x.type === 'shape') { // a wrong shape: the retry keeps the same caption the whole way
+      await ready(page);
+      await draw(page, ['M 300 500 A 200 200 0 1 1 700 500 A 200 200 0 1 1 300 500 Z']);
+      await page.locator('#sok').tap();
+      await expect(stopEl(page)).toHaveAttribute('data-phase', 'busy');
+      await expect(cap(page)).toHaveText(x.say!);
+      await ready(page);
+      await expect(cap(page)).toHaveText(x.say!);
+    }
+    if (x.type === 'create') { // colouring: the prompt stays while she draws, after the intro has gone
+      await page.locator('#stools .crayon').nth(5).tap();
+      await touchStroke(page, line([150, 800], [350, 300]));
+      await expect(page.locator('.sintro')).toHaveCount(0);
+      await expect(cap(page)).toHaveText(x.say!);
+      await expect(page.locator('#scap')).toBeVisible();
+    }
+    if (x.type !== 'create') await ready(page);
+    const n = (await said(page)).length;
+    await page.locator('#scap').tap();
+    expect((await said(page)).slice(n), `${x.type}: a tap on the caption`).toEqual([x.say]);
+    await pass(page, zigzag.exercises, i);
+  }
+  await expect(page.locator('.result .cheer')).toHaveText((await said(page)).at(-1)!); // the cheer, as words too
+  // A `lesson` exercise shows its intro line.
+  await open(page, 'straight');
+  for (let i = 0; i < 5; i++) await pass(page, straight.exercises, i);
+  await expect(stopEl(page)).toHaveAttribute('data-kind', 'lesson');
+  await expect(cap(page)).toHaveText(straight.exercises[5].say!);
+});
+
+test('finish: the given part is soft grey-blue, not her ink; a glow shows where to draw at the start and on replay, then goes', async ({ page }, info) => {
+  await open(page, 'own');
+  await ready(page);
+  await draw(page, [ZIGZAG4], half);
+  await check(page, 0, 'great');
+  await expect(stopEl(page)).toHaveAttribute('data-kind', 'finish');
+  await expect(page.locator('#sguide .cue')).toHaveCount(1);
+  await page.waitForTimeout(400);
+  await shot(page, info, 'finish-cue');
+  expect(await page.locator('#sguide .given').evaluate((p) => getComputedStyle(p).stroke)).toBe('rgb(138, 159, 200)'); // her ink is #2b2b2b
+  // The glow covers the expected face (padded), not the whole canvas.
+  const [x, , w] = await page.locator('#sguide .cue').evaluate((r) => ['x', 'y', 'width', 'height'].map((k) => +r.getAttribute(k)!));
+  expect(x).toBeLessThan(360);
+  expect(x + w).toBeGreaterThan(640);
+  expect(w).toBeLessThan(600);
+  await expect(page.locator('#sguide .cue')).toHaveCount(0, { timeout: 4000 });
+  await page.locator('#sreplay').tap();
+  await expect(page.locator('#sguide .cue')).toHaveCount(1);
+  await expect(page.locator('#sguide .cue')).toHaveCount(0, { timeout: 4000 });
+});
+
+test('finish with reduced motion: the glow is there, still, then goes', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await open(page, 'own');
+  await ready(page);
+  await draw(page, [ZIGZAG4], half);
+  await check(page, 0, 'great');
+  await expect(page.locator('#sguide .cue')).toHaveCount(1);
+  expect(await page.locator('#sguide .cue').evaluate((r) => r.getAnimations().length)).toBe(0);
+  await expect(page.locator('#sguide .cue')).toHaveCount(0, { timeout: 4000 });
+});
+
+test('open finish: tracing only the given part is not an attempt (the gentle retry); drawing the missing part passes', async ({ page }) => {
+  await open(page, 'own');
+  await ready(page);
+  await draw(page, [ZIGZAG4], half);
+  await check(page, 0, 'great');
+  const x = own.exercises[1];
+  await ready(page);
+  await draw(page, x.given!); // she traces the head
+  await page.locator('#sok').tap();
+  await expect(seg(page, 1)).toHaveAttribute('data-r', 'try');
+  await expect(seg(page, 1)).toHaveClass(/on/);
+  await ready(page);
+  await draw(page, [...x.given!, ...MINE]); // the head again, and a face of her own
+  await check(page, 1, 'great');
+});
+
+test('memory: a countdown shows while the picture is up, and is gone once it hides', async ({ page }, info) => {
+  test.setTimeout(60_000);
+  await open(page, 'straight');
+  for (let i = 0; i < 3; i++) await pass(page, straight.exercises, i);
+  await expect(stopEl(page)).toHaveAttribute('data-phase', 'demo');
+  await expect(page.locator('.mcount i')).toHaveCount(3, { timeout: 4000 });
+  await expect(page.locator('.mcount')).toBeVisible();
+  await page.waitForTimeout(1200);
+  await shot(page, info, 'memory-countdown');
+  await ready(page);
+  await expect(page.locator('.mcount')).toHaveCount(0);
+});
+
+test('make your own: the prompt shows big on the blank canvas, then goes (at her first touch, or after a moment)', async ({ page }, info) => {
+  test.setTimeout(60_000);
+  await open(page, 'zigzag');
+  for (let i = 0; i < 5; i++) await pass(page, zigzag.exercises, i);
+  await expect(page.locator('.sintro')).toHaveText(zigzag.exercises[5].say!);
+  const [a, s] = [await page.locator('.sintro').boundingBox(), await page.locator('#ssheet').boundingBox()];
+  expect(Math.abs(a!.x - s!.x) + Math.abs(a!.y - s!.y)).toBeLessThan(2); // over the canvas
+  await shot(page, info, 'create-intro');
+  await expect(page.locator('.sintro')).toHaveCount(0, { timeout: 5000 });
+  await expect(cap(page)).toHaveText(zigzag.exercises[5].say!);
+});

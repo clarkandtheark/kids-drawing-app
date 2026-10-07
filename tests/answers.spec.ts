@@ -102,6 +102,19 @@ test.describe('generous answers', () => {
     });
   }
 
+  test('open finish: tracing over the given part is not an attempt (the crown from #50); the missing part, with or without tracing, is', async ({ page }) => {
+    const crown = units.flatMap((u) => u.stops.flatMap((s) => s.exercises)).find((x) => x.type === 'finish' && /crown is missing its points/i.test(x.say))!;
+    expect(crown?.open, 'the crown finish in path.json is open').toBe(true);
+    const given = crown.given!, zig = crown.strokes, other = ['M 250 450 L 375 260 L 500 450 L 625 260 L 750 450']; // hers: two points, not three
+    const drawings = [given, zig, other, [...given, ...zig], [...given, ...other]];
+    const exact = (await stars(page, crown, drawings, { exact: true })).map(([s]) => s);
+    const wobbly = await stars(page, crown, drawings, { wobble: 0.03 });
+    console.log(`\ncrown (exact / wobbly x5): ${['traces the box', 'zigzag', 'her own zigzag', 'box + zigzag', 'box + her own'].map((n, i) => `${n} ${exact[i]} / ${wobbly[i].join(' ')}`).join(', ')}`);
+    expect(exact).toEqual([1, 3, 3, 3, 3]);
+    expect(wobbly[0], 'tracing the box with a wobble').toEqual(SEEDS.map(() => 1));
+    for (const w of wobbly.slice(1)) for (const s of w) expect(s).toBe(3);
+  });
+
   test('open finish: any real attempt in the place passes; a dot or ink far away does not; a non-open finish is unchanged', async ({ page }) => {
     const head = 'M 250 500 A 250 250 0 1 0 750 500 A 250 250 0 1 0 250 500';
     const face = ['M 360 450 A 40 40 0 1 0 440 450 A 40 40 0 1 0 360 450', 'M 560 450 A 40 40 0 1 0 640 450 A 40 40 0 1 0 560 450', 'M 400 620 Q 500 700 600 620'];

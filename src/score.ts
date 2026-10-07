@@ -85,12 +85,18 @@ export const OPEN_MIN_INK = 150; // her ink must be at least this long in total 
 export const OPEN_MARGIN = 150; // the right place: the expected strokes' bounding box, grown by this on every side
 export const OPEN_INSIDE = 0.5; // at least this fraction of her ink must lie in that place
 
-/** A real attempt at an open finish: enough ink, and at least half of it near the `expected` strokes (sampled). */
-export function openAttempt(expected: Point[][], ink: Point[][]): boolean {
-  const len = ink.reduce((a, s) => a + s.reduce((b, p, i) => (i ? b + Math.hypot(p.x - s[i - 1].x, p.y - s[i - 1].y) : 0), 0), 0);
+/** A real attempt at an open finish: enough ink, and at least half of it near the `expected` strokes (sampled). Ink on top
+ *  of the `given` strokes (within tracing TOLERANCE) is not counted at all: tracing over the picture so far is not adding
+ *  to it. Except where the expected strokes meet the given ones (eyelashes start on the eye): ink near those counts. */
+export function openAttempt(expected: Point[][], ink: Point[][], given: Point[][] = []): boolean {
+  const onGiven = nearest(given.flat(), TOLERANCE), onExpected = nearest(expected.flat(), TOLERANCE * PRECISION_TOLERANCE_FACTOR);
+  const off = (p: Point) => onGiven(p) === Infinity || onExpected(p) < Infinity;
+  const strokes = ink.map((s) => resample(s, INK_SPACING));
+  // her length off the given lines: segments with both ends off them
+  const len = strokes.reduce((a, s) => a + s.reduce((b, p, i) => (i && off(p) && off(s[i - 1]) ? b + Math.hypot(p.x - s[i - 1].x, p.y - s[i - 1].y) : b), 0), 0);
   const xs = expected.flat().map((p) => p.x), ys = expected.flat().map((p) => p.y);
   const x0 = Math.min(...xs) - OPEN_MARGIN, x1 = Math.max(...xs) + OPEN_MARGIN, y0 = Math.min(...ys) - OPEN_MARGIN, y1 = Math.max(...ys) + OPEN_MARGIN;
-  const pts = ink.flatMap((s) => resample(s, INK_SPACING));
+  const pts = strokes.flat().filter(off);
   const inside = pts.filter((p) => p.x >= x0 && p.x <= x1 && p.y >= y0 && p.y <= y1).length;
   return len >= OPEN_MIN_INK && inside >= OPEN_INSIDE * pts.length;
 }

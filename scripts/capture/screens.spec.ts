@@ -42,6 +42,15 @@ test('home, empty gallery, parent', async ({ page }, info) => {
   await shot(page, info, '04-gallery-empty');
 });
 
+test('path home and sticker book', async ({ page }, info) => {
+  await page.goto('./');
+  await expect(page.locator('.stop').first()).toBeVisible();
+  await shot(page, info, '05-path');
+  await page.locator('#tostickers').tap();
+  await expect(page.locator('#skbook .slot').first()).toBeVisible();
+  await shot(page, info, '06-stickers');
+});
+
 test('lesson, result, colour, dialogs, celebration, then gallery, viewer and re-colour', async ({ page }, info) => {
   test.setTimeout(120_000);
   await page.goto('./#lesson/cat');

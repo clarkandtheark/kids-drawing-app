@@ -296,9 +296,21 @@
    "dur": 3.96,
    "file": "ed2a8fa9bca6.m4a"
   },
+  "And here is Olaf, helping too!": {
+   "dur": 1.94,
+   "file": "033c9f71a0fd.m4a"
+  },
+  "Anna and Olaf are building a snowman! Start with his hat.": {
+   "dur": 3.58,
+   "file": "40b0f4ef1505.m4a"
+  },
   "Baby bear needs a bowl too! Draw a little bowl on the table, next to the others.": {
    "dur": 4.77,
    "file": "9dde78bf29a1.m4a"
+  },
+  "Behind the castle, draw the tall snowy mountains!": {
+   "dur": 3.05,
+   "file": "83fc72e54830.m4a"
   },
   "Brrr, it is snowing! Draw little round snowflakes falling all over the sky.": {
    "dur": 5.26,
@@ -584,13 +596,25 @@
    "dur": 3.78,
    "file": "f7fa1e033f98.m4a"
   },
+  "Draw a bigger snowball under his head.": {
+   "dur": 2.13,
+   "file": "c29ea09d0b4b.m4a"
+  },
   "Draw a blanket on the horse's back, with a stripe.": {
    "dur": 2.71,
    "file": "3da40a5907e0.m4a"
   },
+  "Draw a bucket on the sand, with a handle.": {
+   "dur": 2.37,
+   "file": "48340426eca0.m4a"
+  },
   "Draw a bumpy line across the face, with a little dip in the middle.": {
    "dur": 3.75,
    "file": "690882cae76e.m4a"
+  },
+  "Draw a bumpy line lower down, where the sea meets the sand.": {
+   "dur": 3.36,
+   "file": "e9a610f5cdac.m4a"
   },
   "Draw a bumpy line on top between the towers, and a line at the bottom, to make the wall.": {
    "dur": 5.14,
@@ -688,6 +712,14 @@
    "dur": 4.43,
    "file": "597f714bb362.m4a"
   },
+  "Draw a flag on top of the tower: a stick and a triangle.": {
+   "dur": 3.77,
+   "file": "74ac450b7ca7.m4a"
+  },
+  "Draw a flat oval between them for the frozen lake.": {
+   "dur": 2.93,
+   "file": "97ef88a5efa3.m4a"
+  },
   "Draw a flipper wing on this side of the body.": {
    "dur": 2.39,
    "file": "f0f294b0da69.m4a"
@@ -695,6 +727,10 @@
   "Draw a fluffy animal with lots of fur, like a sheep, a puppy or a lion!": {
    "dur": 4.7,
    "file": "17ca1419feb7.m4a"
+  },
+  "Draw a fluffy cloud in the sky.": {
+   "dur": 1.83,
+   "file": "85af05d3d750.m4a"
   },
   "Draw a fluffy cloud tail on the side.": {
    "dur": 2.18,
@@ -735,6 +771,10 @@
   "Draw a ground line across, then put a house and a tree standing right on it!": {
    "dur": 4.46,
    "file": "35bac7dd07e7.m4a"
+  },
+  "Draw a hat: a flat line, and a tall box on top.": {
+   "dur": 3.31,
+   "file": "ee417689e913.m4a"
   },
   "Draw a hill with the sun peeking out behind it, and a tree in front of a house!": {
    "dur": 4.45,
@@ -832,6 +872,14 @@
    "dur": 4.14,
    "file": "989a01e4914f.m4a"
   },
+  "Draw a long line across the page for the faraway snow.": {
+   "dur": 3.29,
+   "file": "376b03a91d6e.m4a"
+  },
+  "Draw a long line with two big bumps for the snowy hills.": {
+   "dur": 3.18,
+   "file": "fe728d67717d.m4a"
+  },
   "Draw a long pointy tail at the back.": {
    "dur": 2.12,
    "file": "11b6823367f6.m4a"
@@ -892,6 +940,14 @@
    "dur": 4.07,
    "file": "79fd75194471.m4a"
   },
+  "Draw a pointy pine tree on this hill, with a little trunk.": {
+   "dur": 3.2,
+   "file": "f31ba1d4c375.m4a"
+  },
+  "Draw a pointy tower on each side.": {
+   "dur": 1.88,
+   "file": "661b905ff944.m4a"
+  },
   "Draw a pointy triangle roof on top of each tower.": {
    "dur": 2.89,
    "file": "95161469d1ed.m4a"
@@ -936,6 +992,10 @@
    "dur": 2.66,
    "file": "9aa141d7f6bf.m4a"
   },
+  "Draw a round door at the bottom.": {
+   "dur": 1.74,
+   "file": "a2b2f46cb674.m4a"
+  },
   "Draw a round head on a short neck at the front.": {
    "dur": 2.51,
    "file": "d6a6236bb706.m4a"
@@ -955,6 +1015,18 @@
   "Draw a round nose on the tip, and two little dot eyes.": {
    "dur": 3.24,
    "file": "d0fa75da5574.m4a"
+  },
+  "Draw a round snowball head under the hat.": {
+   "dur": 2.31,
+   "file": "c3d1f8295ea1.m4a"
+  },
+  "Draw a round sun in the sky.": {
+   "dur": 1.64,
+   "file": "32c76a56c3b1.m4a"
+  },
+  "Draw a round sun up in the corner.": {
+   "dur": 1.93,
+   "file": "d864195aa2d1.m4a"
   },
   "Draw a round sun up in the sky.": {
    "dur": 1.85,
@@ -1028,6 +1100,10 @@
    "dur": 4.23,
    "file": "14519a6027d6.m4a"
   },
+  "Draw a spade standing up in the sand.": {
+   "dur": 2.11,
+   "file": "29180c683e11.m4a"
+  },
   "Draw a spot around one eye, then give your puppy two eyes.": {
    "dur": 3.55,
    "file": "d761e027e6bb.m4a"
@@ -1068,6 +1144,14 @@
    "dur": 2.45,
    "file": "16deccfb29ae.m4a"
   },
+  "Draw a tall tower in the middle, with a sharp pointy top.": {
+   "dur": 3.32,
+   "file": "dbc2c18cf77c.m4a"
+  },
+  "Draw a tall tower on top, with bumps too.": {
+   "dur": 2.52,
+   "file": "44e28440ee00.m4a"
+  },
   "Draw a tall, funny stack, like animals standing on top of each other!": {
    "dur": 4.27,
    "file": "11795a151872.m4a"
@@ -1100,6 +1184,10 @@
    "dur": 3.01,
    "file": "bd0b7c93ee13.m4a"
   },
+  "Draw a zigzag all around the sun, so it shines!": {
+   "dur": 3.01,
+   "file": "b5f0b59b0196.m4a"
+  },
   "Draw a zigzag all the way around the sun, so it shines!": {
    "dur": 3.48,
    "file": "b915a33ad95f.m4a"
@@ -1111,6 +1199,10 @@
   "Draw a zigzag snow line across the top of each mountain.": {
    "dur": 3.18,
    "file": "1b3c8209e643.m4a"
+  },
+  "Draw a zigzag with two pointy peaks, from the side of the page to the castle tower.": {
+   "dur": 5.13,
+   "file": "9a67ed036fad.m4a"
   },
   "Draw an underwater world with fish, bubbles and wavy seaweed!": {
    "dur": 3.91,
@@ -1127,6 +1219,10 @@
   "Draw another giant leaf at the bottom of her dress.": {
    "dur": 2.85,
    "file": "67e1ee044e78.m4a"
+  },
+  "Draw another pine tree on the other hill.": {
+   "dur": 2.16,
+   "file": "86d0a81756c3.m4a"
   },
   "Draw anything you like. You are an artist now!": {
    "dur": 2.8,
@@ -1228,6 +1324,18 @@
    "dur": 3.53,
    "file": "1b0a3bf35455.m4a"
   },
+  "Draw the biggest snowball at the bottom.": {
+   "dur": 1.96,
+   "file": "2ef9cc50b4ba.m4a"
+  },
+  "Draw the bottom of the castle: a big box with bumps along the top.": {
+   "dur": 4.01,
+   "file": "e9cac6d88cc1.m4a"
+  },
+  "Draw the castle: a big box standing on the line.": {
+   "dur": 3.11,
+   "file": "95e27770b060.m4a"
+  },
   "Draw the far line where the grass ends. Stop at the tree trunk, then go on after it.": {
    "dur": 5.12,
    "file": "76970e05d0f3.m4a"
@@ -1251,6 +1359,14 @@
   "Draw the sea line high up, and stop at the trunk on each side.": {
    "dur": 3.5,
    "file": "59bc3c501e96.m4a"
+  },
+  "Draw the snowy ground between their feet and the snowman.": {
+   "dur": 3.07,
+   "file": "2d9c2d9f15b6.m4a"
+  },
+  "Draw the snowy ground under their feet.": {
+   "dur": 2.18,
+   "file": "e1066049c288.m4a"
   },
   "Draw the top of her dress, and a big bell skirt.": {
    "dur": 2.75,
@@ -1292,6 +1408,10 @@
    "dur": 3.21,
    "file": "951b9e66423a.m4a"
   },
+  "Draw three more snowflakes, so it is really snowing!": {
+   "dur": 3.17,
+   "file": "962ede4e3807.m4a"
+  },
   "Draw three raindrops falling down below the cloud.": {
    "dur": 2.81,
    "file": "c6f45e775fb7.m4a"
@@ -1303,6 +1423,10 @@
   "Draw three round apples in the tree.": {
    "dur": 2.03,
    "file": "330ac969b617.m4a"
+  },
+  "Draw three snowflakes falling from the sky.": {
+   "dur": 2.36,
+   "file": "611c9fa13107.m4a"
   },
   "Draw three straight rays on top.": {
    "dur": 1.88,
@@ -1364,6 +1488,10 @@
    "dur": 2.37,
    "file": "f2ff06aa8e98.m4a"
   },
+  "Draw two birds flying over the sea, like stretched letter Ms.": {
+   "dur": 3.78,
+   "file": "90c316358234.m4a"
+  },
   "Draw two chunky back legs side by side, with a line on each foot for the hoof.": {
    "dur": 4.89,
    "file": "9fe5b25a77ac.m4a"
@@ -1412,6 +1540,10 @@
    "dur": 1.95,
    "file": "7b69f55d8cf6.m4a"
   },
+  "Draw two little waves in the sea.": {
+   "dur": 1.8,
+   "file": "e94f9f4cd775.m4a"
+  },
   "Draw two long back legs with a line on each hoof.": {
    "dur": 3.06,
    "file": "e792c9014afc.m4a"
@@ -1444,6 +1576,10 @@
    "dur": 3.49,
    "file": "58b50277d38b.m4a"
   },
+  "Draw two more pointy peaks on the other side of the castle.": {
+   "dur": 3.23,
+   "file": "51efa0e21cc5.m4a"
+  },
   "Draw two round feet at the bottom.": {
    "dur": 1.88,
    "file": "b63140c909d6.m4a"
@@ -1467,6 +1603,10 @@
   "Draw two small round ears on top.": {
    "dur": 2.2,
    "file": "83b7976d7d48.m4a"
+  },
+  "Draw two stick arms, one on each side.": {
+   "dur": 2.55,
+   "file": "cf2b28308300.m4a"
   },
   "Draw two strong back legs with little toenails.": {
    "dur": 2.88,
@@ -1556,6 +1696,10 @@
    "dur": 3.36,
    "file": "ba7738f3d29e.m4a"
   },
+  "Draw zigzag snow on top of these two peaks.": {
+   "dur": 2.68,
+   "file": "130eff49731d.m4a"
+  },
   "Every cat needs whiskers! Draw two long lines on each side of the nose.": {
    "dur": 4.39,
    "file": "07c6678a366a.m4a"
@@ -1628,6 +1772,10 @@
    "dur": 2.33,
    "file": "9ebcaf9a9298.m4a"
   },
+  "Give Anna two happy eyes and a big smile!": {
+   "dur": 2.52,
+   "file": "f5d3855498a9.m4a"
+  },
   "Give Ariel two big eyes and a happy smile!": {
    "dur": 2.63,
    "file": "727dbd0eddff.m4a"
@@ -1635,6 +1783,10 @@
   "Give Elsa two eyes and a happy smile!": {
    "dur": 2.35,
    "file": "6a24873f9fda.m4a"
+  },
+  "Give Elsa two happy eyes and a big smile!": {
+   "dur": 2.65,
+   "file": "e9855b6e072f.m4a"
   },
   "Give Lilo two big oval eyes and a round nose.": {
    "dur": 2.93,
@@ -1647,6 +1799,10 @@
   "Give Moana two eyes and a big happy smile!": {
    "dur": 2.88,
    "file": "f1dac5818ddb.m4a"
+  },
+  "Give Olaf a big happy smile!": {
+   "dur": 1.92,
+   "file": "f437e5fbede1.m4a"
   },
   "Give Olaf two short eyebrows above his eyes.": {
    "dur": 2.78,
@@ -1679,6 +1835,10 @@
   "Give the sandcastle a flag and a little round door.": {
    "dur": 2.98,
    "file": "916c81fb0245.m4a"
+  },
+  "Give the snowman two eyes and a carrot nose.": {
+   "dur": 2.69,
+   "file": "b48593b539d1.m4a"
   },
   "Give this face pretty eyelashes. Draw two little lines on top of each eye.": {
    "dur": 4.73,
@@ -1776,6 +1936,18 @@
    "dur": 4.66,
    "file": "4ee231e5a0b4.m4a"
   },
+  "Here comes Anna, so happy with her snowman!": {
+   "dur": 2.68,
+   "file": "49e48e1cda2e.m4a"
+  },
+  "Here comes Lilo, waving hello!": {
+   "dur": 2.07,
+   "file": "3a8b4185458d.m4a"
+  },
+  "Here comes Olaf, running to say hi!": {
+   "dur": 2.36,
+   "file": "8403d6c16f3b.m4a"
+  },
   "Here is a big present. Draw a little square present on the floor beside it.": {
    "dur": 4.13,
    "file": "2ed8d899543e.m4a"
@@ -1844,6 +2016,10 @@
    "dur": 3.27,
    "file": "8409baa2314a.m4a"
   },
+  "It snowed all night! First the snowy hills, with trees and a sunny sky.": {
+   "dur": 4.45,
+   "file": "a70cb102c50b.m4a"
+  },
   "It's a party! Draw a pointy triangle hat sitting on top of the head.": {
    "dur": 4.1,
    "file": "a2c7b98a2fff.m4a"
@@ -1855,6 +2031,10 @@
   "Ladybugs have the same spots on both sides. Draw the matching spots!": {
    "dur": 4.3,
    "file": "bb5d69aff238.m4a"
+  },
+  "Last, a flag, a bucket, a spade and some birds!": {
+   "dur": 3.22,
+   "file": "6d2399373710.m4a"
   },
   "Last, a little shell on the sand, like a fan with two lines inside.": {
    "dur": 4.19,
@@ -1868,9 +2048,17 @@
    "dur": 3.17,
    "file": "54e2ce4437f8.m4a"
   },
+  "Last, the frozen lake and lots of snow!": {
+   "dur": 2.59,
+   "file": "76c6b9323eb9.m4a"
+  },
   "Last, the fun little things: splashes and a seagull!": {
    "dur": 3.39,
    "file": "17547d91174e.m4a"
+  },
+  "Last, the snowy ground and lots of falling snow!": {
+   "dur": 2.93,
+   "file": "0bfd9b4b4042.m4a"
   },
   "Last, two little birds flying high in the sky!": {
    "dur": 2.78,
@@ -1908,6 +2096,10 @@
    "dur": 4.89,
    "file": "11eec9cfee95.m4a"
   },
+  "Let's go to the beach! First the sea and the sky.": {
+   "dur": 2.96,
+   "file": "1a4674318aa7.m4a"
+  },
   "Let's make a spotty mushroom! Draw three round spots on the top.": {
    "dur": 3.7,
    "file": "392ab9452988.m4a"
@@ -1919,6 +2111,14 @@
   "Let's use a spiral to draw a snail with a curly shell!": {
    "dur": 3.22,
    "file": "e6d219852eed.m4a"
+  },
+  "Let's visit Elsa's ice castle, far away in the snow!": {
+   "dur": 3.33,
+   "file": "29618c652a47.m4a"
+  },
+  "Lilo and Stitch are building a sandcastle! Let's draw it.": {
+   "dur": 3.4,
+   "file": "e9b064035a81.m4a"
   },
   "Look at the big ball and the tiny ball. They will hide, then you draw them, one big and one tiny.": {
    "dur": 5.8,
@@ -2047,6 +2247,10 @@
   "Nice try! Let's color it!": {
    "dur": 1.8,
    "file": "45afcde2a6a4.m4a"
+  },
+  "Now Elsa comes out to see her castle!": {
+   "dur": 2.26,
+   "file": "3f9d6f8ae1d7.m4a"
   },
   "Now Stitch jumps on his surfboard!": {
    "dur": 2.03,
@@ -2184,6 +2388,14 @@
    "dur": 5.66,
    "file": "4e3a13ed8b95.m4a"
   },
+  "Now draw zigzag snow on the other two peaks.": {
+   "dur": 2.72,
+   "file": "a56212358c9f.m4a"
+  },
+  "Now give Lilo a big happy smile!": {
+   "dur": 2.02,
+   "file": "aa493c0bf864.m4a"
+  },
   "Now let's draw a whole face, step by step. Eyes, nose, mouth and hair!": {
    "dur": 4.7,
    "file": "081f1f79a9f4.m4a"
@@ -2303,6 +2515,10 @@
   "Start with the palm tree, because it is in front. Draw two long bendy lines for its trunk.": {
    "dur": 5.48,
    "file": "d14a20df56ee.m4a"
+  },
+  "Stitch comes to help, on the other side of the castle!": {
+   "dur": 2.98,
+   "file": "78e8fbff5726.m4a"
   },
   "Stripes are lines that go side by side. Trace the three stripes, one, two, three!": {
    "dur": 4.98,

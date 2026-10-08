@@ -1,0 +1,141 @@
+{
+  "id": "lilo-sandcastle",
+  "title": "Lilo and Stitch's Sandcastle",
+  "difficulty": 3,
+  "category": "scenes",
+  "emoji": "🏰",
+  "parts": [
+    {
+      "title": "Beach",
+      "say": "Let's go to the beach! First the sea and the sky.",
+      "steps": [
+        {
+          "say": "Draw a long wavy line across the page for the far-away sea.",
+          "strokes": [
+            "M 40 280 C 200 268 330 292 500 280 C 670 268 800 292 960 280"
+          ]
+        },
+        {
+          "say": "Draw a bumpy line lower down, where the sea meets the sand.",
+          "strokes": [
+            "M 40 440 Q 92 415 144 440 Q 196 465 248 440 Q 300 415 352 440 Q 404 465 456 440 Q 508 415 560 440 Q 612 465 664 440 Q 716 415 768 440 Q 820 465 872 440 Q 916 419 960 435"
+          ]
+        },
+        {
+          "say": "Draw a round sun up in the corner.",
+          "strokes": [
+            "M 780 160 A 60 60 0 1 1 900 160 A 60 60 0 1 1 780 160 Z"
+          ]
+        },
+        {
+          "say": "Draw a zigzag all around the sun, so it shines!",
+          "strokes": [
+            "M 944 160 L 919.2 181.2 L 930.1 212 L 898 218 L 892 250.1 L 861.2 239.2 L 840 264 L 818.8 239.2 L 788 250.1 L 782 218 L 749.9 212 L 760.8 181.2 L 736 160 L 760.8 138.8 L 749.9 108 L 782 102 L 788 69.9 L 818.8 80.8 L 840 56 L 861.2 80.8 L 892 69.9 L 898 102 L 930.1 108 L 919.2 138.8 Z"
+          ]
+        },
+        {
+          "say": "Draw a fluffy cloud in the sky.",
+          "strokes": [
+            "M 110 205 C 70 205 70 145 118 145 C 125 98 195 90 212 128 C 235 88 315 98 308 145 C 352 145 358 205 315 205 Z"
+          ]
+        },
+        {
+          "say": "Draw two little waves in the sea.",
+          "strokes": [
+            "M 300 360 Q 325 344 350 360 Q 375 376 400 360",
+            "M 620 350 Q 645 334 670 350 Q 695 366 720 350"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sandcastle",
+      "say": "Lilo and Stitch are building a sandcastle! Let's draw it.",
+      "steps": [
+        {
+          "say": "Draw the bottom of the castle: a big box with bumps along the top.",
+          "strokes": [
+            "M 400 920 L 400 770 L 420 770 L 420 790 L 440 790 L 440 770 L 460 770 L 460 790 L 560 790 L 560 770 L 580 770 L 580 790 L 600 790 L 600 770 L 620 770 L 620 920 Z"
+          ]
+        },
+        {
+          "say": "Draw a tall tower on top, with bumps too.",
+          "strokes": [
+            "M 465 790 L 465 680 L 483 680 L 483 700 L 501 700 L 501 680 L 519 680 L 519 700 L 537 700 L 537 680 L 555 680 L 555 790"
+          ]
+        },
+        {
+          "say": "Draw a round door at the bottom.",
+          "strokes": [
+            "M 480 920 L 480 875 A 30 30 0 0 1 540 875 L 540 920"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Lilo",
+      "say": "Here comes Lilo, waving hello!",
+      "ref": "lilo",
+      "scale": 0.55,
+      "x": -79,
+      "y": 408,
+      "omit": [
+        2,
+        7
+      ],
+      "steps": [
+        {
+          "say": "Now give Lilo a big happy smile!",
+          "strokes": [
+            "M 155 606 Q 185 634 215 606"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Stitch",
+      "say": "Stitch comes to help, on the other side of the castle!",
+      "ref": "stitch",
+      "scale": 0.42,
+      "x": 549,
+      "y": 538,
+      "omit": [
+        2
+      ]
+    },
+    {
+      "title": "Bucket, spade and birds",
+      "say": "Last, a flag, a bucket, a spade and some birds!",
+      "steps": [
+        {
+          "say": "Draw a flag on top of the tower: a stick and a triangle.",
+          "strokes": [
+            "M 510 680 L 510 600",
+            "M 510 600 L 455 617 L 510 634"
+          ]
+        },
+        {
+          "say": "Draw a bucket on the sand, with a handle.",
+          "strokes": [
+            "M 295 850 L 380 850 L 369 920 L 306 920 Z",
+            "M 299 856 Q 337 800 376 856"
+          ]
+        },
+        {
+          "say": "Draw a spade standing up in the sand.",
+          "strokes": [
+            "M 905 715 L 905 840",
+            "M 880 840 L 930 840 L 930 870 Q 905 915 880 870 Z"
+          ]
+        },
+        {
+          "say": "Draw two birds flying over the sea, like stretched letter Ms.",
+          "strokes": [
+            "M 440 170 Q 465 135 490 170 Q 515 135 540 170",
+            "M 580 215 Q 600 187 620 215 Q 640 187 660 215"
+          ]
+        }
+      ]
+    }
+  ]
+}

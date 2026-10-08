@@ -261,6 +261,13 @@
       animation: rise 1.1s ease-out both; }
     #dots i[data-r=good] .pop { width: 64px; height: 64px; margin: -32px; }
     #dots .pop svg { width: 100%; height: 100%; display: block; filter: drop-shadow(0 4px 0 rgb(90 61 30 / 0.2)); }
+    /* A scene's progress (src/lesson.ts): a group per part; the current part shows its step dots, the others fold into a
+       pill (green with a tick once done). Wraps onto more rows where even that is too wide (the landscape side column). */
+    #dots.parts { flex-wrap: wrap; align-items: center; row-gap: 12px; gap: 12px; }
+    #dots.parts > span { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px; max-width: 100%; }
+    #dots.parts > span:not(.now) > i, #dots.parts > .now > .pill { display: none; }
+    #dots .pill { position: relative; width: 32px; height: 18px; border-radius: 9px; background: #f4c76b; }
+    #dots .done > .pill { background: #3dbb55 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m6 12.5 4 4 8-9' fill='none' stroke='%23fff' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 16px no-repeat; }
     @keyframes rise {
       0% { transform: scale(0.2); opacity: 1; } 30% { transform: translateY(-30px) scale(1.15); }
       70% { transform: translateY(-60px) scale(1); opacity: 1; } 100% { transform: translateY(-90px) scale(0.9); opacity: 0; }
@@ -454,6 +461,12 @@
       #dots { gap: 8px; }
       #dots i { width: 16px; height: 16px; }
       #dots i.on { width: 16px; height: 16px; }
+      #dots.parts { gap: 6px; } /* a scene: 12 dots and 5 pills still fit the 375px phone */
+      #dots.parts > span { gap: 5px; }
+      #dots.parts i, #dots.parts i.on { width: 13px; height: 13px; }
+      #dots.parts i[data-r=great]:not(.on) { width: 21px; height: 21px; margin: -4px; }
+      #dots .pill { width: 20px; height: 13px; border-radius: 7px; }
+      #dots .done > .pill { background-size: 12px; }
       #sheet, #fsheet { border-radius: 20px; }
       .caption { --pad: 6px; font-size: 21px; border-radius: 18px; box-shadow: 0 4px 0 #f4c76b; }
       #lesson[data-phase="color"] #lcap, #stop[data-kind="create"] #scap { font-size: 19px; } /* the colour tools leave less room */

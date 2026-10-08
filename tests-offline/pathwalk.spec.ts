@@ -9,7 +9,7 @@ import { line, touchStroke, type P } from '../tests/helpers';
 type X = { type: string; strokes?: string[]; lesson?: string };
 type Stop = { id: string; title: string; sticker: string; exercises: X[] };
 type Unit = { id: string; title: string; stops: Stop[] };
-type Lesson = { id: string; difficulty: number; steps: { strokes: string[] }[] };
+type Lesson = { id: string; difficulty: number; category?: string; steps: { strokes: string[] }[] };
 
 let errors: string[];
 test.beforeEach(async ({ page }) => {
@@ -282,7 +282,7 @@ test('parent controls on the real path: unlock all opens every stop, reset empti
 test('Library still reaches every lesson: a card per lesson, one lesson per section opens', async ({ page }) => {
   const { lessons } = await load(page);
   await page.goto('./#library');
-  await expect(page.locator('.card')).toHaveCount(lessons.length);
+  await expect(page.locator('.card')).toHaveCount(lessons.filter((l) => l.category !== 'scenes').length); // scenes are reached from the path
   const sections = await page.locator('section.level').count();
   expect(sections).toBeGreaterThanOrEqual(3);
   for (let s = 0; s < sections; s++) {

@@ -108,15 +108,21 @@ export function prefetch(texts: string[]) {
     .reduce<Promise<unknown>>((p, t) => p.then(() => buffer(lines[t].file, a)).catch(() => {}), Promise.resolve());
 }
 
-export function say(text: string) {
+/** Speak `text`. `then` runs once it has been spoken (a scene part's intro, then its step's line), unless another line or
+ *  stopSpeech comes first. A clip ends on its own; the browser's voice and muted run it after an estimate of the line's
+ *  length instead (iOS often never fires the utterance's end). */
+export function say(text: string, then?: () => void) {
   stopSpeech();
-  if (isMuted) return;
+  const me = token;
+  const after = () => { if (me === token) then?.(); };
+  // ponytail: ~13 characters a second at rate 0.9, plus a beat; the browser voice may run a little over or under
+  const later = () => { if (then) setTimeout(after, (lines[text]?.dur ?? text.length / 13) * 1000 + 300); };
+  if (isMuted) return later();
   w.__said?.push(text); // test hook: every line asked for (tests set window.__said = [])
   const clip = lines[text];
   // userActivation: making a context outside a tap only gets a suspended one (and a console warning).
   const a = clip && (ctx ?? (w.navigator.userActivation?.isActive === false ? undefined : audio()));
-  if (!clip || !a) return synth(text);
-  const me = token;
+  if (!clip || !a) { synth(text); return later(); }
   buffer(clip.file, a).then(async (b) => {
     if (me !== token) return;
     if (a.state !== 'running') { // just created in this tap, or no tap yet: give resume a moment
@@ -128,10 +134,10 @@ export function say(text: string) {
     const s = src = a.createBufferSource();
     s.buffer = b;
     s.connect(a.destination);
-    s.onended = () => { if (src === s) src = undefined; };
+    s.onended = () => { if (src === s) src = undefined; after(); };
     s.start();
     w.__played?.push([text, 'clip']); // test hook: how each line played
-  }).catch(() => { if (me === token) synth(text); });
+  }).catch(() => { if (me === token) { synth(text); later(); } });
 }
 
 // Natural voices, best first. Anything else (Apple's novelty voices like Albert/Zarvox) is never chosen.

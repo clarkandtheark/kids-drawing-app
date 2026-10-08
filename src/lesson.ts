@@ -10,8 +10,10 @@ import { markCompleted, saveDrawing } from './store';
 import { celebrate, layerPng, leave, mountTools, snapshot } from './tools';
 
 export type Lesson = {
-  id: string; title: string; difficulty: number; emoji: string; category?: 'characters' | 'settings';
-  steps: { say: string; strokes: string[] }[];
+  id: string; title: string; difficulty: number; emoji: string; category?: 'characters' | 'settings' | 'scenes';
+  steps: { say: string; strokes: string[]; part?: number }[];
+  /** A scene's parts (scripts/scenes.mjs expands it at build time): each part's steps are steps[from..to-1]. */
+  parts?: { title: string; say: string; from: number; to: number }[];
 };
 
 const SVG = 'http://www.w3.org/2000/svg';
@@ -23,6 +25,7 @@ const next = $<HTMLButtonElement>('#next'), prev = $<HTMLButtonElement>('#prev')
 
 let lesson: Lesson | null = null;
 let step = 0;
+let stepDots: HTMLElement[]; // one per step: the children of #dots, or of a scene's part groups
 let ink: Surface;
 let color: Surface; // Color mode paints here, under the ink
 let run = 0; // bumps to cancel an in-flight animation
@@ -53,10 +56,18 @@ export function openLesson(l: Lesson) {
   kept = 0;
   ink.onStroke = (pts) => { strokes.push(pts); kept = Math.max(kept, strokes.length - history.size); };
   placeGuide();
-  dots.replaceChildren(...l.steps.map(() => document.createElement('i')));
+  stepDots = l.steps.map(() => document.createElement('i'));
+  dots.classList.toggle('parts', !!l.parts);
+  // A scene: a group per part, its step dots shown only while it is the current part, otherwise a pill (ticked once done).
+  dots.replaceChildren(...l.parts?.map((p) => {
+    const g = document.createElement('span');
+    g.ariaLabel = p.title;
+    g.append(...stepDots.slice(p.from, p.to), Object.assign(document.createElement('b'), { className: 'pill' }));
+    return g;
+  }) ?? stepDots);
   mute.ariaPressed = String(muted());
   root.hidden = false;
-  showStep();
+  showStep(true);
 }
 
 export function closeLesson() {
@@ -103,8 +114,10 @@ function placeGuide() {
   else sheet.querySelector('#color')!.after(guide);
 }
 
-function showStep() {
-  const steps = lesson!.steps;
+/** Show the current step; `forward` (opening, or Next): a scene part's first step speaks the part's intro first. */
+function showStep(forward = false) {
+  const steps = lesson!.steps, line = steps[step].say;
+  const part = forward ? lesson!.parts?.find((p) => p.from === step) : undefined;
   const path = (d: string, cls: string) => {
     const p = document.createElementNS(SVG, 'path');
     p.setAttribute('d', d);
@@ -115,14 +128,21 @@ function showStep() {
     ...steps.slice(0, step).flatMap((s) => s.strokes.map((d) => path(d, 'gray'))),
     ...steps[step].strokes.map((d) => path(d, 'now')),
   );
-  [...dots.children].forEach((d, i) => d.className = i < step ? 'past' : i === step ? 'on' : '');
+  stepDots.forEach((d, i) => d.className = i < step ? 'past' : i === step ? 'on' : '');
+  lesson!.parts?.forEach((p, i) => { dots.children[i].className = step >= p.to ? 'done' : step >= p.from ? 'now' : ''; });
   prev.disabled = step === 0;
   const last = step === steps.length - 1;
   next.classList.toggle('done', last);
   next.ariaLabel = last ? 'Done' : 'Next';
-  say(steps[step].say);
-  prefetch([...steps.slice(step + 1).map((s) => s.say), ...RESULT_CHEER.slice(1), COLOR_TIME]); // what she hears next
-  caption(cap, steps[step].say);
+  if (part) { // the intro, then the step's own line; the step animates meanwhile
+    say(part.say, () => { say(line); caption(cap, line); });
+    caption(cap, part.say);
+  } else {
+    say(line);
+    caption(cap, line);
+  }
+  const ahead = steps.slice(step + 1).flatMap((s, i) => [lesson!.parts?.find((p) => p.from === step + 1 + i)?.say ?? '', s.say]);
+  prefetch([...(part ? [line] : []), ...ahead.filter(Boolean), ...RESULT_CHEER.slice(1), COLOR_TIME]); // what she hears next
   animate();
 }
 
@@ -163,14 +183,16 @@ async function animate() {
 const on = (id: string, f: () => void) => $(id).addEventListener('click', f);
 on('#next', () => {
   const last = step === lesson!.steps.length - 1, t = { tolerance: tolerance() };
-  react(dots.children[step] as HTMLElement, reaction(score([guidePts[step]], strokes, t).steps[0]), !last); // the result chimes for the last
+  const dot = stepDots[step];
+  react(dot, reaction(score([guidePts[step]], strokes, t).steps[0]), !last); // the result chimes for the last
+  if (lesson!.parts?.some((p) => p.to === step + 1)) { const pop = dot.querySelector('.pop'); if (pop) dot.parentElement!.querySelector('.pill')!.append(pop); } // its part folds away: the pop floats from the pill
   if (last) {
     const s = score(guidePts, strokes, t);
     back?.scored(s.stars);
     return showResult(lesson!.id, s, finishLesson);
   }
   step++;
-  showStep();
+  showStep(true);
 });
 on('#prev', () => {
   if (step === 0) return;
@@ -179,6 +201,7 @@ on('#prev', () => {
 });
 on('#replay', () => {
   say(lesson!.steps[step].say);
+  caption(cap, lesson!.steps[step].say); // a scene's part intro may still be showing
   animate();
 });
 // The caption's speaker: "show me again" while tracing; in Color mode just its line again.
@@ -193,5 +216,5 @@ on('#home', () => { const l = lesson; if (l) leave(ink.history, save, () => less
 on('#mute', () => {
   setMuted(!muted());
   mute.ariaPressed = String(muted());
-  if (!muted() && root.dataset.phase !== 'color') say(lesson!.steps[step].say);
+  if (!muted() && root.dataset.phase !== 'color') { say(lesson!.steps[step].say); caption(cap, lesson!.steps[step].say); }
 });

@@ -30,6 +30,25 @@ The build checks every file and writes `path.json`. Exercise `type` and fields (
 `node scripts/sweep-path.mjs` simulates decent attempts on every graded exercise through the real `grade()` and fails
 if any gets one star. `tests-offline/pathwalk.spec.ts` plays the whole path by touch (run by `npm run test:offline`).
 
+### Scenes: `lessons/<id>.json` with `parts`
+
+A scene is one lesson for a whole picture (a character doing something in a setting), its steps grouped into 2 to 6
+parts: background, setting pieces, the characters, details. `{ id, title, difficulty, category: "scenes", emoji, parts }`
+(no top-level `steps`). Each part has `title` (adult-facing: the progress group's aria-label and the review sheet),
+`say` (spoken and captioned before the part's first step, when she arrives going forward), and either:
+
+- `steps`: 1 to 12 steps, each like a lesson step (`say`, 1 to 3 strokes); or
+- `ref` (an ordinary lesson id, not a scene), `scale` (0 < scale <= 1), `x`, `y`: the lesson's steps drawn scaled and
+  placed, where a point (px, py) of that lesson lands at (x + scale * px, y + scale * py), so its 0,0 lands at x,y and
+  its centre (500, 500) at x + 500 * scale, y + 500 * scale. Optional `omit` (zero-based step indexes of that lesson to
+  skip) and `steps` (drawn after the referenced ones: the surfboard under Stitch).
+
+8 to 40 steps in all; every stroke inside 40..960 after scaling. The build expands a scene into an ordinary lesson
+(steps concatenated, each with `part`, plus `parts: [{ title, say, from, to }]`, steps from..to-1) and warns about a
+referenced stroke smaller than 24 x 24 after scaling. Scenes sort after the characters and the settings (Places) and are not in the Library
+(`SHOW_SCENES` in `src/library.ts`); the path's `lesson` exercises play them. `npm run render -- <id>` adds a sheet per
+part (`review/<id>/part-<n>.png`). Nothing is erased, so a setting line behind a character must stop at its outline.
+
 ### Why vanilla TypeScript and Vite, not React
 
 Five screens around a canvas, drawn by hand-written pointer code, with no component state worth a framework:

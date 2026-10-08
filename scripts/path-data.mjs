@@ -2,6 +2,7 @@
 // Shared by build-lessons.mjs (writes public/path.json) and render-path.mjs (adds the geometry bounds check).
 // Paths are relative to the working directory, like the lessons.
 import { readdir, readFile } from 'node:fs/promises';
+import { loadLessons } from './scenes.mjs';
 
 const ID = /^[a-z0-9]+(-[a-z0-9]+)*$/; // ids end up in the #stop/<unit>/<stop> route and the progress key
 // Allowed fields per exercise type; a field not listed here is an error (catches typos like "rotation").
@@ -45,11 +46,10 @@ function checkExercise(x, where, lessons, errs) {
   if ('lesson' in x && !lessons.has(x.lesson)) e(`lesson "${x.lesson}" does not exist in lessons/`);
 }
 
-/** Every lesson's id and strokes (from lessons/), so `lesson` exercises can be checked and thumbnailed. */
+/** Every lesson's id and strokes (from lessons/, scenes expanded), so `lesson` exercises can be checked and thumbnailed. */
 export async function readLessons(dir = 'lessons') {
-  const files = (await readdir(dir)).filter((f) => f.endsWith('.json') && !f.startsWith('_'));
-  const ls = await Promise.all(files.map(async (f) => JSON.parse(await readFile(`${dir}/${f}`, 'utf8'))));
-  return new Map(ls.map((l) => [l.id, l]));
+  const { lessons } = await loadLessons(dir);
+  return new Map(lessons.map((l) => [l.id, l]));
 }
 
 /** All units in file-name order, and every problem found (empty when valid). Strokes are checked statically only. */

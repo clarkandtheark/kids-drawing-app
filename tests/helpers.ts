@@ -24,8 +24,9 @@ export async function touchStroke(page: Page, pts: P[]) {
 /** Serve `units` as path.json instead of the curriculum built from path/ (call before page.goto). */
 export const usePath = (page: Page, units: unknown) => page.route('**/path.json', (r) => r.fulfill({ json: units }));
 
-/** The lessons the app serves; tests must not assume how many there are. */
-export const lessons = (page: Page) => page.request.get('/lessons.json').then((r) => r.json() as Promise<{ id: string; difficulty: number; category?: string }[]>);
+/** The lessons the Library shows (scenes are reached from the path, not the Library); tests must not assume how many there are. */
+export const lessons = (page: Page) => page.request.get('/lessons.json').then((r) => r.json() as Promise<{ id: string; difficulty: number; category?: string }[]>)
+  .then((ls) => ls.filter((l) => l.category !== 'scenes'));
 
 // Count inked pixels in a logical-space rectangle (default whole canvas).
 export const ink = (page: Page, [x0, y0, x1, y1] = [0, 0, 1000, 1000]) => page.evaluate(([x0, y0, x1, y1]) => {

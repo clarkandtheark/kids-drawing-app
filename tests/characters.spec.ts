@@ -1,7 +1,7 @@
 // Characters section (#31): lessons with category "characters" get their own section after level 3.
 // The real character lessons may or may not be in the build, so the app is served fixture lessons instead.
 import { test, expect, type Page } from '@playwright/test';
-import { line, touchStroke } from './helpers';
+import { lessons, line, touchStroke } from './helpers';
 import cat from '../lessons/cat.json' with { type: 'json' };
 
 const FIX = ['fx-one', 'fx-two'];
@@ -72,4 +72,27 @@ test('characters: with none present there is no fourth section', async ({ page }
   await expect(page.locator('section[data-level="3"] .card').first()).toBeVisible();
   await expect(page.locator('#menu > section')).toHaveCount(3);
   await expect(page.locator('section[data-category]')).toHaveCount(0);
+});
+
+test('settings: a "Places" section after the characters, icon-only', async ({ page }) => {
+  await page.route('**/lessons.json', async (route) => {
+    const real = ((await (await route.fetch()).json()) as { category?: string }[]).filter((l) => !l.category);
+    const fx = (id: string, category: string) => ({ ...cat, id, title: id, category });
+    await route.fulfill({ json: [...real, fx('fx-char', 'characters'), fx('fx-beach', 'settings'), fx('fx-park', 'settings')] });
+  });
+  await page.goto('./#library');
+  const sections = page.locator('#menu > section');
+  await expect(sections).toHaveCount(5);
+  await expect(sections.nth(3)).toHaveAttribute('data-category', 'characters');
+  await expect(sections.nth(4)).toHaveAttribute('data-category', 'settings');
+  await expect(page.locator('section[data-category=settings] .lvl svg')).toHaveCount(1);
+  await expect(page.locator('section[data-category=settings] .lvl')).toHaveText(''); // icon only
+  const ids = await page.locator('section[data-category=settings] .card').evaluateAll((cs) => cs.map((c) => (c as HTMLElement).dataset.id));
+  expect(ids).toEqual(['fx-beach', 'fx-park']);
+});
+
+test('settings: the real setting lessons are built after the characters, beach to park', async ({ page }) => {
+  const all = await lessons(page);
+  expect(all.filter((l) => l.category === 'settings').map((l) => l.id)).toEqual(['beach', 'snowy-castle', 'seabed', 'park']);
+  expect(all.findIndex((l) => l.category === 'settings')).toBeGreaterThan(all.map((l) => l.category).lastIndexOf('characters'));
 });

@@ -1,0 +1,71 @@
+{
+  "id": "park",
+  "title": "Park",
+  "difficulty": 2,
+  "emoji": "🌳",
+  "category": "settings",
+  "steps": [
+    {
+      "say": "Start with the big tree in front. Draw a puffy cloud shape for its leaves.",
+      "strokes": [
+        "M 770 436.7 A 70.5 70.5 0 0 1 678.4 369.4 A 70.5 70.5 0 0 1 667 256.4 A 70.5 70.5 0 0 1 743.2 172.1 A 70.5 70.5 0 0 1 856.8 172.1 A 70.5 70.5 0 0 1 933 256.4 A 70.5 70.5 0 0 1 921.6 369.4 A 70.5 70.5 0 0 1 830 436.7 A 37.2 37.2 0 0 1 770 436.7"
+      ]
+    },
+    {
+      "say": "Draw the trunk: down from the leaves, round at the bottom, and back up.",
+      "strokes": [
+        "M 770 436.7 L 766 770 Q 800 795 834 770 L 830 436.7"
+      ]
+    },
+    {
+      "say": "Draw the far line where the grass ends. Stop at the trunk, then go on after it.",
+      "strokes": [
+        "M 60 480 L 769.5 480",
+        "M 830.5 480 L 940 480"
+      ]
+    },
+    {
+      "say": "Far away, draw a little house standing on the far line, with a door.",
+      "strokes": [
+        "M 110 480 L 110 410 L 180 345 L 250 410 L 250 480",
+        "M 165 480 L 165 440 L 195 440 L 195 480"
+      ]
+    },
+    {
+      "say": "Draw a path from the bottom up to the door. It gets thinner far away.",
+      "strokes": [
+        "M 110 950 C 180 780 120 600 165 480",
+        "M 360 950 C 300 760 230 600 195 480"
+      ]
+    },
+    {
+      "say": "Put a bench near the tree: a seat with legs, a back, and a line across.",
+      "strokes": [
+        "M 600 810 L 600 740 L 735 740 L 735 810",
+        "M 615 740 L 615 670 L 720 670 L 720 740",
+        "M 615 705 L 720 705"
+      ]
+    },
+    {
+      "say": "Draw a pond at the bottom: a flat oval with a little ripple inside.",
+      "strokes": [
+        "M 355 885 A 115 48 0 0 1 585 885 A 115 48 0 0 1 355 885",
+        "M 420 882 Q 470 862 520 882"
+      ]
+    },
+    {
+      "say": "Draw three tulips on the grass, each with a long stem.",
+      "strokes": [
+        "M 680 955 L 680 885 L 655 870 L 655 835 L 668 850 L 680 833 L 692 850 L 705 835 L 705 870 L 680 885",
+        "M 805 950 L 805 880 L 780 865 L 780 830 L 793 845 L 805 828 L 817 845 L 830 830 L 830 865 L 805 880",
+        "M 920 940 L 920 870 L 895 855 L 895 820 L 908 835 L 920 818 L 932 835 L 945 820 L 945 855 L 920 870"
+      ]
+    },
+    {
+      "say": "Last, a round sun up in the corner!",
+      "strokes": [
+        "M 160 75 A 75 75 0 0 1 160 225 A 75 75 0 0 1 160 75"
+      ]
+    }
+  ]
+}

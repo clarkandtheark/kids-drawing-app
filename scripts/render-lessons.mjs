@@ -16,7 +16,7 @@ function validate(id, l, file) {
   if (l.id !== file) e(`id "${l.id}" does not match filename "${file}"`);
   if (typeof l.title !== 'string' || !l.title.trim()) e('title must be a non-empty string');
   if (![1, 2, 3].includes(l.difficulty)) e('difficulty must be 1, 2 or 3');
-  if ('category' in l && l.category !== 'characters') e('category, when present, must be "characters"');
+  if ('category' in l && !['characters', 'settings'].includes(l.category)) e('category, when present, must be "characters" or "settings"');
   if (typeof l.emoji !== 'string' || !l.emoji.trim()) e('emoji must be a non-empty string');
   if (!Array.isArray(l.steps) || l.steps.length < 4 || l.steps.length > 10) { e('must have 4 to 10 steps'); return errs; }
   l.steps.forEach((s, i) => {

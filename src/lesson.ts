@@ -10,7 +10,7 @@ import { markCompleted, saveDrawing } from './store';
 import { celebrate, layerPng, leave, mountTools, snapshot } from './tools';
 
 export type Lesson = {
-  id: string; title: string; difficulty: number; emoji: string; category?: 'characters';
+  id: string; title: string; difficulty: number; emoji: string; category?: 'characters' | 'settings';
   steps: { say: string; strokes: string[] }[];
 };
 

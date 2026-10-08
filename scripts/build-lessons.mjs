@@ -7,9 +7,16 @@ import { loadPath } from './path-data.mjs';
 const ORDER = ['face', 'sun', 'house', 'fish', 'rainbow', 'cloud', 'flower', 'balloon', 'snail', 'ladybug',
   'cat', 'dog', 'bunny', 'owl', 'butterfly', 'turtle', 'car', 'rocket', 'tree', 'cupcake',
   'unicorn', 'horse', 'dinosaur', 'princess', 'castle', 'mermaid', 'dragon', 'elephant', 'penguin', 'giraffe'];
-// Characters (category "characters") sort after every uncategorised lesson, in this order; unknown ids after, alphabetically.
-const CHARS = ['mickey', 'minnie', 'pooh', 'olaf', 'elsa', 'anna', 'stitch', 'lilo', 'simba', 'nemo', 'ariel', 'moana', 'rapunzel'];
-const crank = (l) => (l.category ? 1 + (CHARS.includes(l.id) ? CHARS.indexOf(l.id) : CHARS.length) : 0);
+// Categorised lessons sort after every uncategorised one: characters, then settings, each in this order; unknown ids after, alphabetically.
+const CATS = {
+  characters: ['mickey', 'minnie', 'pooh', 'olaf', 'elsa', 'anna', 'stitch', 'lilo', 'simba', 'nemo', 'ariel', 'moana', 'rapunzel'],
+  settings: ['beach', 'snowy-castle', 'seabed', 'park'],
+};
+const crank = (l) => {
+  if (!l.category) return 0;
+  const list = CATS[l.category], i = list.indexOf(l.id);
+  return 1 + Object.keys(CATS).indexOf(l.category) * 100 + (i < 0 ? list.length : i);
+};
 const rank = (id) => (ORDER.includes(id) ? ORDER.indexOf(id) : ORDER.length);
 
 const files = (await readdir('lessons')).filter((f) => f.endsWith('.json') && !f.startsWith('_'));

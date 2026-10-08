@@ -1,0 +1,155 @@
+{
+  "id": "elsa-castle",
+  "title": "Elsa at the Ice Castle",
+  "difficulty": 3,
+  "category": "scenes",
+  "emoji": "❄️",
+  "parts": [
+    {
+      "title": "Ice castle",
+      "say": "Let's visit Elsa's ice castle, far away in the snow!",
+      "steps": [
+        {
+          "say": "Draw a long line across the page for the faraway snow.",
+          "strokes": [
+            "M 40 460 L 960 460"
+          ]
+        },
+        {
+          "say": "Draw the castle: a big box standing on the line.",
+          "strokes": [
+            "M 400 460 L 400 340 L 600 340 L 600 460"
+          ]
+        },
+        {
+          "say": "Draw a tall tower in the middle, with a sharp pointy top.",
+          "strokes": [
+            "M 455 340 L 455 250 L 500 150 L 545 250 L 545 340"
+          ]
+        },
+        {
+          "say": "Draw a pointy tower on each side.",
+          "strokes": [
+            "M 345 460 L 345 320 L 372 250 L 400 320 L 400 340",
+            "M 655 460 L 655 320 L 628 250 L 600 320 L 600 340"
+          ]
+        },
+        {
+          "say": "Draw a round door at the bottom.",
+          "strokes": [
+            "M 475 460 L 475 425 A 25 25 0 0 1 525 425 L 525 460"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Snowy mountains",
+      "say": "Behind the castle, draw the tall snowy mountains!",
+      "steps": [
+        {
+          "say": "Draw a zigzag with two pointy peaks, from the side of the page to the castle tower.",
+          "strokes": [
+            "M 40 360 L 130 180 L 200 300 L 262 215 L 345 387"
+          ]
+        },
+        {
+          "say": "Draw two more pointy peaks on the other side of the castle.",
+          "strokes": [
+            "M 960 360 L 870 180 L 800 300 L 738 215 L 655 387"
+          ]
+        },
+        {
+          "say": "Draw zigzag snow on top of these two peaks.",
+          "strokes": [
+            "M 85 270 L 105 290.5 L 125 255 L 145 275.5 L 165 240",
+            "M 234.1 253.3 L 250.4 291.1 L 266.8 272.9 L 283.1 310.6 L 299.4 292.4"
+          ]
+        },
+        {
+          "say": "Now draw zigzag snow on the other two peaks.",
+          "strokes": [
+            "M 915 270 L 895 290.5 L 875 255 L 855 275.5 L 835 240",
+            "M 765.9 253.3 L 749.6 291.1 L 733.3 272.9 L 717 310.6 L 700.7 292.4"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Elsa",
+      "say": "Now Elsa comes out to see her castle!",
+      "ref": "elsa",
+      "scale": 0.52,
+      "x": -23,
+      "y": 453.8,
+      "omit": [
+        9
+      ],
+      "steps": [
+        {
+          "say": "Give Elsa two happy eyes and a big smile!",
+          "strokes": [
+            "M 220.4 563.2 L 220.4 575.2",
+            "M 253.6 563.2 L 253.6 575.2",
+            "M 223.5 591.1 Q 237 600.1 250.5 591.1"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Olaf",
+      "say": "Here comes Olaf, running to say hi!",
+      "ref": "olaf",
+      "scale": 0.42,
+      "x": 585,
+      "y": 543.9,
+      "omit": [
+        5,
+        7,
+        9
+      ],
+      "steps": [
+        {
+          "say": "Give Olaf a big happy smile!",
+          "strokes": [
+            "M 755.1 705.6 Q 795 735.6 834.9 705.6"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Snow and ice",
+      "say": "Last, the frozen lake and lots of snow!",
+      "steps": [
+        {
+          "say": "Draw a flat oval between them for the frozen lake.",
+          "strokes": [
+            "M 447 875 A 85 30 0 1 1 617 875 A 85 30 0 1 1 447 875 Z"
+          ]
+        },
+        {
+          "say": "Draw the snowy ground under their feet.",
+          "strokes": [
+            "M 419 940 Q 590.2 955 761.4 940",
+            "M 828.6 940 Q 895 955 960 940"
+          ]
+        },
+        {
+          "say": "Draw three snowflakes falling from the sky.",
+          "strokes": [
+            "M 95 121 L 95 69 L 95 95 L 117.5 108 L 72.5 82 L 95 95 L 72.5 108 L 117.5 82",
+            "M 330 131 L 330 79 L 330 105 L 352.5 118 L 307.5 92 L 330 105 L 307.5 118 L 352.5 92",
+            "M 690 121 L 690 69 L 690 95 L 712.5 108 L 667.5 82 L 690 95 L 667.5 108 L 712.5 82"
+          ]
+        },
+        {
+          "say": "Draw three more snowflakes, so it is really snowing!",
+          "strokes": [
+            "M 905 126 L 905 74 L 905 100 L 927.5 113 L 882.5 87 L 905 100 L 882.5 113 L 927.5 87",
+            "M 520 586 L 520 534 L 520 560 L 542.5 573 L 497.5 547 L 520 560 L 497.5 573 L 542.5 547",
+            "M 740 546 L 740 494 L 740 520 L 762.5 533 L 717.5 507 L 740 520 L 717.5 533 L 762.5 507"
+          ]
+        }
+      ]
+    }
+  ]
+}

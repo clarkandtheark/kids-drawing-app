@@ -1,0 +1,265 @@
+{
+ "id": "scenes",
+ "title": "Scenes",
+ "emoji": "🎬",
+ "stops": [
+  {
+   "id": "stitch-surf",
+   "title": "Stitch surfs",
+   "sticker": "🏄",
+   "exercises": [
+    {
+     "type": "finish",
+     "say": "Here are the sea and the beach. Add the sun and a cloud up in the sky.",
+     "given": [
+      "M 40 350 C 200 338 330 362 500 350 C 670 338 800 362 960 350",
+      "M 40 710 Q 230 710 300 960"
+     ],
+     "strokes": [
+      "M 95 165 A 60 60 0 1 1 215 165 A 60 60 0 1 1 95 165 Z",
+      "M 450 225 C 410 225 410 165 458 165 C 465 118 535 110 552 148 C 575 108 655 118 648 165 C 692 165 698 225 655 225 Z"
+     ],
+     "open": true
+    },
+    {
+     "type": "lesson",
+     "lesson": "stitch-surf",
+     "say": "Stitch is going surfing! Let's draw the beach, the wave and Stitch on his board."
+    },
+    {
+     "type": "create",
+     "say": "Now draw your own beach day. Who is surfing with Stitch?"
+    }
+   ]
+  },
+  {
+   "id": "lilo-sandcastle",
+   "title": "Sandcastle day",
+   "sticker": "🏰",
+   "exercises": [
+    {
+     "type": "finish",
+     "say": "Here are the sea and the sand. Add the sun and a cloud up in the sky.",
+     "given": [
+      "M 40 280 C 200 268 330 292 500 280 C 670 268 800 292 960 280",
+      "M 40 440 Q 92 415 144 440 Q 196 465 248 440 Q 300 415 352 440 Q 404 465 456 440 Q 508 415 560 440 Q 612 465 664 440 Q 716 415 768 440 Q 820 465 872 440 Q 916 419 960 435"
+     ],
+     "strokes": [
+      "M 780 160 A 60 60 0 1 1 900 160 A 60 60 0 1 1 780 160 Z",
+      "M 110 205 C 70 205 70 145 118 145 C 125 98 195 90 212 128 C 235 88 315 98 308 145 C 352 145 358 205 315 205 Z"
+     ],
+     "open": true
+    },
+    {
+     "type": "lesson",
+     "lesson": "lilo-sandcastle",
+     "say": "Lilo and Stitch are building a sandcastle! Let's draw the beach and the castle."
+    },
+    {
+     "type": "create",
+     "say": "Now draw your own sandcastle. What will it look like?"
+    }
+   ]
+  },
+  {
+   "id": "elsa-castle",
+   "title": "Elsa's ice castle",
+   "sticker": "🧊",
+   "exercises": [
+    {
+     "type": "finish",
+     "say": "Here are the snow and the castle. Add a tall tower in the middle, with a pointy top.",
+     "given": [
+      "M 40 460 L 960 460",
+      "M 400 460 L 400 340 L 600 340 L 600 460"
+     ],
+     "strokes": [
+      "M 455 340 L 455 250 L 500 150 L 545 250 L 545 340"
+     ],
+     "open": true
+    },
+    {
+     "type": "lesson",
+     "lesson": "elsa-castle",
+     "say": "Elsa has built an ice castle in the snow! Let's draw it, with Elsa and Olaf."
+    },
+    {
+     "type": "create",
+     "say": "Now draw your own ice castle. What is it like inside?"
+    }
+   ]
+  },
+  {
+   "id": "anna-snowman",
+   "title": "Snowman friends",
+   "sticker": "🧣",
+   "exercises": [
+    {
+     "type": "finish",
+     "say": "Here are the snowy hills. Add the sun and a cloud up in the sky.",
+     "given": [
+      "M 40 470 Q 200 360 440 480 Q 700 380 960 460"
+     ],
+     "strokes": [
+      "M 790 130 A 50 50 0 1 1 890 130 A 50 50 0 1 1 790 130 Z",
+      "M 440 175 C 400 175 400 120 446 120 C 452 78 518 70 534 105 C 556 68 630 78 624 120 C 666 120 672 175 630 175 Z"
+     ],
+     "open": true
+    },
+    {
+     "type": "lesson",
+     "lesson": "anna-snowman",
+     "say": "Anna and Olaf are building a snowman! Let's draw the snowy hills and all of them."
+    },
+    {
+     "type": "create",
+     "say": "Now draw your own snowman. What is he wearing?"
+    }
+   ]
+  },
+  {
+   "id": "ariel-rock",
+   "title": "Ariel's rock",
+   "sticker": "🧜‍♀️",
+   "exercises": [
+    {
+     "type": "finish",
+     "say": "Here are the top of the sea and the sandy floor. Add a round sun with a zigzag around it.",
+     "given": [
+      "M 40 210 C 91.1 198 142.2 198 193.3 210 C 244.4 222 295.6 222 346.7 210 C 397.8 198 448.9 198 500 210 C 551.1 222 602.2 222 653.3 210 C 704.4 198 755.6 198 806.7 210 C 857.8 222 908.9 222 960 210",
+      "M 40 830 C 142.2 818 244.4 818 346.7 830 C 448.9 842 551.1 842 653.3 830 C 755.6 818 857.8 818 960 830"
+     ],
+     "strokes": [
+      "M 92 108 A 28 28 0 1 1 148 108 A 28 28 0 1 1 92 108 Z",
+      "M 186 108 L 165.7 122.8 L 173.4 146.8 L 148.2 146.8 L 140.4 170.8 L 120 156 L 99.6 170.8 L 91.8 146.8 L 66.6 146.8 L 74.3 122.8 L 54 108 L 74.3 93.2 L 66.6 69.2 L 91.8 69.2 L 99.6 45.2 L 120 60 L 140.4 45.2 L 148.2 69.2 L 173.4 69.2 L 165.7 93.2 Z"
+     ],
+     "open": true
+    },
+    {
+     "type": "lesson",
+     "lesson": "ariel-rock",
+     "say": "Ariel is sitting on her rock under the sea! Let's draw the water, the rock and Ariel."
+    },
+    {
+     "type": "create",
+     "say": "Now draw your own mermaid on a rock. Who swims by to say hello?"
+    }
+   ]
+  },
+  {
+   "id": "nemo-coral",
+   "title": "Nemo at home",
+   "sticker": "🪸",
+   "exercises": [
+    {
+     "type": "finish",
+     "say": "Here are the sea and the sandy floor. Add three slanting lines of sunshine.",
+     "given": [
+      "M 40 85 C 91.1 75 142.2 75 193.3 85 C 244.4 95 295.6 95 346.7 85 C 397.8 75 448.9 75 500 85 C 551.1 95 602.2 95 653.3 85 C 704.4 75 755.6 75 806.7 85 C 857.8 95 908.9 95 960 85",
+      "M 40 790 C 142.2 778 244.4 778 346.7 790 C 448.9 802 551.1 802 653.3 790 C 755.6 778 857.8 778 960 790"
+     ],
+     "strokes": [
+      "M 420 102.5 L 490 212.5",
+      "M 500 110 L 570 220",
+      "M 580 117.5 L 650 227.5"
+     ],
+     "open": true
+    },
+    {
+     "type": "lesson",
+     "lesson": "nemo-coral",
+     "say": "Nemo is swimming home to his coral! Let's draw the sea, the coral and Nemo."
+    },
+    {
+     "type": "create",
+     "say": "Now draw your own coral home. Which fish live there?"
+    }
+   ]
+  },
+  {
+   "id": "pooh-honey",
+   "title": "Pooh and the honey",
+   "sticker": "🍯",
+   "exercises": [
+    {
+     "type": "finish",
+     "say": "Here is the ground with a little hill. Add a round sun in the corner with a zigzag around it.",
+     "given": [
+      "M 40 865 L 790 865 C 840 865 850 768 905 768 C 935 768 952 785 960 792"
+     ],
+     "strokes": [
+      "M 824 125 A 36 36 0 1 1 896 125 A 36 36 0 1 1 824 125 Z",
+      "M 936 125 L 913.3 142.3 L 921.5 169.7 L 892.9 170.3 L 883.5 197.3 L 860 181 L 836.5 197.3 L 827.1 170.3 L 798.5 169.7 L 806.7 142.3 L 784 125 L 806.7 107.7 L 798.5 80.3 L 827.1 79.7 L 836.5 52.7 L 860 69 L 883.5 52.7 L 892.9 79.7 L 921.5 80.3 L 913.3 107.7 Z"
+     ],
+     "open": true
+    },
+    {
+     "type": "lesson",
+     "lesson": "pooh-honey",
+     "say": "Pooh smells honey up in the tree! Let's draw the wood, the honey tree and Pooh."
+    },
+    {
+     "type": "create",
+     "say": "Now draw your own honey day. Who else wants some honey?"
+    }
+   ]
+  },
+  {
+   "id": "simba-rock",
+   "title": "Simba on Pride Rock",
+   "sticker": "🦁",
+   "exercises": [
+    {
+     "type": "finish",
+     "say": "Here are the rock and the far line. Add half a sun, sitting right on the line.",
+     "given": [
+      "M 40 560 L 470 560 C 530 560 545 620 500 635 C 430 650 340 640 300 680 C 285 720 300 850 320 960",
+      "M 294.6 760 L 960 760"
+     ],
+     "strokes": [
+      "M 550 760 A 130 130 0 0 1 810 760"
+     ],
+     "open": true
+    },
+    {
+     "type": "lesson",
+     "lesson": "simba-rock",
+     "say": "Simba climbs up Pride Rock at sunset! Let's draw the rock, the sun and Simba."
+    },
+    {
+     "type": "create",
+     "say": "Now draw your own sunset. Who is looking at it with Simba?"
+    }
+   ]
+  },
+  {
+   "id": "mickey-picnic",
+   "title": "Mickey's picnic",
+   "sticker": "🧺",
+   "exercises": [
+    {
+     "type": "finish",
+     "say": "Here are two far-away hills. Add a round sun and a cloud up in the sky.",
+     "given": [
+      "M 40 465 Q 250 400 465 510",
+      "M 535 510 Q 750 400 960 465"
+     ],
+     "strokes": [
+      "M 140.0 92.0 A 48 48 0 1 1 140.0 188.0 A 48 48 0 1 1 140.0 92.0 Z",
+      "M 730 200 C 690 200 690 145 735 145 C 742 102 810 95 826 130 C 848 95 920 105 912 150 C 950 152 950 200 912 200 Z"
+     ],
+     "open": true
+    },
+    {
+     "type": "lesson",
+     "lesson": "mickey-picnic",
+     "say": "Mickey and Minnie are having a picnic! Let's draw the tree, the blanket and both of them."
+    },
+    {
+     "type": "create",
+     "say": "Now draw your own picnic. Who comes to eat with Mickey and Minnie?"
+    }
+   ]
+  }
+ ]
+}

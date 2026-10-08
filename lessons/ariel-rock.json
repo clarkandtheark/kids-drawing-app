@@ -1,0 +1,160 @@
+{
+  "id": "ariel-rock",
+  "title": "Ariel on Her Rock",
+  "difficulty": 3,
+  "category": "scenes",
+  "emoji": "🧜‍♀️",
+  "parts": [
+    {
+      "title": "Sea and sky",
+      "say": "First the sea. Let's draw the water, the sand and the sun!",
+      "steps": [
+        {
+          "say": "Draw a long wavy line near the top. That is the top of the sea.",
+          "strokes": [
+            "M 40 210 C 91.1 198 142.2 198 193.3 210 C 244.4 222 295.6 222 346.7 210 C 397.8 198 448.9 198 500 210 C 551.1 222 602.2 222 653.3 210 C 704.4 198 755.6 198 806.7 210 C 857.8 222 908.9 222 960 210"
+          ]
+        },
+        {
+          "say": "Draw another wavy line near the bottom for the sandy sea floor.",
+          "strokes": [
+            "M 40 830 C 142.2 818 244.4 818 346.7 830 C 448.9 842 551.1 842 653.3 830 C 755.6 818 857.8 818 960 830"
+          ]
+        },
+        {
+          "say": "Draw a round sun up in the sky, above the water.",
+          "strokes": [
+            "M 92 108 A 28 28 0 1 1 148 108 A 28 28 0 1 1 92 108 Z"
+          ]
+        },
+        {
+          "say": "Draw a zigzag around the sun so it shines.",
+          "strokes": [
+            "M 186 108 L 165.7 122.8 L 173.4 146.8 L 148.2 146.8 L 140.4 170.8 L 120 156 L 99.6 170.8 L 91.8 146.8 L 66.6 146.8 L 74.3 122.8 L 54 108 L 74.3 93.2 L 66.6 69.2 L 91.8 69.2 L 99.6 45.2 L 120 60 L 140.4 45.2 L 148.2 69.2 L 173.4 69.2 L 165.7 93.2 Z"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Seaweed",
+      "say": "Now some tall seaweed growing up from the sand.",
+      "steps": [
+        {
+          "say": "Draw a tall wiggly seaweed leaf standing on the sand, near the rock.",
+          "strokes": [
+            "M 362 831.7 C 328 764.6 396 697.5 389 640 C 438 701.3 370 768.4 404 835.5"
+          ]
+        },
+        {
+          "say": "Draw a shorter seaweed leaf right next to it.",
+          "strokes": [
+            "M 440 837.6 C 406 793 474 748.3 464 710 C 510 749.4 442 794.1 476 838.8"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Ariel",
+      "say": "Here is Ariel, sitting on her rock under the sea!",
+      "ref": "ariel",
+      "scale": 0.6,
+      "x": 400,
+      "y": 232,
+      "omit": [
+        4,
+        7,
+        8,
+        9
+      ],
+      "steps": [
+        {
+          "say": "Draw two little round seashells on her top.",
+          "strokes": [
+            "M 593.2 529.6 A 15 15 0 1 1 623.2 529.6 A 15 15 0 1 1 593.2 529.6 Z",
+            "M 632.8 529.6 A 15 15 0 1 1 662.8 529.6 A 15 15 0 1 1 632.8 529.6 Z"
+          ]
+        },
+        {
+          "say": "Give Ariel two dot eyes and a happy smile.",
+          "strokes": [
+            "M 610 385.2 L 610 393.2",
+            "M 646 385.2 L 646 393.2",
+            "M 613.6 407.2 Q 628 420.4 642.4 407.2"
+          ]
+        },
+        {
+          "say": "Draw a big rock under Ariel's tail, all the way down to the sand.",
+          "strokes": [
+            "M 590.8 667.4 C 530.8 707.4 508 780 518 838.9",
+            "M 780.4 713.7 C 840.4 733.7 865 780 870 822.5"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Nemo",
+      "say": "Here comes little Nemo, swimming over to say hello to Ariel!",
+      "ref": "nemo",
+      "scale": 0.34,
+      "x": 138,
+      "y": 229,
+      "omit": [
+        3,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "steps": [
+        {
+          "say": "Give Nemo a big round eye with a dot in the middle.",
+          "strokes": [
+            "M 364.4 380.6 A 13.6 13.6 0 1 1 391.6 380.6 A 13.6 13.6 0 1 1 364.4 380.6 Z",
+            "M 380 375.6 L 380 385.6"
+          ]
+        },
+        {
+          "say": "Draw two lines behind his eye for a wide white stripe.",
+          "strokes": [
+            "M 309.7 320.1 Q 314.5 399.7 309.7 479.2",
+            "M 340.3 323 Q 345.1 399.7 340.3 476.5"
+          ]
+        },
+        {
+          "say": "Draw two more lines in his middle for another white stripe.",
+          "strokes": [
+            "M 234.9 344.7 Q 239.7 399.7 234.9 454.3",
+            "M 265.5 327.1 Q 270.3 399.7 265.5 472.1"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Bubbles and friends",
+      "say": "Last, the little things: bubbles, a starfish and a seagull!",
+      "steps": [
+        {
+          "say": "Draw three round bubbles floating up.",
+          "strokes": [
+            "M 435 362 A 11 11 0 1 1 457 362 A 11 11 0 1 1 435 362 Z",
+            "M 448 308 A 14 14 0 1 1 476 308 A 14 14 0 1 1 448 308 Z",
+            "M 433 256 A 17 17 0 1 1 467 256 A 17 17 0 1 1 433 256 Z"
+          ]
+        },
+        {
+          "say": "Draw a starfish with five points lying on the sand.",
+          "strokes": [
+            "M 246.5 761.2 L 273.7 769.6 L 256.6 792.5 L 257 821 L 230 811.8 L 203 821 L 203.4 792.5 L 186.3 769.6 L 213.5 761.2 L 230 737.8 L 246.5 761.2 Z"
+          ]
+        },
+        {
+          "say": "Draw a seagull flying in the sky, like a stretched letter M.",
+          "strokes": [
+            "M 720 120 Q 745 85 770 120 Q 795 85 820 120"
+          ]
+        }
+      ]
+    }
+  ]
+}

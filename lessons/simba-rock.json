@@ -1,0 +1,118 @@
+{
+  "id": "simba-rock",
+  "title": "Simba on Pride Rock",
+  "difficulty": 3,
+  "category": "scenes",
+  "emoji": "🦁",
+  "parts": [
+    {
+      "title": "Pride Rock and the sun",
+      "say": "First the savanna. The sun is going down behind the land!",
+      "steps": [
+        {
+          "say": "Draw Pride Rock: a big rock with a flat top that sticks out at the end.",
+          "strokes": [
+            "M 40 560 L 400 560 C 450 560 470 580 450 600 C 430 620 400 615 395 650 L 430 960"
+          ]
+        },
+        {
+          "say": "Draw two little cracks on the rock.",
+          "strokes": [
+            "M 110 690 Q 170 715 230 695",
+            "M 210 830 Q 280 855 340 830"
+          ]
+        },
+        {
+          "say": "Draw a long flat line from the rock to the edge. That's where the land ends.",
+          "strokes": [
+            "M 400.6 700 L 960 700"
+          ]
+        },
+        {
+          "say": "Draw half of a great big sun, sitting right on the line.",
+          "strokes": [
+            "M 500 700 A 170 170 0 0 1 840 700"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Acacia tree and grass",
+      "say": "Far away there's a tree, and grass grows all around.",
+      "steps": [
+        {
+          "say": "Draw a thin tree trunk far away, standing on the line and splitting in two at the top.",
+          "strokes": [
+            "M 893 700 L 895 662 L 868 627",
+            "M 909 700 L 907 662 L 932 627"
+          ]
+        },
+        {
+          "say": "Draw a wide flat top on the tree, like a big green umbrella.",
+          "strokes": [
+            "M 845 627 C 836 600 858 588 880 595 C 897 580 930 582 940 595 C 955 592 960 612 952 627 Z"
+          ]
+        },
+        {
+          "say": "Draw two pointy tufts of grass, like zigzags.",
+          "strokes": [
+            "M 540 880 L 555 835 L 570 880 L 585 825 L 600 880 L 615 840 L 630 880",
+            "M 790 820 L 805 780 L 820 820 L 835 770 L 850 820 L 865 785 L 880 820"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Simba",
+      "say": "Simba climbs up to the top of Pride Rock!",
+      "ref": "simba",
+      "scale": 0.46,
+      "x": 0,
+      "y": 122,
+      "omit": [
+        5
+      ]
+    },
+    {
+      "title": "Sunset",
+      "say": "Last, the sunset sparkles, and friends come to visit Simba!",
+      "steps": [
+        {
+          "say": "Draw three straight lines shining up out of the sun.",
+          "strokes": [
+            "M 670 505 L 670 460",
+            "M 595 520 L 578 478",
+            "M 745 520 L 762 478"
+          ]
+        },
+        {
+          "say": "Draw two more sunshine lines, one on each side.",
+          "strokes": [
+            "M 532 562 L 500 530",
+            "M 808 562 L 840 530"
+          ]
+        },
+        {
+          "say": "Draw two birds flying home, like little stretched letter Ms.",
+          "strokes": [
+            "M 560 260 Q 582 228 604 260 Q 626 228 648 260",
+            "M 690 200 Q 709 172 728 200 Q 747 172 766 200"
+          ]
+        },
+        {
+          "say": "Draw a butterfly's little body flying near Simba.",
+          "strokes": [
+            "M 450 248 C 460 248 460 298 450 298 C 440 298 440 248 450 248 Z"
+          ]
+        },
+        {
+          "say": "Give the butterfly two wings, one on each side!",
+          "strokes": [
+            "M 443 265 C 415 220 385 245 405 272 C 385 295 415 315 443 282",
+            "M 457 265 C 485 220 515 245 495 272 C 515 295 485 315 457 282"
+          ]
+        }
+      ]
+    }
+  ]
+}

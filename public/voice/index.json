@@ -308,9 +308,9 @@
    "dur": 3.82,
    "file": "e0e04dfe946d.m4a"
   },
-  "Draw Pride Rock: a big rock with a flat top that sticks out at the end.": {
-   "dur": 4.32,
-   "file": "cdc63ee210d3.m4a"
+  "Draw Pride Rock: a flat top that sticks way out, a round tip, then back in underneath and down.": {
+   "dur": 6.03,
+   "file": "7e96a0242bf3.m4a"
   },
   "Draw Simba's round body, and two curvy lines down the middle for his light tummy.": {
    "dur": 4.76,
@@ -435,10 +435,6 @@
   "Draw a big oval for the giraffe's body.": {
    "dur": 2.24,
    "file": "e61c37611ff7.m4a"
-  },
-  "Draw a big picnic blanket on the grass, wider at the bottom.": {
-   "dur": 3.66,
-   "file": "3488e9353690.m4a"
   },
   "Draw a big puffy cloud shape for the tree top.": {
    "dur": 2.58,
@@ -628,9 +624,13 @@
    "dur": 1.8,
    "file": "476450db12f4.m4a"
   },
-  "Draw a dark dot in each of Mickey's eyes.": {
-   "dur": 2.34,
-   "file": "b6b9ffdc738b.m4a"
+  "Draw a dark dot in each eye, and a big oval nose.": {
+   "dur": 3.27,
+   "file": "2c34442a8b14.m4a"
+  },
+  "Draw a dark dot in each eye, and a little oval nose.": {
+   "dur": 3.25,
+   "file": "051de8df094a.m4a"
   },
   "Draw a door with a round top at the bottom.": {
    "dur": 2.35,
@@ -655,6 +655,10 @@
   "Draw a flipper wing on this side of the body.": {
    "dur": 2.39,
    "file": "f0f294b0da69.m4a"
+  },
+  "Draw a flower with a long stem, next to the tree.": {
+   "dur": 2.85,
+   "file": "cca8663c1aa6.m4a"
   },
   "Draw a fluffy animal with lots of fur, like a sheep, a puppy or a lion!": {
    "dur": 4.7,
@@ -732,10 +736,6 @@
    "dur": 1.97,
    "file": "dfff9302515c.m4a"
   },
-  "Draw a little flower with a long stem, next to the tree.": {
-   "dur": 3.08,
-   "file": "ff81bb2235b1.m4a"
-  },
   "Draw a little round spot on each bottom wing.": {
    "dur": 2.54,
    "file": "e6aae01e0ee0.m4a"
@@ -772,9 +772,9 @@
    "dur": 3.04,
    "file": "08ebbbfb8f38.m4a"
   },
-  "Draw a long flat line from the rock to the edge. That's where the land ends.": {
-   "dur": 4.54,
-   "file": "acad1e207a20.m4a"
+  "Draw a long flat line from the rock to the edge, far away. That's where the land ends.": {
+   "dur": 5.27,
+   "file": "9267ec90297d.m4a"
   },
   "Draw a long flat strip under the shell.": {
    "dur": 2.21,
@@ -835,6 +835,10 @@
   "Draw a picnic basket with a handle on the blanket.": {
    "dur": 3.2,
    "file": "214a1f311e1f.m4a"
+  },
+  "Draw a picnic blanket on the grass, wider at the bottom.": {
+   "dur": 3.41,
+   "file": "289997b7a6ee.m4a"
   },
   "Draw a pointy fin band at her waist, then her long tail curving to the side.": {
    "dur": 4.74,
@@ -1228,6 +1232,10 @@
    "dur": 3.21,
    "file": "951b9e66423a.m4a"
   },
+  "Draw three more sunshine lines, all the way around.": {
+   "dur": 3.06,
+   "file": "0e4d8a140492.m4a"
+  },
   "Draw three raindrops falling down below the cloud.": {
    "dur": 2.81,
    "file": "c6f45e775fb7.m4a"
@@ -1239,6 +1247,10 @@
   "Draw three round apples in the tree.": {
    "dur": 2.03,
    "file": "330ac969b617.m4a"
+  },
+  "Draw three short lines shining out of the sun.": {
+   "dur": 2.72,
+   "file": "194383df9fe5.m4a"
   },
   "Draw three straight lines shining up out of the sun.": {
    "dur": 3.02,
@@ -1436,6 +1448,14 @@
    "dur": 1.68,
    "file": "4112b1294b48.m4a"
   },
+  "Draw two tall oval eyes on Mickey's face.": {
+   "dur": 2.48,
+   "file": "c9b72c2844a6.m4a"
+  },
+  "Draw two tall oval eyes on Minnie's face.": {
+   "dur": 2.45,
+   "file": "a8dc6926418d.m4a"
+  },
   "Draw two tall oval eyes with long eyelashes.": {
    "dur": 2.83,
    "file": "5e7e308a51b7.m4a"
@@ -1564,17 +1584,13 @@
    "dur": 2.93,
    "file": "d1d137f69d9d.m4a"
   },
-  "Give Mickey a big oval nose and a great big smile.": {
-   "dur": 3.28,
-   "file": "afdeba36bab4.m4a"
+  "Give Mickey a great big smile!": {
+   "dur": 1.77,
+   "file": "5a2225b3a838.m4a"
   },
   "Give Minnie a great big smile!": {
    "dur": 1.78,
    "file": "40d63c12b68d.m4a"
-  },
-  "Give Minnie her nose and two dark eyes too.": {
-   "dur": 2.61,
-   "file": "4c5d6269ae2c.m4a"
   },
   "Give Moana two eyes and a big happy smile!": {
    "dur": 2.88,

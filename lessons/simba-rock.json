@@ -10,28 +10,28 @@
       "say": "First the savanna. The sun is going down behind the land!",
       "steps": [
         {
-          "say": "Draw Pride Rock: a big rock with a flat top that sticks out at the end.",
+          "say": "Draw Pride Rock: a flat top that sticks way out, a round tip, then back in underneath and down.",
           "strokes": [
-            "M 40 560 L 400 560 C 450 560 470 580 450 600 C 430 620 400 615 395 650 L 430 960"
+            "M 40 560 L 470 560 C 530 560 545 620 500 635 C 430 650 340 640 300 680 C 285 720 300 850 320 960"
           ]
         },
         {
           "say": "Draw two little cracks on the rock.",
           "strokes": [
-            "M 110 690 Q 170 715 230 695",
-            "M 210 830 Q 280 855 340 830"
+            "M 110 615 Q 170 635 230 615",
+            "M 100 810 Q 160 832 220 810"
           ]
         },
         {
-          "say": "Draw a long flat line from the rock to the edge. That's where the land ends.",
+          "say": "Draw a long flat line from the rock to the edge, far away. That's where the land ends.",
           "strokes": [
-            "M 400.6 700 L 960 700"
+            "M 294.6 760 L 960 760"
           ]
         },
         {
           "say": "Draw half of a great big sun, sitting right on the line.",
           "strokes": [
-            "M 500 700 A 170 170 0 0 1 840 700"
+            "M 550 760 A 130 130 0 0 1 810 760"
           ]
         }
       ]
@@ -43,21 +43,21 @@
         {
           "say": "Draw a thin tree trunk far away, standing on the line and splitting in two at the top.",
           "strokes": [
-            "M 893 700 L 895 662 L 868 627",
-            "M 909 700 L 907 662 L 932 627"
+            "M 896 760 L 898 720 L 870 690",
+            "M 914 760 L 912 720 L 940 690"
           ]
         },
         {
           "say": "Draw a wide flat top on the tree, like a big green umbrella.",
           "strokes": [
-            "M 845 627 C 836 600 858 588 880 595 C 897 580 930 582 940 595 C 955 592 960 612 952 627 Z"
+            "M 822 690 C 815 668 840 655 865 660 C 885 645 930 647 945 660 C 958 660 960 680 952 690 Z"
           ]
         },
         {
           "say": "Draw two pointy tufts of grass, like zigzags.",
           "strokes": [
-            "M 540 880 L 555 835 L 570 880 L 585 825 L 600 880 L 615 840 L 630 880",
-            "M 790 820 L 805 780 L 820 820 L 835 770 L 850 820 L 865 785 L 880 820"
+            "M 560 905 L 575 860 L 590 905 L 605 850 L 620 905 L 635 865 L 650 905",
+            "M 790 870 L 805 830 L 820 870 L 835 820 L 850 870 L 865 835 L 880 870"
           ]
         }
       ]
@@ -67,7 +67,7 @@
       "say": "Simba climbs up to the top of Pride Rock!",
       "ref": "simba",
       "scale": 0.46,
-      "x": 0,
+      "x": 110,
       "y": 122,
       "omit": [
         5
@@ -80,36 +80,36 @@
         {
           "say": "Draw three straight lines shining up out of the sun.",
           "strokes": [
-            "M 670 505 L 670 460",
-            "M 595 520 L 578 478",
-            "M 745 520 L 762 478"
+            "M 680 605 L 680 565",
+            "M 627 614 L 613 577",
+            "M 733 614 L 747 577"
           ]
         },
         {
           "say": "Draw two more sunshine lines, one on each side.",
           "strokes": [
-            "M 532 562 L 500 530",
-            "M 808 562 L 840 530"
+            "M 580 641 L 555 611",
+            "M 780 641 L 805 611"
           ]
         },
         {
           "say": "Draw two birds flying home, like little stretched letter Ms.",
           "strokes": [
-            "M 560 260 Q 582 228 604 260 Q 626 228 648 260",
-            "M 690 200 Q 709 172 728 200 Q 747 172 766 200"
+            "M 670 200 Q 692 168 714 200 Q 736 168 758 200",
+            "M 800 140 Q 819 112 838 140 Q 857 112 876 140"
           ]
         },
         {
           "say": "Draw a butterfly's little body flying near Simba.",
           "strokes": [
-            "M 450 248 C 460 248 460 298 450 298 C 440 298 440 248 450 248 Z"
+            "M 605 248 C 615 248 615 298 605 298 C 595 298 595 248 605 248 Z"
           ]
         },
         {
           "say": "Give the butterfly two wings, one on each side!",
           "strokes": [
-            "M 443 265 C 415 220 385 245 405 272 C 385 295 415 315 443 282",
-            "M 457 265 C 485 220 515 245 495 272 C 515 295 485 315 457 282"
+            "M 598 265 C 570 220 540 245 560 272 C 540 295 570 315 598 282",
+            "M 612 265 C 640 220 670 245 650 272 C 670 295 640 315 612 282"
           ]
         }
       ]

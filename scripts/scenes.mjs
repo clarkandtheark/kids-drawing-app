@@ -30,12 +30,12 @@ export function parsePath(d) {
 const num = (v) => String(Math.round(v * 100) / 100);
 
 /** Scale `d` uniformly by k about the origin, then move it by (dx, dy). Arcs scale their radii and keep their rotation
- *  and flags as written; H and V stay H and V. Numbers are written to at most 2 decimals. */
+ *  and flags; H and V stay H and V. Numbers are written to at most 2 decimals. */
 export function transformPath(d, k, dx, dy) {
   const X = (v) => num(k * +v + dx), Y = (v) => num(k * +v + dy), R = (v) => num(k * +v);
   return parsePath(d).map(([c, a]) => {
     const p = c === 'H' ? [X(a[0])] : c === 'V' ? [Y(a[0])]
-      : c === 'A' ? [R(a[0]), R(a[1]), a[2], a[3], a[4], X(a[5]), Y(a[6])]
+      : c === 'A' ? [R(a[0]), R(a[1]), num(+a[2]), a[3], a[4], X(a[5]), Y(a[6])]
       : a.map((v, i) => (i % 2 ? Y(v) : X(v)));
     return [c, ...p].join(' ');
   }).join(' ');

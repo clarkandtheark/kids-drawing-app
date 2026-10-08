@@ -36,14 +36,14 @@ function run(script: string, files: Record<string, unknown>, extra = (_dir: stri
 }
 
 test('transformer: scale 1 offset 0 is the identity on every stroke in lessons/', () => {
-  const norm = (d: string) => d.trim().replace(/\s+/g, ' ').replace(/\d*\.?\d+/g, (n) => String(+n));
+  const norm = (d: string) => d.trim().replace(/\s+/g, ' ').replace(/-?\d*\.?\d+/g, (n) => String(+n));
   let n = 0;
   for (const l of all) for (const s of l.steps ?? l.parts.flatMap((p: { steps?: unknown[] }) => p.steps ?? [])) for (const d of s.strokes) {
     expect(transformPath(d, 1, 0, 0), d).toBe(norm(d));
     n++;
   }
   expect(n).toBeGreaterThan(300);
-  // every command: H/V keep their letter, arcs scale their radii and keep rotation and flags
+  // every command: H/V keep their letter, arcs scale their radii and keep rotation and flags (rotation's number rewritten: -8.0 is -8)
   expect(transformPath('M 10 20 L 30 40 H 50 V 60 C 1 2 3 4 5 6 S 7 8 9 10 Q 11 12 13 14 T 15 16 A 10 20 30 1 0 70 80 Z', 2, 100, 1000))
     .toBe('M 120 1040 L 160 1080 H 200 V 1120 C 102 1004 106 1008 110 1012 S 114 1016 118 1020 Q 122 1024 126 1028 T 130 1032 A 20 40 30 1 0 240 1160 Z');
   expect(transformPath('M 0 0 L 1 1 2 2', 1, 5, 5)).toBe('M 5 5 L 6 6 L 7 7'); // implicit repeats
@@ -60,11 +60,11 @@ test('transformer: a scaled circle, and every scaled character stroke, measure i
     document.querySelector('svg')!.append(p);
     const b = p.getBBox();
     return [b.x, b.y, b.x + b.width, b.y + b.height];
-  }), [circle, ...strokes.map((d) => transformPath(d, k, dx, dy))]);
+  }), strokes.map((d) => transformPath(d, k, dx, dy)));
   expect(boxes[0].map((v) => Math.round(v))).toEqual([k * 300 + dx, k * 300 + dy, k * 700 + dx, k * 700 + dy].map(Math.round));
   strokes.forEach((d, i) => { // the node-side measure the build uses agrees with the browser's
     const mine = pathBox(transformPath(d, k, dx, dy));
-    mine.forEach((v, j) => expect(Math.abs(v - boxes[i + 1][j]), d).toBeLessThan(0.75));
+    mine.forEach((v, j) => expect(Math.abs(v - boxes[i][j]), d).toBeLessThan(0.75));
   });
 });
 

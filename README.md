@@ -45,7 +45,7 @@ parts: background, setting pieces, the characters, details. `{ id, title, diffic
 
 8 to 40 steps in all; every stroke inside 40..960 after scaling. The build expands a scene into an ordinary lesson
 (steps concatenated, each with `part`, plus `parts: [{ title, say, from, to }]`, steps from..to-1) and warns about a
-referenced stroke smaller than 24 x 24 after scaling. Scenes sort after the characters and are not in the Library
+referenced stroke smaller than 24 x 24 after scaling. Scenes sort after the characters and the settings (Places) and are not in the Library
 (`SHOW_SCENES` in `src/library.ts`); the path's `lesson` exercises play them. `npm run render -- <id>` adds a sheet per
 part (`review/<id>/part-<n>.png`). Nothing is erased, so a setting line behind a character must stop at its outline.
 

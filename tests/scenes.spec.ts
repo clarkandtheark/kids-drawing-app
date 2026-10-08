@@ -138,20 +138,20 @@ test('Library: scenes are hidden; the route still opens one', async ({ page }) =
   await sceneFlag(page, false);
   await page.goto('./#library');
   await expect(page.locator('section[data-level="3"] .card').first()).toBeVisible();
-  await expect(page.locator('#menu > section')).toHaveCount(4);
+  const cats = () => page.locator('#menu > section[data-category]').evaluateAll((ss) => ss.map((e) => (e as HTMLElement).dataset.category));
+  expect(await cats()).toEqual(['characters', 'settings']);
   await expect(page.locator('.card[data-id=stitch-surf], section[data-category=scenes]')).toHaveCount(0);
   await page.goto('./#lesson/stitch-surf');
   await expect(page.locator('#lesson')).toBeVisible();
   await expect(page.locator('#dots > span')).not.toHaveCount(0);
 });
 
-test('Library: with SHOW_SCENES the scenes are a fifth section, after the characters, and open from there', async ({ page }) => {
+test('Library: with SHOW_SCENES the scenes are the last section, after the characters and places, and open from there', async ({ page }) => {
   await sceneFlag(page, true);
   await page.goto('./#library');
-  const sections = page.locator('#menu > section');
-  await expect(sections).toHaveCount(5);
-  await expect(sections.nth(4)).toHaveAttribute('data-category', 'scenes');
-  await expect(sections.nth(3)).toHaveAttribute('data-category', 'characters');
+  await expect(page.locator('section[data-category=scenes]')).toHaveCount(1);
+  expect(await page.locator('#menu > section').evaluateAll((ss) => ss.map((e) => (e as HTMLElement).dataset.category ?? 'level')))
+    .toEqual(['level', 'level', 'level', 'characters', 'settings', 'scenes']);
   await expect(page.locator('section[data-category=scenes] .card[data-id=stitch-surf]')).toHaveCount(1);
   await expect(page.locator('section:not([data-category=scenes]) .card[data-id=stitch-surf]')).toHaveCount(0);
   await page.locator('.card[data-id=stitch-surf]').scrollIntoViewIfNeeded();

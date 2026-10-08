@@ -1,0 +1,136 @@
+{
+  "id": "stitch-surf",
+  "title": "Stitch Goes Surfing",
+  "difficulty": 3,
+  "category": "scenes",
+  "emoji": "🏄",
+  "parts": [
+    {
+      "title": "Beach",
+      "say": "First the beach. Let's draw where everything happens!",
+      "steps": [
+        {
+          "say": "Draw a long wavy line across the page for the far-away sea.",
+          "strokes": [
+            "M 40 350 C 200 338 330 362 500 350 C 670 338 800 362 960 350"
+          ]
+        },
+        {
+          "say": "Draw a big curve down in the corner for the sandy beach.",
+          "strokes": [
+            "M 40 710 Q 230 710 300 960"
+          ]
+        },
+        {
+          "say": "Draw a round sun up in the sky.",
+          "strokes": [
+            "M 95 165 A 60 60 0 1 1 215 165 A 60 60 0 1 1 95 165 Z"
+          ]
+        },
+        {
+          "say": "Draw a zigzag all the way around the sun, so it shines!",
+          "strokes": [
+            "M 237 165 L 259.3 193 L 226 206 L 231.4 241.4 L 196 236 L 183 269.3 L 155 247 L 127 269.3 L 114 236 L 78.6 241.4 L 84 206 L 50.7 193 L 73 165 L 50.7 137 L 84 124 L 78.6 88.6 L 114 94 L 127 60.7 L 155 83 L 183 60.7 L 196 94 L 231.4 88.6 L 226 124 L 259.3 137 Z"
+          ]
+        },
+        {
+          "say": "Draw a puffy cloud next to the sun.",
+          "strokes": [
+            "M 450 225 C 410 225 410 165 458 165 C 465 118 535 110 552 148 C 575 108 655 118 648 165 C 692 165 698 225 655 225 Z"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Palm tree and wave",
+      "say": "Now a palm tree on the sand, and a giant wave!",
+      "steps": [
+        {
+          "say": "Draw a tall bendy trunk standing on the sand.",
+          "strokes": [
+            "M 112 720.2 C 118 630 160 560 179 524",
+            "M 152 737 C 158 630 198 565 204 527"
+          ]
+        },
+        {
+          "say": "Draw two long leaves on top, one on each side.",
+          "strokes": [
+            "M 192 515 Q 111.7 471.4 62 548 Q 122.4 513.5 192 515 Z",
+            "M 192 515 Q 210.4 445.1 282 455 Q 229 473 192 515 Z"
+          ]
+        },
+        {
+          "say": "Draw two more leaves, so the palm tree is nice and bushy.",
+          "strokes": [
+            "M 192 515 Q 176.1 434.8 95 425 Q 153.3 459.4 192 515 Z",
+            "M 192 515 Q 274.8 496.2 288 580 Q 250.4 532.1 192 515 Z"
+          ]
+        },
+        {
+          "say": "Draw a giant wave that curls over at the top, like a snail shell.",
+          "strokes": [
+            "M 760 824 C 895 812 952 690 936 578 C 920 468 818 440 774 492 C 738 534 764 590 810 580 C 843 573 843 531 815 528"
+          ]
+        },
+        {
+          "say": "Draw another curve inside the wave, following its side.",
+          "strokes": [
+            "M 812 792 C 880 772 908 690 896 612"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Stitch",
+      "say": "Now Stitch jumps on his surfboard!",
+      "ref": "stitch",
+      "scale": 0.45,
+      "x": 300,
+      "y": 400,
+      "omit": [
+        2
+      ],
+      "steps": [
+        {
+          "say": "Draw a long surfboard under his feet.",
+          "strokes": [
+            "M 360 824.1 C 360 814.1 375 810.1 400 810.1 L 690 810.1 C 730 810.1 752 818.1 760 824.1 C 752 830.1 730 838.1 690 838.1 L 400 838.1 C 375 838.1 360 834.1 360 824.1 Z"
+          ]
+        },
+        {
+          "say": "Draw the water from the beach to the surfboard.",
+          "strokes": [
+            "M 242 824.1 C 282 816.1 310 832.1 360 824.1"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Splash",
+      "say": "Last, the fun little things: splashes and a seagull!",
+      "steps": [
+        {
+          "say": "Draw three little drops splashing off the top of the wave.",
+          "strokes": [
+            "M 782 401 C 797.3 418 792.2 431.6 782 431.6 C 771.8 431.6 766.7 418 782 401 Z",
+            "M 830 377 C 843.5 392 839 404 830 404 C 821 404 816.5 392 830 377 Z",
+            "M 876 397 C 887.7 410 883.8 420.4 876 420.4 C 868.2 420.4 864.3 410 876 397 Z"
+          ]
+        },
+        {
+          "say": "Draw a seagull flying in the sky, like a stretched letter M.",
+          "strokes": [
+            "M 770 215 Q 795 180 820 215 Q 845 180 870 215"
+          ]
+        },
+        {
+          "say": "Draw two little ripples in the water.",
+          "strokes": [
+            "M 420 905 Q 445 889 470 905 Q 495 921 520 905",
+            "M 660 915 Q 685 899 710 915 Q 735 931 760 915"
+          ]
+        }
+      ]
+    }
+  ]
+}

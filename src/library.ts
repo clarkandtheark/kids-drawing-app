@@ -8,6 +8,10 @@ const SVG = 'http://www.w3.org/2000/svg';
 // Icon-only header of the characters section; unlike the crayons it is a heart.
 const HEART = '<svg viewBox="0 0 24 24"><path d="M12 21C5 15.5 2.5 12 2.5 8.5A4.8 4.8 0 0 1 12 6.6a4.8 4.8 0 0 1 9.5 1.9C21.5 12 19 15.5 12 21Z" fill="#ff5d8f"/><path d="M6 8.5a2.6 2.6 0 0 1 2.6-2" fill="none" stroke="#fff8ea" stroke-opacity=".8" stroke-width="1.5" stroke-linecap="round"/></svg>';
 const home = document.querySelector<HTMLElement>('#menu')!;
+/** Scenes (category "scenes") are reached from the learning path, not the Library. True shows them as a fifth section. */
+const SHOW_SCENES = false;
+// Icon-only header of the scenes section, if shown: a little picture (sun over a hill).
+const SCENE = '<svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="18" rx="3" fill="#7fd0ff"/><circle cx="16.5" cy="8.5" r="2.8" fill="#ffd21f"/><path d="M2 17.5 8.5 11l5 5 3-2.5 5.5 4.5V18a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3Z" fill="#6fcf5a"/></svg>';
 document.querySelector('#lhome')!.addEventListener('click', () => { location.hash = ''; });
 
 function card(l: Lesson) {
@@ -46,7 +50,9 @@ export function showLibrary(lessons: Lesson[], open: (l: Lesson) => void) {
     const chars = lessons.filter((l) => l.category === 'characters');
     home.append(...[1, 2, 3].map((n) => section('level', String(n), `Level ${n}`, CRAYON.repeat(n),
       lessons.filter((l) => l.difficulty === n && !l.category))));
-    if (chars.length) home.append(section('category', 'characters', 'Characters', HEART, chars)); // ponytail: one category, no registry
+    if (chars.length) home.append(section('category', 'characters', 'Characters', HEART, chars)); // ponytail: two categories, no registry
+    const scenes = lessons.filter((l) => l.category === 'scenes');
+    if (SHOW_SCENES && scenes.length) home.append(section('category', 'scenes', 'Scenes', SCENE, scenes));
   }
   home.hidden = false;
   refreshStars();

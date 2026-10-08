@@ -1,6 +1,8 @@
 // Dev tool: validate lessons/*.json and render review PNGs. Usage: npm run render -- [id ...]
+// A scene (scripts/scenes.mjs) is checked and expanded first, then rendered like a lesson, plus a sheet per part.
 import { readdir, readFile, writeFile, mkdir, rm, access } from 'node:fs/promises';
 import { chromium } from 'playwright';
+import { expandScene } from './scenes.mjs';
 
 const GRAY = '#9aa0a6', HI = '#ff5a36', INK = '#2b2b2b', W = 14, LO = 40, HIGH = 960;
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -38,6 +40,9 @@ const only = process.argv.slice(2);
 const files = (await readdir('lessons')).filter((f) => f.endsWith('.json')).map((f) => f.slice(0, -5)).sort();
 for (const id of only) if (!files.includes(id)) { console.error(`${id}: no such lesson file`); process.exit(1); }
 const targets = only.length ? only : files;
+const raw = new Map();
+for (const id of files) { try { raw.set(id, JSON.parse(await readFile(`lessons/${id}.json`, 'utf8'))); } catch { /* reported below */ } }
+const byId = new Map([...raw.values()].map((l) => [l.id, l]));
 
 const browser = await chromium.launch();
 let failed = false;
@@ -63,7 +68,13 @@ try {
     let l;
     try { l = JSON.parse(await readFile(`lessons/${id}.json`, 'utf8')); }
     catch (err) { console.error(`${id}: invalid JSON (${err.message})`); failed = true; continue; }
-    const errs = validate(id, l, id);
+    let errs;
+    if (l.parts) { // a scene: its own checks (scenes.mjs), then the expanded lesson goes through the browser checks below
+      const r = expandScene(l, id, byId);
+      r.warns.forEach((m) => console.warn(m));
+      errs = r.errs;
+      if (r.lesson) l = r.lesson;
+    } else errs = validate(id, l, id);
     const all = Array.isArray(l.steps) ? l.steps.flatMap((s) => s?.strokes ?? []) : [];
     if (!errs.length) {
       const boxes = await bboxes(all);
@@ -92,6 +103,11 @@ try {
     const tile = (inner, label, text) => `<div class="t"><div class="b">${esc(label)}</div><div class="i">${inner}</div><p>${esc(text)}</p></div>`;
     const tiles = l.steps.map((s, i) => tile(stepSvg(400, i + 1), i + 1, s.say)).join('') + tile(finalSvg(400), '✓', 'All done!');
     await shot(`<h1>${esc(l.emoji)} ${esc(l.title)}</h1><div class="g">${tiles}</div>`, 2150, 200, `${dir}/sheet.png`, SHEET_CSS);
+    // A scene: a sheet per part (part-1.png ...), only its steps, earlier parts gray, its spoken intro as the heading.
+    for (const [n, p] of (l.parts ?? []).entries()) {
+      const pt = l.steps.slice(p.from, p.to).map((s, i) => tile(stepSvg(400, p.from + i + 1), p.from + i + 1, s.say)).join('');
+      await shot(`<h1>${n + 1}. ${esc(p.title)}: <i>${esc(p.say)}</i></h1><div class="g">${pt}</div>`, 2150, 200, `${dir}/part-${n + 1}.png`, SHEET_CSS);
+    }
   }
 } finally {
   await browser.close();
@@ -103,12 +119,12 @@ for (const id of files) {
   try {
     await access(`review/${id}/sheet.png`);
     const l = JSON.parse(await readFile(`lessons/${id}.json`, 'utf8'));
-    rows.push({ id, title: l.title, difficulty: l.difficulty, cat: l.category ? 1 : 0 });
+    rows.push({ id, title: l.title, difficulty: l.difficulty, cat: ['characters', 'scenes'].indexOf(l.category) + 1, parts: l.parts?.length ?? 0 });
   } catch { /* not rendered */ }
 }
 rows.sort((a, b) => a.cat - b.cat || a.difficulty - b.difficulty || a.id.localeCompare(b.id));
 await mkdir('review', { recursive: true });
 await writeFile('review/index.html', `<!doctype html><meta charset="utf-8"><title>Lesson review</title>
 <style>body{font-family:system-ui,sans-serif;margin:24px;background:#fafafa}img{max-width:100%;border:1px solid #ddd;background:#fff}h2{margin:32px 0 8px}</style>
-<h1>Lesson review</h1>${rows.map((r) => `<h2>${esc(r.title)} <small>(${esc(r.id)}, difficulty ${r.difficulty})</small></h2><img src="${esc(r.id)}/sheet.png">`).join('\n')}`);
+<h1>Lesson review</h1>${rows.map((r) => `<h2>${esc(r.title)} <small>(${esc(r.id)}, difficulty ${r.difficulty})</small></h2><img src="${esc(r.id)}/sheet.png">${Array.from({ length: r.parts }, (_, i) => `<img src="${esc(r.id)}/part-${i + 1}.png">`).join('')}`).join('\n')}`);
 process.exit(failed ? 1 : 0);

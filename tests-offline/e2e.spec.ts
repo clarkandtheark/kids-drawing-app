@@ -23,7 +23,8 @@ test.beforeEach(async ({ page, context }) => {
 test.afterEach(() => expect(errors).toEqual([]));
 
 const shot = (page: Page, info: TestInfo, name: string) => page.screenshot({ path: `${OUT}/${name}-${info.project.name}.png` });
-const lessonsOf = async (page: Page) => (await (await page.request.get('lessons.json')).json()) as Lesson[];
+// The Library's lessons: scenes are not in it (tests/scenes.spec.ts plays the sample scene).
+const lessonsOf = async (page: Page) => ((await (await page.request.get('lessons.json')).json()) as Lesson[]).filter((l) => l.category !== 'scenes');
 const phase = (page: Page) => page.locator('#lesson').getAttribute('data-phase');
 
 /** Logical points along an SVG path, about every `gap` units: what a child tracing the guide would draw. */

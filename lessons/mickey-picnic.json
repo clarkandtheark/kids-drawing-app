@@ -1,0 +1,169 @@
+{
+  "id": "mickey-picnic",
+  "title": "Mickey's Picnic",
+  "difficulty": 3,
+  "category": "scenes",
+  "emoji": "🧺",
+  "parts": [
+    {
+      "title": "Park and big tree",
+      "say": "It's a sunny day in the park. Let's draw the sky and a big shady tree!",
+      "steps": [
+        {
+          "say": "Draw a round sun up in the corner.",
+          "strokes": [
+            "M 70 130 A 60 60 0 1 1 190 130 A 60 60 0 1 1 70 130 Z"
+          ]
+        },
+        {
+          "say": "Draw a puffy cloud floating in the sky.",
+          "strokes": [
+            "M 730 200 C 690 200 690 145 735 145 C 742 102 810 95 826 130 C 848 95 920 105 912 150 C 950 152 950 200 912 200 Z"
+          ]
+        },
+        {
+          "say": "Draw a big bumpy treetop in the middle, like a giant cloud.",
+          "strokes": [
+            "M 395 470 C 310 485 280 400 325 365 C 290 290 360 225 420 245 C 440 170 560 170 580 245 C 640 225 710 290 675 365 C 720 400 690 485 605 470 Z"
+          ]
+        },
+        {
+          "say": "Draw the tree trunk down from the treetop, with a flat bottom.",
+          "strokes": [
+            "M 465 470 L 465 700 Q 460 735 425 745 L 575 745 Q 540 735 535 700 L 535 470"
+          ]
+        },
+        {
+          "say": "Draw two round hills far away, one on each side of the trunk.",
+          "strokes": [
+            "M 40 525 Q 250 445 465 575",
+            "M 535 575 Q 750 445 960 525"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Picnic blanket",
+      "say": "Time to set up the picnic under the tree!",
+      "steps": [
+        {
+          "say": "Draw a big picnic blanket on the grass, wider at the bottom.",
+          "strokes": [
+            "M 395 770 L 605 770 L 645 935 L 355 935 Z"
+          ]
+        },
+        {
+          "say": "Draw a line down the middle and one across, to make big checks.",
+          "strokes": [
+            "M 500 770 L 500 935",
+            "M 378 840 L 622 840"
+          ]
+        },
+        {
+          "say": "Draw a picnic basket with a handle on the blanket.",
+          "strokes": [
+            "M 410 920 L 398 878 L 487 878 L 475 920 Z",
+            "M 415 878 C 415 845 470 845 470 878"
+          ]
+        },
+        {
+          "say": "Draw a yummy cake with a candle on top.",
+          "strokes": [
+            "M 525 920 L 525 885 L 600 885 L 600 920 Z",
+            "M 525 898 Q 537.5 910 550 898 Q 562.5 910 575 898 Q 587.5 910 600 898",
+            "M 562.5 885 L 562.5 858"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Mickey",
+      "say": "Mickey comes to the park for the picnic!",
+      "ref": "mickey",
+      "scale": 0.44,
+      "x": -30,
+      "y": 535,
+      "omit": [
+        4,
+        5,
+        7
+      ],
+      "steps": [
+        {
+          "say": "Give Mickey a big oval nose and a great big smile.",
+          "strokes": [
+            "M 190.0 715.4 A 21.1 12.3 0 1 0 190.0 740.0 A 21.1 12.3 0 1 0 190.0 715.4 Z",
+            "M 127.5 728.6 Q 124.0 743.6 138.1 745.3 C 159.2 764.7 220.8 764.7 241.9 745.3 Q 256.0 743.6 252.5 728.6"
+          ]
+        },
+        {
+          "say": "Draw a dark dot in each of Mickey's eyes.",
+          "strokes": [
+            "M 173.7 686.4 L 173.7 696.9",
+            "M 206.3 686.4 L 206.3 696.9"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Minnie",
+      "say": "Here comes Minnie to share the picnic with Mickey!",
+      "ref": "minnie",
+      "scale": 0.44,
+      "x": 590,
+      "y": 535,
+      "omit": [
+        5,
+        9
+      ],
+      "steps": [
+        {
+          "say": "Give Minnie her nose and two dark eyes too.",
+          "strokes": [
+            "M 810.0 715.4 A 21.1 12.3 0 1 0 810.0 740.0 A 21.1 12.3 0 1 0 810.0 715.4 Z",
+            "M 795.5 688.6 L 795.5 698.2",
+            "M 824.5 688.6 L 824.5 698.2"
+          ]
+        },
+        {
+          "say": "Add three round polka dots on Minnie's dress!",
+          "strokes": [
+            "M 810.0 818.7 A 12 12 0 1 1 810.0 842.7 A 12 12 0 1 1 810.0 818.7 Z",
+            "M 780.1 856.5 A 12 12 0 1 1 780.1 880.5 A 12 12 0 1 1 780.1 856.5 Z",
+            "M 839.9 856.5 A 12 12 0 1 1 839.9 880.5 A 12 12 0 1 1 839.9 856.5 Z"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Flowers and a butterfly",
+      "say": "Last, flowers pop up and a butterfly comes to say hello!",
+      "steps": [
+        {
+          "say": "Draw a little flower with a long stem, next to the tree.",
+          "strokes": [
+            "M 390.0 690.0 A 13 13 0 1 1 371.0 676.2 A 13 13 0 1 1 378.2 653.8 A 13 13 0 1 1 401.8 653.8 A 13 13 0 1 1 409.0 676.2 A 13 13 0 1 1 390.0 690.0 Z",
+            "M 383.0 670.0 A 7 7 0 1 1 397.0 670.0 A 7 7 0 1 1 383.0 670.0 Z",
+            "M 390.0 690.0 L 390.0 750"
+          ]
+        },
+        {
+          "say": "Draw another flower on the other side of the tree.",
+          "strokes": [
+            "M 610.0 690.0 A 13 13 0 1 1 591.0 676.2 A 13 13 0 1 1 598.2 653.8 A 13 13 0 1 1 621.8 653.8 A 13 13 0 1 1 629.0 676.2 A 13 13 0 1 1 610.0 690.0 Z",
+            "M 603.0 670.0 A 7 7 0 1 1 617.0 670.0 A 7 7 0 1 1 603.0 670.0 Z",
+            "M 610.0 690.0 L 610.0 750"
+          ]
+        },
+        {
+          "say": "Draw a butterfly with two big wings, flying in the sky.",
+          "strokes": [
+            "M 800 305 C 810 305 810 355 800 355 C 790 355 790 305 800 305 Z",
+            "M 793 322 C 765 277 735 302 755 329 C 735 352 765 372 793 339",
+            "M 807 322 C 835 277 865 302 845 329 C 865 352 835 372 807 339"
+          ]
+        }
+      ]
+    }
+  ]
+}

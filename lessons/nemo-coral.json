@@ -1,0 +1,137 @@
+{
+  "id": "nemo-coral",
+  "title": "Nemo in the Coral",
+  "difficulty": 3,
+  "category": "scenes",
+  "emoji": "🐠",
+  "parts": [
+    {
+      "title": "Sea",
+      "say": "Let's go under the sea! First the water and the sandy floor.",
+      "steps": [
+        {
+          "say": "Draw a wavy line along the top for the top of the sea.",
+          "strokes": [
+            "M 40 85 C 91.1 75 142.2 75 193.3 85 C 244.4 95 295.6 95 346.7 85 C 397.8 75 448.9 75 500 85 C 551.1 95 602.2 95 653.3 85 C 704.4 75 755.6 75 806.7 85 C 857.8 95 908.9 95 960 85"
+          ]
+        },
+        {
+          "say": "Draw a long bumpy line near the bottom for the sand.",
+          "strokes": [
+            "M 40 790 C 142.2 778 244.4 778 346.7 790 C 448.9 802 551.1 802 653.3 790 C 755.6 778 857.8 778 960 790"
+          ]
+        },
+        {
+          "say": "Draw three slanted lines of sunshine coming down into the water.",
+          "strokes": [
+            "M 420 102.5 L 490 212.5",
+            "M 500 110 L 570 220",
+            "M 580 117.5 L 650 227.5"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Coral and anemone",
+      "say": "Now the coral, the seaweed and a soft wiggly anemone.",
+      "steps": [
+        {
+          "say": "Draw a coral with three round fingers, standing on the sand.",
+          "strokes": [
+            "M 110 783.7 L 112 700 L 70 610 A 23.7 23.7 0 0 1 112 588 L 136 645 L 128 545 A 24 24 0 0 1 176 545 L 178 640 L 206 588 A 23.7 23.7 0 0 1 248 610 L 196 700 L 198 781"
+          ]
+        },
+        {
+          "say": "Draw a tall wavy seaweed next to the coral.",
+          "strokes": [
+            "M 285 784.2 C 255 705.7 315 627.3 310 560 C 353 630.5 293 709 323 787.4"
+          ]
+        },
+        {
+          "say": "Draw a row of wiggly fingers. This is the top of the anemone.",
+          "strokes": [
+            "M 690 690 C 684 660 652 652 656 622 A 22 22 0 0 1 700 622 C 704 652 740 660 734 690 C 728 660 716 627 720 597 A 22 22 0 0 1 764 597 C 768 627 784 660 778 690 C 772 660 774 617 778 587 A 22 22 0 0 1 822 587 C 826 617 828 660 822 690 C 816 660 832 627 836 597 A 22 22 0 0 1 880 597 C 884 627 872 660 866 690 C 860 660 896 652 900 622 A 22 22 0 0 1 944 622 C 948 652 916 660 910 690"
+          ]
+        },
+        {
+          "say": "Draw two lines down to the sand for the anemone, Nemo's home.",
+          "strokes": [
+            "M 690 690 C 715 720 730 750 730 783.2",
+            "M 910 690 C 885 720 870 750 870 782.5"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Nemo",
+      "say": "Here comes Nemo, swimming home to his anemone!",
+      "ref": "nemo",
+      "scale": 0.55,
+      "x": 340,
+      "y": 160,
+      "omit": [
+        3,
+        7,
+        9
+      ],
+      "steps": [
+        {
+          "say": "Give Nemo a big round eye with a dot in the middle.",
+          "strokes": [
+            "M 701.9 402 A 29.7 29.7 0 1 1 761.3 402 A 29.7 29.7 0 1 1 701.9 402 Z",
+            "M 735.6 396 L 735.6 408"
+          ]
+        },
+        {
+          "say": "Draw one more stripe near his tail, with two lines.",
+          "strokes": [
+            "M 470.9 372.9 Q 475.9 436.1 472 500.2",
+            "M 496.8 347.2 Q 505.3 436.1 505 530.9"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Friend fish",
+      "say": "Nemo's friend is swimming along too!",
+      "ref": "fish",
+      "scale": 0.35,
+      "x": 10,
+      "y": 110
+    },
+    {
+      "title": "Bubbles and shells",
+      "say": "Last, some bubbles, a starfish and a pretty shell!",
+      "steps": [
+        {
+          "say": "Draw three round bubbles floating up.",
+          "strokes": [
+            "M 830 320 A 15 15 0 1 1 860 320 A 15 15 0 1 1 830 320 Z",
+            "M 856 255 A 19 19 0 1 1 894 255 A 19 19 0 1 1 856 255 Z",
+            "M 822 180 A 23 23 0 1 1 868 180 A 23 23 0 1 1 822 180 Z"
+          ]
+        },
+        {
+          "say": "Draw a starfish lying on the sand.",
+          "strokes": [
+            "M 414.1 865.6 L 449.5 868.9 L 422.8 892.4 L 430.6 927.1 L 400 909 L 369.4 927.1 L 377.2 892.4 L 350.5 868.9 L 385.9 865.6 L 400 833 L 414.1 865.6 Z"
+          ]
+        },
+        {
+          "say": "Draw a shell shaped like a fan.",
+          "strokes": [
+            "M 600 945 L 535 884.5 Q 551.2 827.5 567.5 849.5 Q 583.8 813 600 835 Q 616.2 813 632.5 849.5 Q 648.8 827.5 665 884.5 Z"
+          ]
+        },
+        {
+          "say": "Draw three lines on the shell, like the folds of a fan.",
+          "strokes": [
+            "M 591.9 915 L 567.5 849.5",
+            "M 600 915 L 600 835",
+            "M 608.1 915 L 632.5 849.5"
+          ]
+        }
+      ]
+    }
+  ]
+}

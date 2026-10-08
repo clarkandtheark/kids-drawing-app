@@ -231,6 +231,35 @@
      "say": "Now draw your own sunset. Who is looking at it with Simba?"
     }
    ]
+  },
+  {
+   "id": "mickey-picnic",
+   "title": "Mickey's picnic",
+   "sticker": "🧺",
+   "exercises": [
+    {
+     "type": "finish",
+     "say": "Here are two far-away hills. Add a round sun and a cloud up in the sky.",
+     "given": [
+      "M 40 465 Q 250 400 465 510",
+      "M 535 510 Q 750 400 960 465"
+     ],
+     "strokes": [
+      "M 140.0 92.0 A 48 48 0 1 1 140.0 188.0 A 48 48 0 1 1 140.0 92.0 Z",
+      "M 730 200 C 690 200 690 145 735 145 C 742 102 810 95 826 130 C 848 95 920 105 912 150 C 950 152 950 200 912 200 Z"
+     ],
+     "open": true
+    },
+    {
+     "type": "lesson",
+     "lesson": "mickey-picnic",
+     "say": "Mickey and Minnie are having a picnic! Let's draw the tree, the blanket and both of them."
+    },
+    {
+     "type": "create",
+     "say": "Now draw your own picnic. Who comes to eat with Mickey and Minnie?"
+    }
+   ]
   }
  ]
 }

@@ -6,7 +6,7 @@ The full brief is in [SPEC.md](SPEC.md).
 
 ## How it works
 
-- **Path** (the home screen): eight units of stops, unlocked in order. A stop is 3 to 7 short exercises on one canvas;
+- **Path** (the home screen): eleven units of stops, unlocked in order. A stop is 3 to 7 short exercises on one canvas;
   finishing it earns 1 to 3 stars and a sticker.
 - **Sticker book** (`#stickers`): one slot per stop, empty until its stop is done.
 - **Library** (`#library`): the original grid of whole-picture lessons (`lessons/*.json`). The path's `lesson`
@@ -48,6 +48,9 @@ parts: background, setting pieces, the characters, details. `{ id, title, diffic
 referenced stroke smaller than 24 x 24 after scaling. Scenes sort after the characters and the settings (Places) and are not in the Library
 (`SHOW_SCENES` in `src/library.ts`); the path's `lesson` exercises play them. `npm run render -- <id>` adds a sheet per
 part (`review/<id>/part-<n>.png`). Nothing is erased, so a setting line behind a character must stop at its outline.
+
+Unit 11, Scenes (`path/11-scenes.json`), has one stop per scene: a short open `finish` warm-up built from the scene's
+own background strokes (all stops but the first), then the `lesson` that plays the scene, then a `create` for her own version.
 
 ### Why vanilla TypeScript and Vite, not React
 

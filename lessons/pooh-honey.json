@@ -1,0 +1,154 @@
+{
+  "id": "pooh-honey",
+  "title": "Pooh at the Honey Tree",
+  "difficulty": 3,
+  "category": "scenes",
+  "emoji": "🍯",
+  "parts": [
+    {
+      "title": "Hundred Acre Wood",
+      "say": "Let's go to the Hundred Acre Wood! First the ground, a hill and the sun.",
+      "steps": [
+        {
+          "say": "Draw a long line for the ground, with a little hill at the end.",
+          "strokes": [
+            "M 40 865 L 790 865 C 840 865 850 768 905 768 C 935 768 952 785 960 792"
+          ]
+        },
+        {
+          "say": "Draw a round sun up in the corner.",
+          "strokes": [
+            "M 824 125 A 36 36 0 1 1 896 125 A 36 36 0 1 1 824 125 Z"
+          ]
+        },
+        {
+          "say": "Draw a zigzag around the sun so it shines.",
+          "strokes": [
+            "M 936 125 L 913.3 142.3 L 921.5 169.7 L 892.9 170.3 L 883.5 197.3 L 860 181 L 836.5 197.3 L 827.1 170.3 L 798.5 169.7 L 806.7 142.3 L 784 125 L 806.7 107.7 L 798.5 80.3 L 827.1 79.7 L 836.5 52.7 L 860 69 L 883.5 52.7 L 892.9 79.7 L 921.5 80.3 L 913.3 107.7 Z"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Honey tree",
+      "say": "Now a big honey tree, with bees living inside!",
+      "steps": [
+        {
+          "say": "Draw a big bumpy cloud shape for the leaves of the tree.",
+          "strokes": [
+            "M 185 359.1 A 58.4 58.4 0 0 1 94.4 294.7 A 50.5 50.5 0 0 1 76.5 200.2 A 54.3 54.3 0 0 1 139.6 118.2 A 62.9 62.9 0 0 1 255 86 A 62.9 62.9 0 0 1 370.4 118.2 A 54.3 54.3 0 0 1 433.5 200.2 A 50.5 50.5 0 0 1 415.6 294.7 A 58.4 58.4 0 0 1 325 359.1 A 73.5 73.5 0 0 1 185 359.1 Z"
+          ]
+        },
+        {
+          "say": "Draw a thick trunk from the leaves down to the ground.",
+          "strokes": [
+            "M 185 359.1 C 180 600 175 800 140 865",
+            "M 325 359.1 C 330 600 335 800 347 865"
+          ]
+        },
+        {
+          "say": "Draw a tall oval hole in the trunk. The bees live in there!",
+          "strokes": [
+            "M 209 545 A 46 62 0 1 1 301 545 A 46 62 0 1 1 209 545 Z"
+          ]
+        },
+        {
+          "say": "Draw two drips of honey oozing out of the bottom of the hole.",
+          "strokes": [
+            "M 214.4 574.1 L 214.4 648.1 A 16.3 16.3 0 0 0 247 648.1 L 247 606.1",
+            "M 269.2 604 L 269.2 628 A 13.2 13.2 0 0 0 295.6 628 L 295.6 574.1"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Pooh",
+      "say": "Here is Pooh with his honey pot. He smells honey up in the tree!",
+      "ref": "pooh",
+      "scale": 0.55,
+      "x": 345,
+      "y": 342.5,
+      "omit": [
+        2,
+        3,
+        5
+      ],
+      "steps": [
+        {
+          "say": "Draw a line across his tummy. That is the bottom of his little shirt.",
+          "strokes": [
+            "M 533.4 712.1 Q 675 665.9 816.6 712.1"
+          ]
+        },
+        {
+          "say": "Draw his round nose, and two dot eyes.",
+          "strokes": [
+            "M 546.6 546.8 A 19.8 19.8 0 0 0 567.4 513.2",
+            "M 636.5 478.3 L 636.5 488.3",
+            "M 671.7 481.6 L 671.7 491.6"
+          ]
+        },
+        {
+          "say": "Add two eyebrows up high, and a big smile under his nose.",
+          "strokes": [
+            "M 623.3 456.9 Q 634.3 447 646.4 454.7",
+            "M 662.9 458 Q 675 448.1 688.2 455.8",
+            "M 574.9 557 Q 598 566.9 622.2 559.2 Q 632.1 554.8 636.5 544.9"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Bees and flowers",
+      "say": "Buzz buzz! Here come the bees, flying out of the honey tree.",
+      "steps": [
+        {
+          "say": "Draw a bee: an oval body with two stripes.",
+          "strokes": [
+            "M 364 530 A 34 24 0 1 1 432 530 A 34 24 0 1 1 364 530 Z",
+            "M 385 507.8 L 385 552.2",
+            "M 409 507.3 L 409 552.7"
+          ]
+        },
+        {
+          "say": "Draw another bee buzzing up high.",
+          "strokes": [
+            "M 436 430 A 34 24 0 1 1 504 430 A 34 24 0 1 1 436 430 Z",
+            "M 457 407.8 L 457 452.2",
+            "M 481 407.3 L 481 452.7"
+          ]
+        },
+        {
+          "say": "Draw one more bee flying to the sun.",
+          "strokes": [
+            "M 616 300 A 34 24 0 1 1 684 300 A 34 24 0 1 1 616 300 Z",
+            "M 637 277.8 L 637 322.2",
+            "M 661 277.3 L 661 322.7"
+          ]
+        },
+        {
+          "say": "Give each bee two little wings on top.",
+          "strokes": [
+            "M 397 506 C 335 484 357 428 397 506 C 437 428 459 484 397 506",
+            "M 469 406 C 407 384 429 328 469 406 C 509 328 531 384 469 406",
+            "M 649 276 C 587 254 609 198 649 276 C 689 198 711 254 649 276"
+          ]
+        },
+        {
+          "say": "Draw some spiky grass by the tree.",
+          "strokes": [
+            "M 48 865 L 60 827 L 72 865 L 84 815 L 96 865 L 108 829 L 120 865"
+          ]
+        },
+        {
+          "say": "Draw a flower on top of the hill, with round petals.",
+          "strokes": [
+            "M 920 769.5 L 920 720",
+            "M 920 666 A 14 14 0 0 1 940.8 678 A 14 14 0 0 1 940.8 702 A 14 14 0 0 1 920 714 A 14 14 0 0 1 899.2 702 A 14 14 0 0 1 899.2 678 A 14 14 0 0 1 920 666 Z",
+            "M 920 685 L 920 695"
+          ]
+        }
+      ]
+    }
+  ]
+}

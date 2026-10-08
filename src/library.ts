@@ -5,7 +5,8 @@ import { CRAYON, star } from './grade';
 import { getCompleted, getScores } from './store';
 
 const SVG = 'http://www.w3.org/2000/svg';
-// Icon-only header of the characters section; unlike the crayons it is a heart.
+// Icon-only headers of the category sections; unlike the crayons, a heart (characters) and a hilly landscape (settings).
+const LANDSCAPE = '<svg viewBox="0 0 24 24"><circle cx="17.5" cy="6.5" r="3" fill="#ffc531"/><path d="M1.5 20.5 8.5 9l4.6 7.4 2.4-3.4 7 7.5Z" fill="#3aa860"/><path d="M8.5 9 6.6 12.1h3.8Z" fill="#fff"/></svg>';
 const HEART = '<svg viewBox="0 0 24 24"><path d="M12 21C5 15.5 2.5 12 2.5 8.5A4.8 4.8 0 0 1 12 6.6a4.8 4.8 0 0 1 9.5 1.9C21.5 12 19 15.5 12 21Z" fill="#ff5d8f"/><path d="M6 8.5a2.6 2.6 0 0 1 2.6-2" fill="none" stroke="#fff8ea" stroke-opacity=".8" stroke-width="1.5" stroke-linecap="round"/></svg>';
 const home = document.querySelector<HTMLElement>('#menu')!;
 document.querySelector('#lhome')!.addEventListener('click', () => { location.hash = ''; });
@@ -46,7 +47,9 @@ export function showLibrary(lessons: Lesson[], open: (l: Lesson) => void) {
     const chars = lessons.filter((l) => l.category === 'characters');
     home.append(...[1, 2, 3].map((n) => section('level', String(n), `Level ${n}`, CRAYON.repeat(n),
       lessons.filter((l) => l.difficulty === n && !l.category))));
-    if (chars.length) home.append(section('category', 'characters', 'Characters', HEART, chars)); // ponytail: one category, no registry
+    if (chars.length) home.append(section('category', 'characters', 'Characters', HEART, chars)); // ponytail: two categories, no registry
+    const places = lessons.filter((l) => l.category === 'settings');
+    if (places.length) home.append(section('category', 'settings', 'Places', LANDSCAPE, places));
   }
   home.hidden = false;
   refreshStars();

@@ -1,0 +1,313 @@
+{
+ "id": "backgrounds",
+ "title": "Backgrounds",
+ "emoji": "🌄",
+ "stops": [
+  {
+   "id": "horizon",
+   "title": "The ground line",
+   "sticker": "🌅",
+   "exercises": [
+    {
+     "type": "trace",
+     "say": "A long line across the page splits the sky from the ground. Trace the ground line.",
+     "strokes": [
+      "M 60 600 L 940 600"
+     ]
+    },
+    {
+     "type": "finish",
+     "say": "The house and the tree need ground to stand on. Draw a long line under them, all the way across.",
+     "given": [
+      "M 170 720 L 170 520 L 410 520 L 410 720 L 170 720",
+      "M 170 520 L 290 380 L 410 520",
+      "M 260 720 L 260 640 A 30 30 0 0 1 320 640 L 320 720",
+      "M 673.6 720 L 673.6 557.1 A 120 120 0 1 1 726.4 557.1 L 726.4 720"
+     ],
+     "strokes": [
+      "M 60 720 L 940 720"
+     ],
+     "hint": true
+    },
+    {
+     "type": "finish",
+     "say": "The sea meets the sky in a long flat line. Draw it across, under the sun.",
+     "given": [
+      "M 500 215 A 85 85 0 0 1 500 385 A 85 85 0 0 1 500 215",
+      "M 450 640 A 90 50 0 0 1 270 640 A 90 50 0 0 1 450 640",
+      "M 450 640 L 520 600 L 520 680 L 450 640",
+      "M 620 600 Q 660 560 700 600 Q 740 560 780 600",
+      "M 140 590 Q 175 555 210 590 Q 245 555 280 590"
+     ],
+     "strokes": [
+      "M 60 470 L 940 470"
+     ]
+    },
+    {
+     "type": "finish",
+     "say": "A hill is a big bump on the ground line. Draw a round hill to join the two flat parts.",
+     "given": [
+      "M 60 700 L 300 700",
+      "M 700 700 L 940 700"
+     ],
+     "strokes": [
+      "M 300 700 C 348 330 652 330 700 700"
+     ]
+    },
+    {
+     "type": "finish",
+     "say": "This tree is floating! Draw its trunk: two lines from the leaves down to the ground.",
+     "given": [
+      "M 500 550 A 170 170 0 0 1 500 210 A 170 170 0 0 1 500 550",
+      "M 60 820 L 940 820"
+     ],
+     "strokes": [
+      "M 460 545.2 L 454 820",
+      "M 540 545.2 L 546 820"
+     ]
+    },
+    {
+     "type": "memory",
+     "say": "Look: a ground line with a hill, and a sun. It will hide, then you draw it.",
+     "strokes": [
+      "M 60 720 L 330 720 C 373.2 400 646.8 400 690 720 L 940 720",
+      "M 800 125 A 85 85 0 0 1 800 295 A 85 85 0 0 1 800 125"
+     ]
+    },
+    {
+     "type": "create",
+     "say": "Draw a ground line across, then put a house and a tree standing right on it!"
+    }
+   ]
+  },
+  {
+   "id": "sky",
+   "title": "Up in the sky",
+   "sticker": "🌤️",
+   "exercises": [
+    {
+     "type": "finish",
+     "say": "The sun lives up in the sky. Draw a round sun high up in the top corner.",
+     "given": [
+      "M 60 740 L 940 740",
+      "M 150 740 L 150 590 L 350 590 L 350 740 L 150 740",
+      "M 150 590 L 250 480 L 350 590",
+      "M 220 740 L 220 670 A 30 30 0 0 1 280 670 L 280 740"
+     ],
+     "strokes": [
+      "M 790 100 A 90 90 0 0 1 790 280 A 90 90 0 0 1 790 100"
+     ],
+     "hint": true
+    },
+    {
+     "type": "finish",
+     "say": "Clouds float in the sky too. Draw some fluffy clouds up high, above the ground.",
+     "given": [
+      "M 60 740 L 940 740",
+      "M 150 740 L 150 590 L 350 590 L 350 740 L 150 740",
+      "M 150 590 L 250 480 L 350 590",
+      "M 220 740 L 220 670 A 30 30 0 0 1 280 670 L 280 740",
+      "M 790 100 A 90 90 0 0 1 790 280 A 90 90 0 0 1 790 100"
+     ],
+     "strokes": [
+      "M 220 320 L 226.8 234.5 A 64.6 64.6 0 0 1 332.2 202.2 A 68 68 0 0 1 447.8 202.2 A 64.6 64.6 0 0 1 553.2 234.5 L 560 320 L 220 320",
+      "M 560 470 L 564 411.5 A 38 38 0 0 1 626 389.4 A 40 40 0 0 1 694 389.4 A 38 38 0 0 1 756 411.5 L 760 470 L 560 470"
+     ],
+     "open": true
+    },
+    {
+     "type": "finish",
+     "say": "Pitter patter! Draw three rain lines falling down from the cloud.",
+     "given": [
+      "M 300 330 L 308 231 A 76 76 0 0 1 432 193.6 A 80 80 0 0 1 568 193.6 A 76 76 0 0 1 692 231 L 700 330 L 300 330",
+      "M 60 800 L 940 800"
+     ],
+     "strokes": [
+      "M 390 400 L 365 540",
+      "M 500 400 L 475 540",
+      "M 610 400 L 585 540"
+     ],
+     "open": true
+    },
+    {
+     "type": "finish",
+     "say": "It is night time! Draw some little stars twinkling around the moon.",
+     "given": [
+      "M 280 123.4 A 100 100 0 1 0 280 296.6 A 115 115 0 0 1 280 123.4",
+      "M 60 740 L 940 740",
+      "M 150 740 L 150 590 L 350 590 L 350 740 L 150 740",
+      "M 150 590 L 250 480 L 350 590",
+      "M 220 740 L 220 670 A 30 30 0 0 1 280 670 L 280 740"
+     ],
+     "strokes": [
+      "M 450 105 L 461.9 133.6 L 492.8 136.1 L 469.3 156.3 L 476.5 186.4 L 450 170.3 L 423.5 186.4 L 430.7 156.3 L 407.2 136.1 L 438.1 133.6 L 450 105",
+      "M 640 215 L 651.9 243.6 L 682.8 246.1 L 659.3 266.3 L 666.5 296.4 L 640 280.3 L 613.5 296.4 L 620.7 266.3 L 597.2 246.1 L 628.1 243.6 L 640 215",
+      "M 820 95 L 831.9 123.6 L 862.8 126.1 L 839.3 146.3 L 846.5 176.4 L 820 160.3 L 793.5 176.4 L 800.7 146.3 L 777.2 126.1 L 808.1 123.6 L 820 95"
+     ],
+     "open": true
+    },
+    {
+     "type": "memory",
+     "say": "Look at the sky: a sun in the corner and a cloud. They will hide, then you draw them up high.",
+     "strokes": [
+      "M 60 760 L 940 760",
+      "M 800 110 A 90 90 0 0 1 800 290 A 90 90 0 0 1 800 110",
+      "M 190 360 L 196.6 283.5 A 62.7 62.7 0 0 1 298.9 254.6 A 66 66 0 0 1 411.1 254.6 A 62.7 62.7 0 0 1 513.4 283.5 L 520 360 L 190 360"
+     ]
+    },
+    {
+     "type": "lesson",
+     "lesson": "rainbow",
+     "say": "A rainbow is a giant curve across the sky. Let's draw one!"
+    }
+   ]
+  },
+  {
+   "id": "near-and-far",
+   "title": "Near and far",
+   "sticker": "🛤️",
+   "exercises": [
+    {
+     "type": "trace",
+     "say": "Near things look big and far things look small. Trace the big tree, the far line and the little tree.",
+     "strokes": [
+      "M 213 900 L 213 671.9 A 168 168 0 1 1 287 671.9 L 287 900",
+      "M 60 520 L 82.5 520",
+      "M 417.5 520 L 940 520",
+      "M 740 520 L 740 451.6 A 60.8 60.8 0 0 1 740 330 A 60.8 60.8 0 0 1 740 451.6"
+     ]
+    },
+    {
+     "type": "finish",
+     "say": "Far away things look small. Draw a little tree standing on the far line.",
+     "given": [
+      "M 213 900 L 213 671.9 A 168 168 0 1 1 287 671.9 L 287 900",
+      "M 60 520 L 82.5 520",
+      "M 417.5 520 L 940 520"
+     ],
+     "strokes": [
+      "M 740 520 L 740 451.6 A 60.8 60.8 0 0 1 740 330 A 60.8 60.8 0 0 1 740 451.6"
+     ],
+     "hint": true
+    },
+    {
+     "type": "finish",
+     "say": "A road gets thinner as it goes far away. Draw the other side of the road, up to the far line.",
+     "given": [
+      "M 60 460 L 940 460",
+      "M 180 940 L 470 460"
+     ],
+     "strokes": [
+      "M 820 940 L 530 460"
+     ]
+    },
+    {
+     "type": "finish",
+     "say": "These posts get smaller as they go far away. Draw the next two, each one a bit smaller.",
+     "given": [
+      "M 60 400 L 940 400",
+      "M 150 920 L 150 620",
+      "M 400 800 L 400 585",
+      "M 580 715 L 580 560"
+     ],
+     "strokes": [
+      "M 710 655 L 710 543",
+      "M 805 610 L 805 530"
+     ]
+    },
+    {
+     "type": "memory",
+     "say": "Look at the path going far away. It will hide, then you draw the path and the far line.",
+     "strokes": [
+      "M 60 470 L 940 470",
+      "M 280 940 L 470 470",
+      "M 720 940 L 530 470"
+     ]
+    },
+    {
+     "type": "create",
+     "say": "Draw a road going far away, with big trees close to you and tiny trees far away!"
+    }
+   ]
+  },
+  {
+   "id": "in-front-behind",
+   "title": "In front and behind",
+   "sticker": "🙈",
+   "exercises": [
+    {
+     "type": "trace",
+     "say": "The hill is in front, so it comes first. Then trace the sun peeking out from behind it.",
+     "strokes": [
+      "M 60 760 L 200 760 A 300 300 0 0 1 800 760 L 940 760",
+      "M 520.4 460.7 A 120 120 0 1 1 721.7 557.9"
+     ]
+    },
+    {
+     "type": "finish",
+     "say": "The sun is hiding behind the hill. Draw the top of the sun, and stop when you touch the hill.",
+     "given": [
+      "M 60 760 L 200 760 A 300 300 0 0 1 800 760 L 940 760"
+     ],
+     "strokes": [
+      "M 272.2 564.7 A 115 115 0 1 1 463.6 462.2"
+     ],
+     "hint": true
+    },
+    {
+     "type": "finish",
+     "say": "The tree is in front of the house. Draw the roof, and stop when you bump into the tree.",
+     "given": [
+      "M 60 820 L 940 820",
+      "M 368.3 820 L 368.3 624.5 A 144 144 0 1 1 431.7 624.5 L 431.7 820",
+      "M 543.9 480 L 800 480",
+      "M 800 480 L 800 820",
+      "M 565 820 L 565 735 A 35 35 0 0 1 635 735 L 635 820",
+      "M 680 560 L 770 560 L 770 640 L 680 640 L 680 560"
+     ],
+     "strokes": [
+      "M 492.4 373.7 L 600 250 L 800 480"
+     ]
+    },
+    {
+     "type": "finish",
+     "say": "The fence is in front of the tree. Draw the trunk down from the leaves, and stop at the fence.",
+     "given": [
+      "M 500 470 A 150 150 0 0 1 500 170 A 150 150 0 0 1 500 470",
+      "M 50 640 L 100 600 L 150 640 L 200 600 L 250 640 L 300 600 L 350 640 L 400 600 L 450 640 L 500 600 L 550 640 L 600 600 L 650 640 L 700 600 L 750 640 L 800 600 L 850 640 L 900 600 L 950 640",
+      "M 60 860 L 940 860",
+      "M 150 640 L 150 860",
+      "M 250 640 L 250 860",
+      "M 350 640 L 350 860",
+      "M 450 640 L 450 860",
+      "M 550 640 L 550 860",
+      "M 650 640 L 650 860",
+      "M 750 640 L 750 860",
+      "M 850 640 L 850 860"
+     ],
+     "strokes": [
+      "M 460 464.6 L 460 632",
+      "M 540 464.6 L 540 632"
+     ]
+    },
+    {
+     "type": "memory",
+     "say": "Look: a sun peeking out behind a hill. It will hide. Draw the hill first, then the sun.",
+     "strokes": [
+      "M 60 760 L 200 760 A 300 300 0 0 1 800 760 L 940 760",
+      "M 382.9 483.8 A 125 125 0 1 1 617.1 483.8"
+     ]
+    },
+    {
+     "type": "lesson",
+     "lesson": "house",
+     "say": "The chimney is behind the roof, so its lines stop at the roof. Let's draw a house!"
+    },
+    {
+     "type": "create",
+     "say": "Draw a hill with the sun peeking out behind it, and a tree in front of a house!"
+    }
+   ]
+  }
+ ]
+}

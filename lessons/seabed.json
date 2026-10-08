@@ -1,0 +1,70 @@
+{
+  "id": "seabed",
+  "title": "Under the Sea",
+  "difficulty": 2,
+  "emoji": "🪸",
+  "category": "settings",
+  "steps": [
+    {
+      "say": "Draw a gently wavy line low down for the sandy sea floor.",
+      "strokes": [
+        "M 60 790 C 108.9 774 157.8 774 206.7 790 C 255.6 806 304.4 806 353.3 790 C 402.2 774 451.1 774 500 790 C 548.9 806 597.8 806 646.7 790 C 695.6 774 744.4 774 793.3 790 C 842.2 806 891.1 806 940 790"
+      ]
+    },
+    {
+      "say": "Draw a big round rock sitting on the sand.",
+      "strokes": [
+        "M 135 778 C 140 600 335 590 345 792.6"
+      ]
+    },
+    {
+      "say": "Draw two tall wavy seaweeds growing up from the sand, one on each side.",
+      "strokes": [
+        "M 65 788.4 C 47 683.3 101 578.3 108 470 C 151 578.3 97 683.3 115 778.8",
+        "M 880 801.6 C 898 682.3 844 562.9 887 440 C 894 562.9 948 682.3 930 793"
+      ]
+    },
+    {
+      "say": "Draw a coral on the sand with three round fingers pointing up.",
+      "strokes": [
+        "M 670 783.6 L 670 622 A 22 22 0 0 1 714 622 L 714 665 A 12 12 0 0 0 734 665 L 734 542 A 22 22 0 0 1 778 542 L 778 665 A 12 12 0 0 0 798 665 L 798 597 A 22 22 0 0 1 842 597 L 842 800.6"
+      ]
+    },
+    {
+      "say": "Bubbles float up! Draw three round bubbles above the rock, big, middle and small.",
+      "strokes": [
+        "M 245 506 A 34 34 0 0 1 245 574 A 34 34 0 0 1 245 506",
+        "M 290 399 A 26 26 0 0 1 290 451 A 26 26 0 0 1 290 399",
+        "M 250 306 A 19 19 0 0 1 250 344 A 19 19 0 0 1 250 306"
+      ]
+    },
+    {
+      "say": "Draw a wavy line across the very top. That is the top of the water.",
+      "strokes": [
+        "M 60 110 C 96.7 96.7 133.3 96.7 170 110 C 206.7 123.3 243.3 123.3 280 110 C 316.7 96.7 353.3 96.7 390 110 C 426.7 123.3 463.3 123.3 500 110 C 536.7 96.7 573.3 96.7 610 110 C 646.7 123.3 683.3 123.3 720 110 C 756.7 96.7 793.3 96.7 830 110 C 866.7 123.3 903.3 123.3 940 110"
+      ]
+    },
+    {
+      "say": "Sunlight shines down from the top. Draw three long slanting lines of light.",
+      "strokes": [
+        "M 400 113.3 L 345 300",
+        "M 520 104.1 L 470 300",
+        "M 640 117.9 L 595 300"
+      ]
+    },
+    {
+      "say": "Draw a starfish on the sand: a star with five points.",
+      "strokes": [
+        "M 390 823 L 406.5 862.3 L 449 865.8 L 416.6 893.7 L 426.4 935.2 L 390 913 L 353.6 935.2 L 363.4 893.7 L 331 865.8 L 373.5 862.3 L 390 823"
+      ]
+    },
+    {
+      "say": "Last, a little shell on the sand, like a fan with two lines inside.",
+      "strokes": [
+        "M 620 930 L 562 875 A 60 60 0 0 1 678 875 L 620 930",
+        "M 620 930 L 594.6 836",
+        "M 620 930 L 645.4 836"
+      ]
+    }
+  ]
+}

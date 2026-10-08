@@ -1,0 +1,80 @@
+{
+  "id": "beach",
+  "title": "Beach",
+  "difficulty": 2,
+  "emoji": "🏖️",
+  "category": "settings",
+  "steps": [
+    {
+      "say": "Start with the palm tree, because it is in front. Draw two long bendy lines for its trunk.",
+      "strokes": [
+        "M 95 925 Q 110 500 245 245",
+        "M 195 925 Q 215 520 245 245"
+      ]
+    },
+    {
+      "say": "Give the palm tree three big pointy leaves at the top.",
+      "strokes": [
+        "M 245 245 Q 66.6 181.2 50 370 Q 159.6 326.4 245 245",
+        "M 245 245 Q 310 131.2 200 60 Q 209.4 155.7 245 245",
+        "M 245 245 Q 423.7 160.5 480 350 Q 353.3 318 245 245"
+      ]
+    },
+    {
+      "say": "Draw the sea line high up, and stop at the trunk on each side.",
+      "strokes": [
+        "M 60 420 L 172.7 420",
+        "M 228 420 L 940 420"
+      ]
+    },
+    {
+      "say": "Draw a wavy line lower down for the edge of the sand. Stop at the trunk again.",
+      "strokes": [
+        "M 60 610 C 83 598.3 106 594 129 596.9",
+        "M 212.5 623.2 C 235 625.8 257.5 621.4 280 610 C 316.7 591.4 353.3 591.4 390 610 C 426.7 628.6 463.3 628.6 500 610 C 536.7 591.4 573.3 591.4 610 610 C 646.7 628.6 683.3 628.6 720 610 C 756.7 591.4 793.3 591.4 830 610 C 866.7 628.6 903.3 628.6 940 610"
+      ]
+    },
+    {
+      "say": "Put a round sun up in the top corner.",
+      "strokes": [
+        "M 830 90 A 80 80 0 0 1 830 250 A 80 80 0 0 1 830 90"
+      ]
+    },
+    {
+      "say": "Add two little waves on the sea.",
+      "strokes": [
+        "M 700 500 Q 735 465 770 500 Q 805 465 840 500",
+        "M 800 570 Q 830 540 860 570 Q 890 540 920 570"
+      ]
+    },
+    {
+      "say": "Draw a sandcastle on the sand: a bucket shape with a bumpy tower on top.",
+      "strokes": [
+        "M 700 930 L 722 820 L 878 820 L 900 930 L 700 930",
+        "M 750 820 L 750 735 L 750 710 L 770 710 L 770 735 L 790 735 L 790 710 L 810 710 L 810 735 L 830 735 L 830 710 L 850 710 L 850 735 L 850 820"
+      ]
+    },
+    {
+      "say": "Give the sandcastle a flag and a little round door.",
+      "strokes": [
+        "M 800 735 L 800 655 L 855 677 L 800 699",
+        "M 778 930 L 778 892 A 22 22 0 0 1 822 892 L 822 930"
+      ]
+    },
+    {
+      "say": "Draw a beach ball by the tree, with two curvy stripes.",
+      "strokes": [
+        "M 300 795 A 65 65 0 0 1 300 925 A 65 65 0 0 1 300 795",
+        "M 267.5 803.7 Q 308 860 267.5 916.3",
+        "M 332.5 803.7 Q 292 860 332.5 916.3"
+      ]
+    },
+    {
+      "say": "Last, two little birds flying high in the sky!",
+      "strokes": [
+        "M 400 175 Q 422.5 145 445 175 Q 467.5 145 490 175",
+        "M 530 125 Q 547.5 101.7 565 125 Q 582.5 101.7 600 125"
+      ]
+    }
+  ]
+}

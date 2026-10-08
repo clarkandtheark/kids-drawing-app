@@ -1,0 +1,83 @@
+{
+  "id": "snowy-castle",
+  "title": "Snowy Castle",
+  "difficulty": 2,
+  "emoji": "🏔️",
+  "category": "settings",
+  "steps": [
+    {
+      "say": "Start with the ice castle far away. Draw two thin towers, side by side.",
+      "strokes": [
+        "M 690 560 L 690 410 L 740 410 L 740 560",
+        "M 840 560 L 840 410 L 890 410 L 890 560"
+      ]
+    },
+    {
+      "say": "Join the towers with a bumpy wall, and give it a little round door.",
+      "strokes": [
+        "M 740 470 L 755 470 L 755 450 L 775 450 L 775 470 L 805 470 L 805 450 L 825 450 L 825 470 L 840 470",
+        "M 770 560 L 770 520 A 20 20 0 0 1 810 520 L 810 560"
+      ]
+    },
+    {
+      "say": "Put a pointy roof on top of each tower.",
+      "strokes": [
+        "M 675 410 L 715 300 L 755 410 L 675 410",
+        "M 825 410 L 865 300 L 905 410 L 825 410"
+      ]
+    },
+    {
+      "say": "Now draw the big pointy mountains behind. Stop your line when it bumps into the castle.",
+      "strokes": [
+        "M 60 470 L 215 215 L 370 430 L 505 185 L 655 420 L 685.2 382",
+        "M 726.1 330.5 L 790 250 L 852.8 333.7",
+        "M 900.3 397.1 L 940 450"
+      ]
+    },
+    {
+      "say": "Draw a zigzag snow line across the top of each mountain.",
+      "strokes": [
+        "M 169.4 290 L 194.3 318 L 219.2 290 L 244.2 318 L 269.1 290",
+        "M 460.9 265 L 484.7 293 L 508.5 265 L 532.3 293 L 556.1 265",
+        "M 738.4 315 L 763.5 343 L 788.6 315 L 813.7 343 L 838.8 315"
+      ]
+    },
+    {
+      "say": "Draw a long flat line for the snowy ground, right under the castle.",
+      "strokes": [
+        "M 60 560 L 940 560"
+      ]
+    },
+    {
+      "say": "Draw two big pine trees close to you, with pointy layers and a little trunk.",
+      "strokes": [
+        "M 170 610 L 208.3 693.3 L 187.3 693.3 L 246.7 776.7 L 204.5 776.7 L 285 860 L 186 860 L 186 910 L 154 910 L 154 860 L 55 860 L 135.5 776.7 L 93.3 776.7 L 152.8 693.3 L 131.7 693.3 L 170 610",
+        "M 840 640 L 873.3 713.3 L 855 713.3 L 906.7 786.7 L 870 786.7 L 940 860 L 856 860 L 856 910 L 824 910 L 824 860 L 740 860 L 810 786.7 L 773.3 786.7 L 825 713.3 L 806.7 713.3 L 840 640"
+      ]
+    },
+    {
+      "say": "Draw a frozen lake in the middle at the bottom: a flat oval with two shiny lines.",
+      "strokes": [
+        "M 330 835 A 170 58 0 0 1 670 835 A 170 58 0 0 1 330 835",
+        "M 420 820 L 490 808",
+        "M 520 860 L 590 848"
+      ]
+    },
+    {
+      "say": "It is snowing! Draw three round snowflakes in the sky.",
+      "strokes": [
+        "M 110 106 A 24 24 0 0 1 110 154 A 24 24 0 0 1 110 106",
+        "M 380 66 A 24 24 0 0 1 380 114 A 24 24 0 0 1 380 66",
+        "M 640 86 A 24 24 0 0 1 640 134 A 24 24 0 0 1 640 86"
+      ]
+    },
+    {
+      "say": "Add more snowflakes, all around the picture.",
+      "strokes": [
+        "M 920 116 A 24 24 0 0 1 920 164 A 24 24 0 0 1 920 116",
+        "M 90 611 A 24 24 0 0 1 90 659 A 24 24 0 0 1 90 611",
+        "M 930 276 A 24 24 0 0 1 930 324 A 24 24 0 0 1 930 276"
+      ]
+    }
+  ]
+}
